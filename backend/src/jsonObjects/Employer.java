@@ -14,4 +14,9 @@ public class Employer extends Person {
                     University university) {
         super(fName, lName, prefix, suffix, email, university);
     }
+
+    public Employer(String fname, String lname, String pname, String sname, String email, String university) {
+        super(fname, lname, pname, sname, email,null );
+        //TODO Fix university
+    }
 }
