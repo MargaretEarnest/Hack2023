@@ -23,8 +23,4 @@ export class Student {
         this.gpa = gpa;
         this.classes = classes;
     }
-
-    public generateJsonString(){
-        return JSON.stringify(this);
-    }
 }

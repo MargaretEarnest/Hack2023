@@ -40,6 +40,7 @@ export default function LoginDialog(props: { open: boolean, handleClose: () => v
                     };
                     websocket.onmessage = (event) => {
                         console.log(event);
+                        websocket.close();
                     };
                     props.setUsername("Wilbur");
                     props.setAccountType("student");

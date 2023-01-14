@@ -111,8 +111,9 @@ function SignupPage() {
                                 <AutocompleteMultiselect data={DataLists.courses} name={"Classes"}/><br/>
                             </>
                         }
-                        <Button variant={"contained"} style={{width: "160px", marginLeft: "30%"}}>Create
-                            Account</Button>
+                        <Button variant={"contained"} style={{width: "160px", marginLeft: "30%"}} onClick={() => {
+                            console.log("HI");
+                        }}>Create Account</Button>
                     </div>
                 </>
             }
