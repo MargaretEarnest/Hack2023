@@ -16,19 +16,7 @@ public class GsonTest {
 //        jsonString = gson.toJson(student);
 //        System.out.println(jsonString);
 
-        String margsstring = "{" +
-                "\"email\":\"mrjakob@wpi.edu\"," +
-                "\"prefix\":\"Mr.\"," +
-                "\"fName\":\"Jakob\"," +
-                "\"lName\":\"Misbsfkuhjfdjkheef\"," +
-                "\"suffix\":\"the last\"," +
-                "\"status\":0," +
-                "\"majors\":[\"Computer Science\"]," +
-                "\"yearOfGraduation\":2023," +
-                "\"gpa\":4.2" +
-                //
-                // university
-                "}";
+        String margsstring = "{\"email\":\"mrjakob@wpi.edu\",\"prefix\":\"Mr.\",\"fName\":\"Jakob\",\"lName\":\"Misbsfkuhjfdjkheef\",\"suffix\":\"the last\",\"status\":0,\"yearOfGraduation\":2023,\"gpa\":1}";
         System.out.println(margsstring);
         FECommunication.makeStudent(margsstring);
     }
