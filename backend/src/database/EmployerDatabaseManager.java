@@ -2,6 +2,7 @@ package database;
 
 import jsonObjects.Employer;
 import jsonObjects.Student;
+import jsonObjects.University;
 import utils.Constants;
 
 import java.sql.*;
@@ -45,7 +46,6 @@ public class EmployerDatabaseManager {
             Statement statement = Objects.requireNonNull(getConnection()).createStatement();
             statement.executeUpdate(String.format("INSERT INTO Employer(Pname, Fname, Mname, Lname, Sname, Email, Departments, ProjectNames, University) values('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
                     employer.getPrefix(), employer.getfName(), "", employer.getlName(), employer.getSuffix(), employer.getEmail(), "", "", employer.getUniversity().toString()));
-            //TODO Complete fields
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -67,7 +67,7 @@ public class EmployerDatabaseManager {
             ResultSet result = statement.executeQuery(String.format("SELECT * FROM Employer WHERE email = '%s'", email));
             Employer employer = null;
             if (result.getFetchSize() > 0 && result.first()) {
-                employer = new Employer(result.getString("Fname"), result.getString("Lname"), result.getString("Pname"), result.getString("Sname"), email, result.getString("University"));
+                employer = new Employer(result.getString("Fname"), result.getString("Lname"), result.getString("Pname"), result.getString("Sname"), email, University.findUniversity(result.getString("University")));
             }
             return employer ;
         } catch (SQLException e) {

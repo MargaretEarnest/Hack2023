@@ -23,7 +23,7 @@ public class GsonTest {
                 "\"lName\":\"Misbsfkuhjfdjkheef\"," +
                 "\"suffix\":\"the last\"," +
                 "\"status\":0," +
-                //"\"majors\":[\"Computer Science\"]," +
+                "\"majors\":[\"Computer Science\"]," +
                 "\"yearOfGraduation\":2023," +
                 "\"gpa\":4.2" +
                 //

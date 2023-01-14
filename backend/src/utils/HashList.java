@@ -345,6 +345,22 @@ public class HashList<Value> implements Iterable<Value> {
     }
 
     /**
+     * Provides the TrueText of this HashList
+     * @return this HashList in a parsable format
+     */
+    public String serialize() {
+        StringBuilder builder = new StringBuilder();
+        String delimiter = "";
+        Cell<Value> cursor = this.head;
+        while(cursor != null) {
+            builder.append(delimiter).append(cursor.value);
+            delimiter = "|";
+            cursor = cursor.next;
+        }
+        return builder.toString();
+    }
+
+    /**
      * Converts this utils.HashList to a printable format
      * @return this utils.HashList as a String
      */
@@ -567,5 +583,17 @@ public class HashList<Value> implements Iterable<Value> {
         private Cell(Value value) {
             this.value = value;
         }
+    }
+
+    // static methods
+
+    /**
+     * Parses a {@code String} into a {@code HashList}.
+     * @param str the target {@code String}.
+     * @param del the delimiting char-sequence.
+     * @return the parsed {@code HashList}.
+     */
+    public static HashList<String> parse(String str, String del) {
+        return new HashList<>(str.split(del));
     }
 }

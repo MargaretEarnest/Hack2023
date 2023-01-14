@@ -2,7 +2,13 @@ package jsonObjects;
 
 import utils.HashList;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class University {
+    // A list of all recorded universities.
+    private static final Map<String, University> universities = new HashMap<>();
+
     // The name of the university.
     private final String name;
     // A list of all employers at this university with an account.
@@ -14,10 +20,25 @@ public class University {
      * Creates a new {@code jsonObjects.University}.
      * @param name the name of this {@code jsonObjects.University}.
      */
-    public University(String name) {
+    private University(String name) {
         this.name = name;
         this.employers = new HashList<>();
         this.students = new HashList<>();
+    }
+
+    /**
+     * Finds a specified {@code University} or creates a new one.
+     * @param name the name of thsi target {@code University}.
+     * @return the {@code University} object in the list if one exists, else a new
+     * {@code University} object with the given name.
+     */
+    public static University findUniversity(String name) {
+        University university = universities.get(name);
+        if(university == null) {
+            universities.put(name, new University(name));
+            return new University(name);
+        }
+        return university;
     }
 
     /**
@@ -54,6 +75,15 @@ public class University {
      */
     public boolean containsStudent(Student student) {
         return this.students.contains(student);
+    }
+
+    /**
+     * Gets the hashCode for this {@code University}.
+     * @return the hashCode.
+     */
+    @Override
+    public int hashCode() {
+        return this.name.hashCode();
     }
 
     /**

@@ -1,7 +1,10 @@
 package database;
 
+import jsonObjects.Course;
 import jsonObjects.Student;
+import jsonObjects.University;
 import utils.Constants;
+import utils.HashList;
 
 import java.sql.*;
 import java.util.Objects;
@@ -43,8 +46,7 @@ public class StudentDatabaseManager {
         try{
             Statement statement = Objects.requireNonNull(getConnection()).createStatement();
             statement.executeUpdate(String.format("INSERT INTO Students (email, prefix, fName, lName, suffix, status, majors, yearOfGraduation, gpa, classes) values('%s', '%s', '%s', '%s', '%s', %d, '%s', %d, %f, '%s')",
-                    student.getEmail(), student.getPrefix(), student.getfName(), student.getlName(), student.getSuffix(), student.getStatus().getValue(), student.getMajors(), student.getYearOfGraduation(), student.getGPA(), student.getClasses()));
-            //TODO Call to string on HashList
+                    student.getEmail(), student.getPrefix(), student.getfName(), student.getlName(), student.getSuffix(), student.getStatus().getValue(), student.getMajors().serialize(), student.getYearOfGraduation(), student.getGPA(), student.getClasses().serialize()));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -54,8 +56,7 @@ public class StudentDatabaseManager {
         try{
             Statement statement = Objects.requireNonNull(getConnection()).createStatement();
             statement.executeUpdate(String.format("UPDATE Students SET prefix = '%s', fName = '%s', lName = '%s', suffix = '%s', status = %d, majors = '%s', yearOfGraduation = %d, gpa = %f, classes = '%s' WHERE email = '%s'",
-                    student.getPrefix(), student.getfName(), student.getlName(), student.getSuffix(), student.getStatus().getValue(), student.getMajors(), student.getYearOfGraduation(), student.getGPA(), student.getClasses(), student.getEmail()));
-            //TODO Call to string on HashList
+                    student.getPrefix(), student.getfName(), student.getlName(), student.getSuffix(), student.getStatus().getValue(), student.getMajors().serialize(), student.getYearOfGraduation(), student.getGPA(), student.getClasses().serialize(), student.getEmail()));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -67,7 +68,7 @@ public class StudentDatabaseManager {
             ResultSet result = statement.executeQuery(String.format("SELECT * FROM Students WHERE email = '%s'", email));
             Student student = null;
             if (result.getFetchSize() > 0 && result.first()) {
-                student = new Student(result.getString("email"), result.getString("prefix"), result.getString("fName"), result.getString("lName"), result.getString("suffix"), result.getInt("status"), result.getInt("yearOfGraduation"), result.getFloat("gpa"));
+                student = new Student(result.getString("email"), result.getString("prefix"), result.getString("fName"), result.getString("lName"), result.getString("suffix"), result.getInt("status"), HashList.parse(result.getString("majors"), "|"), result.getInt("yearOfGraduation"), result.getFloat("gpa"), Course.parse(HashList.parse(result.getString("classes"), "|")), University.findUniversity(result.getString("university")));
             }
             return student;
         } catch (SQLException e) {

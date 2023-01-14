@@ -3,6 +3,8 @@ package jsonObjects;
 import utils.HashList;
 import utils.Vars;
 
+import java.sql.Array;
+
 /**
  * The {@code jsonObjects.Student} object stores all necessary information for which
  */
@@ -28,24 +30,15 @@ public class Student extends Person {
      * @param suffix the suffix for this {@code jsonObjects.Student}.
      * param university the employed {@code jsonObjects.University} for this {@code jsonObjects.Student}.
      */
-    public Student(String email, String prefix, String fName, String lName,
-                   String suffix, int status
-                   //, String[] majors
-                   , int yearOfGraduation
-                   , float gpa
-                   //, String[] classes
-                   //, jsonObjects.University university
-                   ) {
-        super(fName, lName, prefix, suffix, email, Vars.WPI);
+    public Student(String email, String prefix, String fName, String lName, String suffix, int status,
+                   HashList<String> majors, int yearOfGraduation, float gpa, HashList<Course> classes,
+                   University university) {
+        super(fName, lName, prefix, suffix, email, University.findUniversity("WPI"));
         this.status = StudentType.getType(status);
-        //this.majors = new utils.HashList<>(majors);
-        this.majors = new HashList<>();
+        this.majors = majors;
         this.yearOfGraduation = yearOfGraduation;
         this.gpa = gpa;
-        this.classes = new HashList<>();
-        //for (String course : classes) {
-        //    this.classes.add(utils.Vars.courses.get(course));
-        //}
+        this.classes = classes;
         this.acceptedJobs = new HashList<>();
         this.requestedJobs = new HashList<>();
         this.hiredJobs = new HashList<>();

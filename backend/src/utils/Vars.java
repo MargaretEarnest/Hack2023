@@ -12,6 +12,6 @@ import java.util.Map;
  */
 public class Vars {
     public static final HashList<String> majors = new HashList<>();
-    public static University WPI = new University("WPI");
+    public static University WPI = University.findUniversity("WPI");
     public static final Map<String, Course> courses = new HashMap<>();
 }
