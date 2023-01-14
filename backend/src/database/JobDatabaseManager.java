@@ -80,12 +80,66 @@ public class JobDatabaseManager {
     public List<String> getAllJobsIds(){
         try{
             Statement statement = Objects.requireNonNull(getConnection()).createStatement();
-            ResultSet results = statement.executeQuery(String.format("SELECT ID FROM Jobs"));
+            ResultSet results = statement.executeQuery("SELECT ID FROM Jobs");
             List<String> ids = new ArrayList<>();
             while(results.next()){
                 ids.add(results.getString("ID"));
             }
             return ids;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<String> getAllLocations(){
+        try{
+            Statement statement = Objects.requireNonNull(getConnection()).createStatement();
+            ResultSet results = statement.executeQuery("SELECT Location FROM Jobs");
+            List<String> ids = new ArrayList<>();
+            while(results.next()){
+                ids.add(results.getString("Location"));
+            }
+            return ids;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    record MinMax(double min, double max){}
+
+    public MinMax getMinMaxStudents(){
+        try{
+            Statement statement = Objects.requireNonNull(getConnection()).createStatement();
+            ResultSet minResults = statement.executeQuery("SELECT MAX(StudentsRequired) FROM Jobs");
+            ResultSet maxResults = statement.executeQuery("SELECT MIN(StudentsRequired) FROM Jobs");
+            double min = 0.0;
+            double max = 0.0;
+            if(minResults.getFetchSize() > 0 && minResults.first()){
+                min = minResults.getInt("StudentsRequired");
+            }
+            if(maxResults.getFetchSize() > 0 && maxResults.first()){
+                max = maxResults.getInt("StudentsRequired");
+            }
+            return new MinMax(min, max);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public MinMax getMinMaxHours(){
+        try{
+            Statement statement = Objects.requireNonNull(getConnection()).createStatement();
+            ResultSet minResults = statement.executeQuery("SELECT MAX(WeeklyHours) FROM Jobs");
+            ResultSet maxResults = statement.executeQuery("SELECT MIN(WeeklyHours) FROM Jobs");
+            double min = 0.0;
+            double max = 0.0;
+            if(minResults.getFetchSize() > 0 && minResults.first()){
+                min = minResults.getInt("WeeklyHours");
+            }
+            if(maxResults.getFetchSize() > 0 && maxResults.first()){
+                max = maxResults.getInt("WeeklyHours");
+            }
+            return new MinMax(min, max);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
