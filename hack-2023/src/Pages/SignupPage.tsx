@@ -109,12 +109,12 @@ function SignupPage() {
                                 <TextField className="" style={{marginLeft: "10%"}} type="number" id="gpa"
                                            label="GPA" variant="outlined"/><br/>
                                 <AutocompleteMultiselect width="300px" marginLeft="20%" data={DataLists.courses} name={"Classes"}/><br/>
-                                <TextField className="" style={{marginLeft: "10%"}} type="password" id="pass1"
-                                           label="Password" variant="outlined"/><br/>
-                                <TextField className="" style={{marginLeft: "10%"}} type="password" id="pass2"
-                                           label="Confirm Password" variant="outlined"/><br/>
                             </>
                         }
+                        <TextField className="" style={{marginLeft: "10%"}} type="password" id="pass1"
+                                   label="Password" variant="outlined"/><br/>
+                        <TextField className="" style={{marginLeft: "10%"}} type="password" id="pass2"
+                                   label="Confirm Password" variant="outlined"/><br/>
                         <Button variant={"contained"} style={{width: "160px", marginLeft: "30%"}}>Create
                             Account</Button>
                     </div>
