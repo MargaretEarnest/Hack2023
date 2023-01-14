@@ -1,0 +1,4 @@
+Classes that need a hashCode function:
+- University
+- Person
+- Job
