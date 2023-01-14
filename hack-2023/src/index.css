@@ -63,7 +63,11 @@ h2 {
 }
 
 .accountForm {
-  margin-left: 20%;
+  margin-left: 10% !important;
+}
+
+.searchForJobFilters {
+  margin-left: 10%;
 }
 
 .MuiToggleButtonGroup-grouped:not(:first-of-type) {

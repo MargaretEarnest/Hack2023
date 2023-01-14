@@ -15,11 +15,15 @@ import {
 } from "@mui/material";
 import AutocompleteMultiselect from "../Components/AutocompleteMultiselect";
 import {DataLists} from "../DataLists";
+import {BackendRequest} from "../jsonObjects/BackendRequest";
+import {Student} from "../jsonObjects/Student";
 
 function SignupPage() {
     const [accountType, setAccountType] = React.useState("");
     const [status, setStatus] = React.useState(0);
     const [gradYear, setGradYear] = React.useState(2023);
+    const [majors, setMajors] = React.useState([]);
+    const [classes, setClasses] = React.useState([]);
 
     return (
         <div className="backgroundBox">
@@ -59,16 +63,16 @@ function SignupPage() {
                         display: "flex", flexDirection: "column", margin: "0 20%", flexWrap:
                             "wrap", height: "70%"
                     }}>
-                        <TextField className="accountForm" id="email" label="Email" variant="outlined"/><br/>
-                        <TextField className="accountForm" id="fName" label="First Name" variant="outlined"/><br/>
-                        <TextField className="accountForm" id="lName" label="Last Name" variant="outlined"/><br/>
+                        <TextField className="" id="email" label="Email" variant="outlined"/><br/>
+                        <TextField className="" id="fName" label="First Name" variant="outlined"/><br/>
+                        <TextField className="" id="lName" label="Last Name" variant="outlined"/><br/>
                         {accountType == "professor" ?
                             <>
-                                <TextField className="accountForm" id="prefix" label="Prefix" variant="outlined"/><br/>
+                                <TextField className="" id="prefix" label="Prefix" variant="outlined"/><br/>
                             </>
                             : <></>
                         }
-                        <TextField className="accountForm" id="suffix" label="Suffix" variant="outlined"/><br/>
+                        <TextField className="" id="suffix" label="Suffix" variant="outlined"/><br/>
                         {accountType == "student" &&
                             <>
                                 <InputLabel id="statusLabel" variant="standard">Status</InputLabel>
@@ -88,12 +92,13 @@ function SignupPage() {
                                 </Select><br/>
                             </>
                         }
-                        <AutocompleteMultiselect data={DataLists.collegeMajors} name={"Majors"}/><br/>
+                        <AutocompleteMultiselect setValue={setMajors} width="300px" marginLeft="10%" data={DataLists.collegeMajors} name={"Majors"}/><br/>
                         {accountType == "student" &&
                             <>
-                                <InputLabel className="accountForm" id="yearLabel" variant="standard">Graduation
+                                <InputLabel style={{marginLeft: "10%"}} className="" id="yearLabel" variant="standard">Graduation
                                     Year</InputLabel>
-                                <Select className="accountForm"
+                                <Select className=""
+                                        style={{marginLeft: "10%"}}
                                         labelId="yearLabel"
                                         id="graduationYear"
                                         itemType={"number"}
@@ -106,18 +111,35 @@ function SignupPage() {
                                         <MenuItem value={y}>{y}</MenuItem>)
                                     }
                                 </Select><br/>
-                                <TextField className="accountForm" style={{marginLeft: "20%"}} type="number" id="gpa"
+                                <TextField className="" style={{marginLeft: "10%"}} type="number" id="gpa"
                                            label="GPA" variant="outlined"/><br/>
-                                <AutocompleteMultiselect data={DataLists.courses} name={"Classes"}/><br/>
+                                <AutocompleteMultiselect setValue={setClasses} width="300px" marginLeft="10%" data={DataLists.courses} name={"Classes"}/><br/>
                             </>
                         }
-                        <Button variant={"contained"} style={{width: "160px", marginLeft: "30%"}}>Create
-                            Account</Button>
+                        <TextField className="" style={{marginLeft: "10%"}} type="password" id="pass1"
+                                   label="Password" variant="outlined"/><br/>
+                        <TextField className="" style={{marginLeft: "10%"}} type="password" id="pass2"
+                                   label="Confirm Password" variant="outlined"/><br/>
+                        <Button variant={"contained"} style={{width: "160px", marginLeft: "30%"}} onClick={() => {
+                            let request;
+                            if (getById(accountType) === "student") {
+                                //Create a student
+                                let student = new Student(getById("email"), getById("prefix"), getById("fname"), getById("lname"), getById("suffix"), status, getById("majors"), gradYear, getById("gpa"), getById("classes"));
+                                request = new BackendRequest("CREATESTUDENT", "");
+                            } else {
+                                //Create an employer
+                                request = new BackendRequest("CREATEEMPLOYER", "");
+                            }
+                        }}>Create Account</Button>
                     </div>
                 </>
             }
         </div>
     );
+}
+
+export function getById(id: string) {
+    return (document.getElementById(id) as HTMLInputElement)?.value;
 }
 
 export default SignupPage;
