@@ -3,10 +3,10 @@
  */
 public class Student extends Person {
     private StudentType status;
-    private HashList<String> majors;
+    private final HashList<String> majors;
     private int yearOfGraduation;
     private float gpa;
-    private HashList<Course> classes;
+    private final HashList<Course> classes;
 
     // Lists of jobs with different restrictions.
     private final HashList<Job>
@@ -28,7 +28,7 @@ public class Student extends Person {
                            float gpa, String[] classes, University university) {
         super(fName, lName, prefix, suffix, email, university);
         this.status = StudentType.getType(status);
-        this.majors = new HashList<String>(majors);
+        this.majors = new HashList<>(majors);
         this.yearOfGraduation = yearOfGraduation;
         this.gpa = gpa;
         this.classes = new HashList<>();
@@ -38,6 +38,79 @@ public class Student extends Person {
         this.acceptedJobs = new HashList<>();
         this.requestedJobs = new HashList<>();
         this.hiredJobs = new HashList<>();
+    }
+
+    /**
+     * Changes the status of this {@code Student}.
+     * @param status the new status.
+     * @return the old status.
+     */
+    public StudentType changeStatus(StudentType status) {
+        final StudentType oldStatus = this.status;
+        this.status = status;
+        return oldStatus;
+    }
+
+    /**
+     * Gets the status of this {@code Student}.
+     * @return {@code this.status}
+     */
+    public StudentType getStatus() {
+        return this.status;
+    }
+
+    /**
+     * Gets all majors associated with this {@code Student}.
+     * @return {@code this.majors}
+     */
+    public HashList<String> getMajors() {
+        return this.majors;
+    }
+
+    /**
+     * Changes the year of graduation for this {@code Student}.
+     * @param year the new year.
+     * @return the old year.
+     */
+    public int changeYearOfGraduation(int year) {
+        final int oldYear = this.yearOfGraduation;
+        this.yearOfGraduation = year;
+        return oldYear;
+    }
+
+    /**
+     * Gets the year of graduation for this {@code Student}.
+     * @return {@code this.yearOfGraduation}
+     */
+    public int getYearOfGraduation() {
+        return this.yearOfGraduation;
+    }
+
+    /**
+     * Changes the GPA for this {@code Student}.
+     * @param gpa the new GPA.
+     * @return the old GPA.
+     */
+    public float changeGPA(float gpa) {
+        final float oldGPA = this.gpa;
+        this.gpa = gpa;
+        return oldGPA;
+    }
+
+    /**
+     * Gets the grade point average for this {@code Student}.
+     * @return {@code this.gpa}
+     */
+    public float getGPA() {
+        return this.gpa;
+    }
+
+    /**
+     * Gets the list of {@code Courses} for this {@code Student}.
+     * @return {@code this.classes}
+     */
+    public HashList<Course> getClasses() {
+        return this.classes;
     }
 
     /**
