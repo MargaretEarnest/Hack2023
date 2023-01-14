@@ -21,12 +21,15 @@ public class Student extends Person {
      * @param lName the last name of this {@code Student}.
      * @param prefix the salutation for this {@code Student}.
      * @param suffix the suffix for this {@code Student}.
-     * @param university the employed {@code University} for this {@code Student}.
+     * param university the employed {@code University} for this {@code Student}.
      */
     public Student(String email, String prefix, String fName, String lName,
                    String suffix, int status
-            //, String[] majors, int yearOfGraduation,
-                           //float gpa, String[] classes, University university
+                   //, String[] majors
+                   , int yearOfGraduation
+                   , float gpa
+                   //, String[] classes
+                   //, University university
                    ) {
         super(fName, lName, prefix, suffix, email, Vars.WPI);
         this.status = StudentType.getType(status);
