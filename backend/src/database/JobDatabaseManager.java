@@ -2,6 +2,7 @@ package database;
 
 import jsonObjects.Course;
 import jsonObjects.Job;
+import jsonObjects.JobListRequest;
 import jsonObjects.MinMax;
 import utils.Constants;
 import utils.HashList;
@@ -138,6 +139,17 @@ public class JobDatabaseManager {
                 max = maxResults.getInt("WeeklyHours");
             }
             return new MinMax(min, max);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public HashList<Job> getApplicableJobs(JobListRequest request) {
+        try {
+            Statement statement = Objects.requireNonNull(getConnection()).createStatement();
+            String SQLRequest = "SELECT * FROM Jobs WHERE WeeklyHours";
+            final HashList<Job> jobs = new HashList<>();
+            return jobs;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

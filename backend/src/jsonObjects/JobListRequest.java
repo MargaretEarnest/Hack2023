@@ -2,7 +2,7 @@ package jsonObjects;
 
 public record JobListRequest(
         String email,
-        int status,
+        String[] status,
         String[] majors,
         String[] departments,
         String[] locations,
