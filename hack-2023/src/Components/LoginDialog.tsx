@@ -38,6 +38,10 @@ export default function LoginDialog(props: { open: boolean, handleClose: () => v
                     websocket.onopen = () => {
                         websocket.send(JSON.stringify(new BackendRequest("ValidateUser", JSON.stringify(new Login(getById("email"), getById("password"))))));
                     };
+                    websocket.onmessage = (event) => {
+                        console.log(event);
+                        websocket.close();
+                    };
                     props.setUsername("Wilbur");
                     props.setAccountType("student");
                     props.handleClose();

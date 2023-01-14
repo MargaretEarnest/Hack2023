@@ -15,6 +15,8 @@ import {
 } from "@mui/material";
 import AutocompleteMultiselect from "../Components/AutocompleteMultiselect";
 import {DataLists} from "../DataLists";
+import {BackendRequest} from "../jsonObjects/BackendRequest";
+import {Student} from "../jsonObjects/Student";
 
 function SignupPage() {
     const [accountType, setAccountType] = React.useState("");
@@ -118,13 +120,26 @@ function SignupPage() {
                                    label="Password" variant="outlined"/><br/>
                         <TextField className="" style={{marginLeft: "10%"}} type="password" id="pass2"
                                    label="Confirm Password" variant="outlined"/><br/>
-                        <Button variant={"contained"} style={{width: "160px", marginLeft: accountType == "student" ? "15%" : "25%"}}>Create
-                            Account</Button>
+                        <Button variant={"contained"} style={{width: "160px", marginLeft: "30%"}} onClick={() => {
+                            let request;
+                            if (getById(accountType) === "student") {
+                                //Create a student
+                                let student = new Student(getById("email"), getById("prefix"), getById("fname"), getById("lname"), getById("suffix"), status, getById("majors"), gradYear, getById("gpa"), getById("classes"));
+                                request = new BackendRequest("CREATESTUDENT", "");
+                            } else {
+                                //Create an employer
+                                request = new BackendRequest("CREATEEMPLOYER", "");
+                            }
+                        }}>Create Account</Button>
                     </div>
                 </>
             }
         </div>
     );
+}
+
+export function getById(id: string) {
+    return (document.getElementById(id) as HTMLInputElement)?.value;
 }
 
 export default SignupPage;
