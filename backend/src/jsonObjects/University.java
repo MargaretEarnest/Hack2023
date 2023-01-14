@@ -15,6 +15,8 @@ public class University {
     private final HashList<Employer> employers;
     // A list of all students at this university with an account.
     private final HashList<Student> students;
+    // A list of all courses at this university.
+    private final HashList<Course> courses;
 
     /**
      * Creates a new {@code jsonObjects.University}.
@@ -24,6 +26,7 @@ public class University {
         this.name = name;
         this.employers = new HashList<>();
         this.students = new HashList<>();
+        this.courses = new HashList<>();
     }
 
     /**
@@ -42,17 +45,17 @@ public class University {
     }
 
     /**
-     * Adds a new {@code jsonObjects.Employer} to this {@code jsonObjects.University}.
-     * @param employer the new {@code jsonObjects.Employer}.
+     * Adds a new {@code Employer} to this {@code University}.
+     * @param employer the new {@code Employer}.
      */
     public void addEmployer(Employer employer) {
         this.employers.add(employer);
     }
 
     /**
-     * Determines whether this {@code jsonObjects.University} employs this {@code jsonObjects.Employer}.
-     * @param employer the target {@code jsonObjects.Employer}.
-     * @return {@code true} if the specified {@code jsonObjects.Employer} works for this {@code jsonObjects.University},
+     * Determines whether this {@code University} employs this {@code Employer}.
+     * @param employer the target {@code Employer}.
+     * @return {@code true} if the specified {@code Employer} works for this {@code University},
      * else {@code false}.
      */
     public boolean containsEmployer(Employer employer) {
@@ -60,21 +63,39 @@ public class University {
     }
 
     /**
-     * Adds a new {@code jsonObjects.Student} to this {@code jsonObjects.University}.
-     * @param student the new {@code jsonObjects.Student}.
+     * Adds a new {@code Student} to this {@code University}.
+     * @param student the new {@code Student}.
      */
     public void addStudent(Student student) {
         this.students.add(student);
     }
 
     /**
-     * Determines whether this {@code jsonObjects.University} employs this {@code jsonObjects.Student}.
-     * @param student the target {@code jsonObjects.Student}.
-     * @return {@code true} if the specified {@code jsonObjects.Student} works for this {@code jsonObjects.University},
+     * Determines whether this {@code University} employs this {@code Student}.
+     * @param student the target {@code Student}.
+     * @return {@code true} if the specified {@code Student} works for this {@code University},
      * else {@code false}.
      */
     public boolean containsStudent(Student student) {
         return this.students.contains(student);
+    }
+
+    /**
+     * Adds a new {@code Course} to this {@code University}.
+     * @param course the new {@code Course}.
+     */
+    public void addCourse(Course course) {
+        this.courses.add(course);
+    }
+
+    /**
+     * Determines whether this {@code University} offers this {@code Course}.
+     * @param course the target {@code Course}.
+     * @return {@code true} if the specified {@code Course} is offered at this {@code University},
+     * else {@code false}.
+     */
+    public boolean containsCourse(Course course) {
+        return this.courses.contains(course);
     }
 
     /**
@@ -87,8 +108,8 @@ public class University {
     }
 
     /**
-     * Converts this {@code jsonObjects.University} to a printable format.
-     * @return this {@code jsonObjects.University} as a {@code String}.
+     * Converts this {@code University} to a printable format.
+     * @return this {@code University} as a {@code String}.
      */
     public String toString() {
         return this.name;
