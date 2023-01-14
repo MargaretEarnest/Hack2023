@@ -30,7 +30,7 @@ public class Student extends Person {
     public Student(String email, String prefix, String fName, String lName, String suffix, int status,
                    HashList<String> majors, int yearOfGraduation, float gpa, HashList<Course> classes,
                    University university) {
-        super(fName, lName, prefix, suffix, email, University.findUniversity("WPI"));
+        super(fName, lName, prefix, suffix, email, university);
         this.status = StudentType.getType(status);
         this.majors = majors;
         this.yearOfGraduation = yearOfGraduation;
@@ -104,6 +104,29 @@ public class Student extends Person {
      */
     public float getGPA() {
         return this.gpa;
+    }
+
+    /**
+     * Generates a list of all {@code Jobs} for which this {@code Student} is eligible based
+     * on completion of the {@code Course} requirements.
+     * @return the list of {@code Jobs}.
+     */
+    public HashList<Job> getEligibleJobs() {
+        final HashList<Job> jobs = new HashList<>();
+        for(Employer employer : super.getUniversity().getEmployers()) {
+            for(Job job : employer.getJobs()) {
+                boolean acceptJob = true;
+                for(Course course : job.getRequirements()) {
+                    if(acceptJob && ! this.classes.contains(course)) {
+                        acceptJob = false;
+                    }
+                }
+                if(acceptJob) {
+                    jobs.add(job);
+                }
+            }
+        }
+        return jobs;
     }
 
     /**

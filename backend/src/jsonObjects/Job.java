@@ -1,17 +1,25 @@
-package jsonObjects;/*
-Class contains a constructor to create a job as well as
-specific job attributes including:
--creator
--type: research, TA, other
--major(s)
--title
--description
--GPA requirement
--class year(s) requirement
- */
+package jsonObjects;
 
 import utils.HashList;
 
+/**
+ * Stores all information needed to designate a {@code Job} at a {@code University}. This object
+ * assigns to a task the following:
+ * <ul>
+ *     <li>A unique ID.</li>
+ *     <li>A display title.</li>
+ *     <li>An assigned academic department.</li>
+ *     <li>A location of origin for the project.</li>
+ *     <li>A desired number of students to complete the project.</li>
+ *     <li>A desired weekly hour requirement.</li>
+ *     <li>A contact email.</li>
+ *     <li>A clarification on whether it counts for federal work study.</li>
+ *     <li>A general description.</li>
+ *     <li>A list of courses required for understanding the material in the project.</li>
+ *     <li>A contact phone number.</li>
+ *     <li>The name of the person to contact.</li>
+ * </ul>
+ */
 public class Job {
     private String id; // unique id for this job
     private String title; // name of the job position
@@ -149,5 +157,14 @@ public class Job {
 
     public void setContact(String contact) {
         this.contact = contact;
+    }
+
+    /**
+     * Gets the hashCode for this {@code Job}.
+     * @return the hashCode for the {@code id} for this {@code Job}.
+     */
+    @Override
+    public int hashCode() {
+        return this.id.hashCode();
     }
 }

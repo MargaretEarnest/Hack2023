@@ -45,57 +45,27 @@ public class University {
     }
 
     /**
-     * Adds a new {@code Employer} to this {@code University}.
-     * @param employer the new {@code Employer}.
+     * Gets the list of {@code Employers} from this {@code University}.
+     * @return {@code this.employers}
      */
-    public void addEmployer(Employer employer) {
-        this.employers.add(employer);
+    public HashList<Employer> getEmployers() {
+        return this.employers;
     }
 
     /**
-     * Determines whether this {@code University} employs this {@code Employer}.
-     * @param employer the target {@code Employer}.
-     * @return {@code true} if the specified {@code Employer} works for this {@code University},
-     * else {@code false}.
+     * Gets the list of {@code Students} at this {@code University}.
+     * @return {@code this.students}
      */
-    public boolean containsEmployer(Employer employer) {
-        return this.employers.contains(employer);
+    public HashList<Student> getStudents() {
+        return this.students;
     }
 
     /**
-     * Adds a new {@code Student} to this {@code University}.
-     * @param student the new {@code Student}.
+     * Gets the list of {@code Courses} offered at this {@code University}.
+     * @return {@code this.courses}
      */
-    public void addStudent(Student student) {
-        this.students.add(student);
-    }
-
-    /**
-     * Determines whether this {@code University} employs this {@code Student}.
-     * @param student the target {@code Student}.
-     * @return {@code true} if the specified {@code Student} works for this {@code University},
-     * else {@code false}.
-     */
-    public boolean containsStudent(Student student) {
-        return this.students.contains(student);
-    }
-
-    /**
-     * Adds a new {@code Course} to this {@code University}.
-     * @param course the new {@code Course}.
-     */
-    public void addCourse(Course course) {
-        this.courses.add(course);
-    }
-
-    /**
-     * Determines whether this {@code University} offers this {@code Course}.
-     * @param course the target {@code Course}.
-     * @return {@code true} if the specified {@code Course} is offered at this {@code University},
-     * else {@code false}.
-     */
-    public boolean containsCourse(Course course) {
-        return this.courses.contains(course);
+    public HashList<Course> getCourses() {
+        return this.courses;
     }
 
     /**
