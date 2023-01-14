@@ -8,6 +8,22 @@ public class Person {
     // The associated university for this person.
     private final University university;
 
+    public String getfName() {
+        return fName;
+    }
+
+    public String getlName() {
+        return lName;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public String getSuffix() {
+        return suffix;
+    }
+
     /**
      * Creates a new {@code jsonObjects.Person}.
      * @param fName the first name of this {@code jsonObjects.Person}.
