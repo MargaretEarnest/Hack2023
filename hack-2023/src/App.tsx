@@ -10,16 +10,16 @@ import EditProfilePage from "./Pages/EditProfilePage";
 
 function App() {
     const [username, setUsername] = React.useState("");
+    const [accountType, setAccountType] = React.useState("");
 
     return (
         <Router>
             <div className={"pageLayout"}>
-                <MenuBar username={username} setUsername={setUsername}/>
+                <MenuBar username={username} setUsername={setUsername} accountType={accountType} setAccountType={setAccountType}/>
                 <Routes>
-                    <Route path="/" element={<HomePage/>}/>
+                    <Route path="/" element={username == "" ? <HomePage/> : (accountType == "student") ? <FindJobPage/>
+                        : <FindStudentsPage/>}/>
                     <Route path="/createAccount" element={<CreateAccount/>}/>
-                    <Route path="/findJob" element={<FindJobPage/>}/>
-                    <Route path="/findStudents" element={<FindStudentsPage/>}/>
                     <Route path="/editProfile" element={<EditProfilePage/>}/>
                 </Routes>
             </div>

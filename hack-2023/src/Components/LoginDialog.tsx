@@ -10,7 +10,7 @@ import {Link} from "@mui/material";
 import {Login} from "../jsonObjects/Login";
 import {BackendRequest} from "../jsonObjects/BackendRequest";
 
-export default function LoginDialog(props: { open: boolean, handleClose: () => void, setUsername: any }) {
+export default function LoginDialog(props: { open: boolean, handleClose: () => void, setUsername: any, setAccountType: any }) {
     return (
         <Dialog open={props.open} fullWidth maxWidth="xs" onClose={props.handleClose}>
             <DialogActions>
@@ -38,6 +38,9 @@ export default function LoginDialog(props: { open: boolean, handleClose: () => v
                     websocket.onopen = () => {
                         websocket.send(JSON.stringify(new BackendRequest("ValidateUser", JSON.stringify(new Login(getById("email"), getById("password"))))));
                     };
+                    props.setUsername("Wilbur");
+                    props.setAccountType("student");
+                    props.handleClose();
                 }}>Login</Button><br/>
                 <Link className="noSelect" style={{cursor: "pointer"}} href="#/createAccount" onClick={props.handleClose}>Create an Account</Link>
                 <br/><br/>
