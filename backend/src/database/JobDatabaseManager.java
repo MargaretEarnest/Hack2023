@@ -2,6 +2,7 @@ package database;
 
 import jsonObjects.Course;
 import jsonObjects.Job;
+import jsonObjects.MinMax;
 import utils.Constants;
 import utils.HashList;
 
@@ -103,8 +104,6 @@ public class JobDatabaseManager {
             throw new RuntimeException(e);
         }
     }
-
-    record MinMax(double min, double max){}
 
     public MinMax getMinMaxStudents(){
         try{
