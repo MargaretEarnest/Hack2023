@@ -74,4 +74,14 @@ public class EmployerDatabaseManager {
             throw new RuntimeException(e);
         }
     }
+
+    public boolean containsEmployer(String email) {
+        try{
+            Statement statement = Objects.requireNonNull(getConnection()).createStatement();
+            ResultSet result = statement.executeQuery(String.format("SELECT * FROM Employers WHERE email = '%s'", email));
+            return result.getFetchSize() > 0 && result.first();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
