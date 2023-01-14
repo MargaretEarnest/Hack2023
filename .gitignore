@@ -1,1 +1,4 @@
 .idea
+backend/resources/sqlconfig.properties
+*.class
+out/production/backend/sqlconfig.properties
