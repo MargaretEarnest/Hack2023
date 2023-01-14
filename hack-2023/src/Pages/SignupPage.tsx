@@ -88,12 +88,13 @@ function SignupPage() {
                                 </Select><br/>
                             </>
                         }
-                        <AutocompleteMultiselect width="300px" marginLeft="20%" data={DataLists.collegeMajors} name={"Majors"}/><br/>
+                        <AutocompleteMultiselect width="300px" marginLeft="10%" data={DataLists.collegeMajors} name={"Majors"}/><br/>
                         {accountType == "student" &&
                             <>
-                                <InputLabel className="" id="yearLabel" variant="standard">Graduation
+                                <InputLabel style={{marginLeft: "10%"}} className="" id="yearLabel" variant="standard">Graduation
                                     Year</InputLabel>
                                 <Select className=""
+                                        style={{marginLeft: "10%"}}
                                         labelId="yearLabel"
                                         id="graduationYear"
                                         itemType={"number"}
@@ -108,14 +109,14 @@ function SignupPage() {
                                 </Select><br/>
                                 <TextField className="" style={{marginLeft: "10%"}} type="number" id="gpa"
                                            label="GPA" variant="outlined"/><br/>
-                                <AutocompleteMultiselect width="300px" marginLeft="20%" data={DataLists.courses} name={"Classes"}/><br/>
+                                <AutocompleteMultiselect width="300px" marginLeft="10%" data={DataLists.courses} name={"Classes"}/><br/>
                             </>
                         }
                         <TextField className="" style={{marginLeft: "10%"}} type="password" id="pass1"
                                    label="Password" variant="outlined"/><br/>
                         <TextField className="" style={{marginLeft: "10%"}} type="password" id="pass2"
                                    label="Confirm Password" variant="outlined"/><br/>
-                        <Button variant={"contained"} style={{width: "160px", marginLeft: "30%"}}>Create
+                        <Button variant={"contained"} style={{width: "160px", marginLeft: accountType == "student" ? "15%" : "25%"}}>Create
                             Account</Button>
                     </div>
                 </>
