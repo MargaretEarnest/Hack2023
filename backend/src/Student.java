@@ -13,7 +13,7 @@ public class Student extends Person {
         acceptedJobs,    // Jobs for which the student has been requested for review by an employer.
         requestedJobs,   // Jobs for which the student has requested consideration.
         hiredJobs;       // Jobs for which the student has been hired.
-    
+
     /**
      * Creates a new {@code Student} with a given name.
      * @param email the contact email for this {@code Student}.
