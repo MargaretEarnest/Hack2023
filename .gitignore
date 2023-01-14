@@ -1,2 +1,6 @@
 .idea
+*.class
+backend/resources/sqlconfig.properties
+out/production/backend/sqlconfig.properties
+
 /hack-2023/package-lock.json
