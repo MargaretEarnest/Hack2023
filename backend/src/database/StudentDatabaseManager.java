@@ -74,4 +74,14 @@ public class StudentDatabaseManager {
             throw new RuntimeException(e);
         }
     }
+
+    public boolean containsStudent(String email) {
+        try{
+            Statement statement = Objects.requireNonNull(getConnection()).createStatement();
+            ResultSet result = statement.executeQuery(String.format("SELECT * FROM Students WHERE email = '%s'", email));
+            return result.getFetchSize() > 0 && result.first();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
