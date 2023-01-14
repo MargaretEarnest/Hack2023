@@ -32,6 +32,20 @@ public class GsonTest {
         System.out.println(margsstring);
         FECommunication.makeStudent(margsstring);
     }
+
+    public static void mainPractice(String[] args) {
+        String jsonString = "{\"name\":\"Tony\", \"age\":21}";
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+
+        Gson gson = builder.create();
+        StudentTest student = gson.fromJson(jsonString, StudentTest.class);
+        System.out.println(student);
+
+        jsonString = gson.toJson(student);
+        System.out.println(jsonString);
+    }
 }
 
 class StudentTest {
