@@ -7,6 +7,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import CloseIcon from "@mui/icons-material/Close";
 import DialogActions from "@mui/material/DialogActions";
 import {Link} from "@mui/material";
+import {Login} from "../jsonObjects/Login";
+import {BackendRequest} from "../jsonObjects/BackendRequest";
 
 export default function LoginDialog(props: { open: boolean, handleClose: () => void, setUsername: any, setAccountType: any }) {
     return (
@@ -32,6 +34,10 @@ export default function LoginDialog(props: { open: boolean, handleClose: () => v
                     variant="standard"
                 /><br/><br/><br/>
                 <Button variant="contained" style={{width: "150px", marginBottom: "10px"}} onClick={() => {
+                    let websocket = new WebSocket("ws://localhost:8000");
+                    websocket.onopen = () => {
+                        websocket.send(JSON.stringify(new BackendRequest("ValidateUser", JSON.stringify(new Login(getById("email"), getById("password"))))));
+                    };
                     props.setUsername("Wilbur");
                     props.setAccountType("student");
                     props.handleClose();
@@ -41,4 +47,8 @@ export default function LoginDialog(props: { open: boolean, handleClose: () => v
             </DialogContent>
         </Dialog>
     );
+}
+
+export function getById(id: string) {
+    return (document.getElementById(id) as HTMLInputElement)?.value;
 }

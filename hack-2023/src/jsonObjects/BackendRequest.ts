@@ -1,4 +1,4 @@
-export class Request {
+export class BackendRequest {
    private type: string;
    private data: string;
 

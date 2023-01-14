@@ -27,9 +27,6 @@ public class JobDatabaseManager {
         username = Constants.getInstance().getConfig("sql").getProperty("username");
         password = Constants.getInstance().getConfig("sql").getProperty("password");
         url = Constants.getInstance().getConfig("sql").getProperty("url");
-        System.out.println(username);
-        System.out.println(password);
-        System.out.println(url);
         getConnection();
     }
 
