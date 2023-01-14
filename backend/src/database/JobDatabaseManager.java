@@ -1,6 +1,7 @@
 package database;
 
 import jsonObjects.Job;
+import jsonObjects.MinMax;
 import utils.Constants;
 
 import java.sql.*;
@@ -101,8 +102,6 @@ public class JobDatabaseManager {
             throw new RuntimeException(e);
         }
     }
-
-    record MinMax(double min, double max){}
 
     public MinMax getMinMaxStudents(){
         try{

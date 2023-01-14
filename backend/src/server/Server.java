@@ -31,20 +31,36 @@ public class Server extends WebSocketServer {
         System.out.println(conn + ": " + message);
         RequestHandler.Request request = RequestHandler.parseRequest(message);
         switch (request.type) {
-            case "CreateUser" -> handleCreateUser(conn, request);
             case "ValidateUser" -> handleValidateUser(conn, request);
+            case "CreateStudent" -> handleCreateStudent(conn, request);
+            case "CreateEmployer" -> handleCreateEmployer(conn, request);
+            case "JobList" -> handleJobList(conn, request);
             default -> System.out.println("ERROR");
         }
     }
 
-    private void handleCreateUser(WebSocket conn, RequestHandler.Request request){
+    private void handleJobList(WebSocket conn, RequestHandler.Request request) {
         Gson gson = new Gson();
-        UserCreate userCreate = gson.fromJson(request.data, UserCreate.class);
-        UserDatabaseManager.getInstance().addUser(userCreate.email(), userCreate.password());
+        JobListRequest jobListRequest = gson.fromJson(request.data, JobListRequest.class);
+    }
+
+    private void handleCreateStudent(WebSocket conn, RequestHandler.Request request){
+        Gson gson = new Gson();
+        StudentCreateRequest createStudentRequest = gson.fromJson(request.data, StudentCreateRequest.class);
+        UserDatabaseManager.getInstance().addUser(createStudentRequest.student().getEmail(), createStudentRequest.password());
+        StudentDatabaseManager.getInstance().addStudent(createStudentRequest.student());
+        conn.send(gson.toJson(new CreateResponse(true)));
+    }
+
+    private void handleCreateEmployer(WebSocket conn, RequestHandler.Request request){
+        Gson gson = new Gson();
+        EmployerCreateRequest employerCreateRequest = gson.fromJson(request.data, EmployerCreateRequest.class);
+        UserDatabaseManager.getInstance().addUser(employerCreateRequest.employer().getEmail(), employerCreateRequest.password());
+        EmployerDatabaseManager.getInstance().addEmployer(employerCreateRequest.employer());
+        conn.send(gson.toJson(new CreateResponse(true)));
     }
 
     private void handleValidateUser(WebSocket conn, RequestHandler.Request request){
-        System.out.println("VALIDATE USER");
         Gson gson = new Gson();
         Login login = gson.fromJson(request.data, Login.class);
         System.out.println(request.data);
@@ -66,7 +82,7 @@ public class Server extends WebSocketServer {
             conn.send(gson.toJson(response));
         }else{
             LoginResponse response = new LoginResponse(false, "", false);
-            broadcast(gson.toJson(response));
+            conn.send(gson.toJson(response));
         }
     }
 
