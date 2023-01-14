@@ -7,13 +7,13 @@ public class Employer extends Person {
     private final HashList<Job> jobs;
 
     /**
-     * Creates a new {@code jsonObjects.Employer}.
-     * @param fName the first name of this {@code jsonObjects.Employer}.
-     * @param lName the last name of this {@code jsonObjects.Employer}.
-     * @param prefix the salutation for this {@code jsonObjects.Employer}.
-     * @param suffix the suffix for this {@code jsonObjects.Employer}.
-     * @param email the contact email for this {@code jsonObjects.Employer}.
-     * @param university the employed {@code jsonObjects.University} for this {@code jsonObjects.Employer}.
+     * Creates a new {@code Employer}.
+     * @param fName the first name of this {@code Employer}.
+     * @param lName the last name of this {@code Employer}.
+     * @param prefix the salutation for this {@code Employer}.
+     * @param suffix the suffix for this {@code Employer}.
+     * @param email the contact email for this {@code Employer}.
+     * @param university the employed {@code University} for this {@code Employer}.
      */
     public Employer(String fName, String lName, String prefix, String suffix, String email,
                     University university) {
