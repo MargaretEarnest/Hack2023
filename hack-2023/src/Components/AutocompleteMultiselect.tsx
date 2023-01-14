@@ -7,6 +7,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import { styled } from '@mui/material/styles';
 import { autocompleteClasses } from '@mui/material/Autocomplete';
+import {useEffect} from "react";
 
 const Root = styled('div')(
     ({ theme }) => `
@@ -155,7 +156,7 @@ const Listbox = styled('ul')(
 `,
 );
 
-export default function AutocompleteMultiselect(props: {data: string[], name: string, marginLeft: string, width: string}) {
+export default function AutocompleteMultiselect(props: {setValue: any, data: string[], name: string, marginLeft: string, width: string}) {
     const {
         getInputLabelProps,
         getInputProps,
@@ -170,6 +171,10 @@ export default function AutocompleteMultiselect(props: {data: string[], name: st
         multiple: true,
         options: props.data
     });
+
+    useEffect(() => {
+        props.setValue(value);
+    }, [value]);
 
     return (
         <Root style={{marginLeft: props.marginLeft}}>

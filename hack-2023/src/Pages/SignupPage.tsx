@@ -20,6 +20,8 @@ function SignupPage() {
     const [accountType, setAccountType] = React.useState("");
     const [status, setStatus] = React.useState(0);
     const [gradYear, setGradYear] = React.useState(2023);
+    const [majors, setMajors] = React.useState([]);
+    const [classes, setClasses] = React.useState([]);
 
     return (
         <div className="backgroundBox">
@@ -88,7 +90,7 @@ function SignupPage() {
                                 </Select><br/>
                             </>
                         }
-                        <AutocompleteMultiselect width="300px" marginLeft="10%" data={DataLists.collegeMajors} name={"Majors"}/><br/>
+                        <AutocompleteMultiselect setValue={setMajors} width="300px" marginLeft="10%" data={DataLists.collegeMajors} name={"Majors"}/><br/>
                         {accountType == "student" &&
                             <>
                                 <InputLabel style={{marginLeft: "10%"}} className="" id="yearLabel" variant="standard">Graduation
@@ -109,7 +111,7 @@ function SignupPage() {
                                 </Select><br/>
                                 <TextField className="" style={{marginLeft: "10%"}} type="number" id="gpa"
                                            label="GPA" variant="outlined"/><br/>
-                                <AutocompleteMultiselect width="300px" marginLeft="10%" data={DataLists.courses} name={"Classes"}/><br/>
+                                <AutocompleteMultiselect setValue={setClasses} width="300px" marginLeft="10%" data={DataLists.courses} name={"Classes"}/><br/>
                             </>
                         }
                         <TextField className="" style={{marginLeft: "10%"}} type="password" id="pass1"
