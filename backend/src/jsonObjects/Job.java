@@ -1,4 +1,4 @@
-/*
+package jsonObjects;/*
 Class contains a constructor to create a job as well as
 specific job attributes including:
 -creator
@@ -9,6 +9,8 @@ specific job attributes including:
 -GPA requirement
 -class year(s) requirement
  */
+
+import utils.HashList;
 
 public class Job {
     int id; // unique id for this job

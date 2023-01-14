@@ -1,5 +1,6 @@
 package database;
 
+import jsonObjects.Student;
 import utils.Constants;
 
 import java.sql.Connection;
@@ -39,5 +40,9 @@ public class StudentDatabaseManager {
             System.out.println("couldn't connect!");
         }
         return null;
+    }
+
+    public void addStudent(final Student student){
+
     }
 }

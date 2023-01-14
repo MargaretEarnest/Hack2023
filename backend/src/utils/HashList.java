@@ -1,7 +1,9 @@
+package utils;
+
 import java.util.*;
 
 /**
- * Maintains a doubly-linked List- and HashSet-organized data structure. The {@code HashList}
+ * Maintains a doubly-linked List- and HashSet-organized data structure. The {@code utils.HashList}
  * supports O(1) search and removal operations.
  * @param <Value> the target object.
  */
@@ -10,15 +12,15 @@ public class HashList<Value> implements Iterable<Value> {
     private Cell<Value> head, tail;
 
     /**
-     * Creates a {@code HashList}.
+     * Creates a {@code utils.HashList}.
      */
     public HashList() {
         this.map = new HashMap<>();
     }
 
     /**
-     * Creates a {@code HashList}.
-     * @param values the list of starter values for this {@code HashList}.
+     * Creates a {@code utils.HashList}.
+     * @param values the list of starter values for this {@code utils.HashList}.
      */
     public HashList(Value... values) {
         HashList<Value> hashList = new HashList<Value>();
@@ -29,8 +31,8 @@ public class HashList<Value> implements Iterable<Value> {
     }
 
     /**
-     * Creates a {@code HashList}.
-     * @param values the list of starter values for this {@code HashList}.
+     * Creates a {@code utils.HashList}.
+     * @param values the list of starter values for this {@code utils.HashList}.
      */
     public HashList(Iterable<Value> values) {
         HashList<Value> hashList = new HashList<Value>();
@@ -41,10 +43,10 @@ public class HashList<Value> implements Iterable<Value> {
     }
 
     /**
-     * Adds a Cell into this {@code HashList}.
+     * Adds a Cell into this {@code utils.HashList}.
      * @param value the target {@code Value}.
      * @return {@code true} if the target {@code Value} was not previously contained
-     * in this {@code HashList}, else {@code false}.
+     * in this {@code utils.HashList}, else {@code false}.
      */
     public boolean add(Value value) {
         if(this.map.containsKey(value)) {
@@ -63,9 +65,9 @@ public class HashList<Value> implements Iterable<Value> {
     }
 
     /**
-     * Adds a List of {@code HashNodes} into this {@code HashList}.
+     * Adds a List of {@code HashNodes} into this {@code utils.HashList}.
      * @param iterable the target Iterable
-     * @return true if all new elements were not previously contained in this HashList, else false
+     * @return true if all new elements were not previously contained in this utils.HashList, else false
      */
     public boolean addAll(Value... iterable) {
         boolean allElementsAreOriginal = true;
@@ -76,9 +78,9 @@ public class HashList<Value> implements Iterable<Value> {
     }
 
     /**
-     * Adds a List of {@code HashNodes} into this {@code HashList}.
+     * Adds a List of {@code HashNodes} into this {@code utils.HashList}.
      * @param iterable the target Iterable
-     * @return true if all new elements were not previously contained in this HashList, else false
+     * @return true if all new elements were not previously contained in this utils.HashList, else false
      */
     public boolean addAll(Iterable<Value> iterable) {
         boolean allElementsAreOriginal = true;
@@ -89,10 +91,10 @@ public class HashList<Value> implements Iterable<Value> {
     }
 
     /**
-     * Inserts a Cell into this HashList at the specified index
-     * @param index the index of this HashList
+     * Inserts a Cell into this utils.HashList at the specified index
+     * @param index the index of this utils.HashList
      * @param value the target Value
-     * @throws IndexOutOfBoundsException if the insertion index is not included in the HashList
+     * @throws IndexOutOfBoundsException if the insertion index is not included in the utils.HashList
      */
     public boolean insert(int index, Value value) {
         if(this.map.containsKey(value)) {
@@ -124,9 +126,9 @@ public class HashList<Value> implements Iterable<Value> {
     }
 
     /**
-     * Checks if this HashList contains a Key
+     * Checks if this utils.HashList contains a Key
      * @param value the target value
-     * @return true if this HashList contains the target Key, else false
+     * @return true if this utils.HashList contains the target Key, else false
      */
     public boolean contains(Value value) {
         return this.map.containsKey(value);
@@ -141,7 +143,7 @@ public class HashList<Value> implements Iterable<Value> {
     }
 
     /**
-     * Gets the Value located at a specific index in this HashList
+     * Gets the Value located at a specific index in this utils.HashList
      * @param index the target index
      * @return the target Value
      */
@@ -160,7 +162,7 @@ public class HashList<Value> implements Iterable<Value> {
     }
 
     /**
-     * Clears this HashList
+     * Clears this utils.HashList
      */
     public void clear() {
         this.head = null;
@@ -169,9 +171,9 @@ public class HashList<Value> implements Iterable<Value> {
     }
 
     /**
-     * Determines if this HashList contains all Values in a specified HashList
-     * @param c the target HashList
-     * @return true if all Values in the HashList are in this HashList, else false
+     * Determines if this utils.HashList contains all Values in a specified utils.HashList
+     * @param c the target utils.HashList
+     * @return true if all Values in the utils.HashList are in this utils.HashList, else false
      */
     public boolean containsAll(HashList<? extends Value> c) {
         for(Value value : c) {
@@ -183,7 +185,7 @@ public class HashList<Value> implements Iterable<Value> {
     }
 
     /**
-     * Removes a specific element from this HashList
+     * Removes a specific element from this utils.HashList
      * @param value the target Value
      * @return true if an element was successfully removed, else false
      */
@@ -207,9 +209,9 @@ public class HashList<Value> implements Iterable<Value> {
     }
 
     /**
-     * Removes from this HashList an element at a specified index
+     * Removes from this utils.HashList an element at a specified index
      * @param index the target index
-     * @return the Value removed from this HashList
+     * @return the Value removed from this utils.HashList
      */
     public Value remove(int index) {
         if(index < 0 || index >= this.size()) {
@@ -227,10 +229,10 @@ public class HashList<Value> implements Iterable<Value> {
     }
 
     /**
-     * Inserts a Value before another target Value in this HashList
+     * Inserts a Value before another target Value in this utils.HashList
      * @param target the target Value
-     * @param value the new Value to be added to this HashList
-     * @return true if the target value exists in this HashList, else false
+     * @param value the new Value to be added to this utils.HashList
+     * @return true if the target value exists in this utils.HashList, else false
      */
     public boolean insertBefore(Value target, Value value) {
         Cell<Value> cell = this.map.get(target);
@@ -248,10 +250,10 @@ public class HashList<Value> implements Iterable<Value> {
     }
 
     /**
-     * Inserts a Value after another target Value in this HashList
+     * Inserts a Value after another target Value in this utils.HashList
      * @param target the target Value
-     * @param value the new Value to be added to this HashList
-     * @return true if the target value exists in this HashList, else false
+     * @param value the new Value to be added to this utils.HashList
+     * @return true if the target value exists in this utils.HashList, else false
      */
     public boolean insertAfter(Value target, Value value) {
         Cell<Value> cell = this.map.get(target);
@@ -266,7 +268,7 @@ public class HashList<Value> implements Iterable<Value> {
     }
 
     /**
-     * Creates a HashList of consecutive elements from this HashList
+     * Creates a utils.HashList of consecutive elements from this utils.HashList
      * @param fromIndex the first index (inclusive) where an element is added to the List
      * @param toIndex the last index (exclusive) where an element is added to the List
      * @return the subset List
@@ -290,7 +292,7 @@ public class HashList<Value> implements Iterable<Value> {
     }
 
     /**
-     * Finds the Value in the head of this HashList
+     * Finds the Value in the head of this utils.HashList
      * @return this.head.value
      */
     public Value getHead() {
@@ -298,7 +300,7 @@ public class HashList<Value> implements Iterable<Value> {
     }
 
     /**
-     * Finds the Value in the tail of this HashList
+     * Finds the Value in the tail of this utils.HashList
      * @return this.tail.value
      */
     public Value getTail() {
@@ -306,7 +308,7 @@ public class HashList<Value> implements Iterable<Value> {
     }
 
     /**
-     * Finds the size of this HashList
+     * Finds the size of this utils.HashList
      * @return this.map.size
      */
     public int size() {
@@ -314,7 +316,7 @@ public class HashList<Value> implements Iterable<Value> {
     }
 
     /**
-     * Gets the index of a specific Value in this HashList
+     * Gets the index of a specific Value in this utils.HashList
      * @param value the target Value
      * @return the number of nodes traversed before reaching this Value, else -1 if this Value is not in the List
      */
@@ -335,7 +337,7 @@ public class HashList<Value> implements Iterable<Value> {
     }
 
     /**
-     * Determines if this HashList is empty
+     * Determines if this utils.HashList is empty
      * @return true if this.head is a null Cell, else false
      */
     public boolean isEmpty() {
@@ -343,8 +345,8 @@ public class HashList<Value> implements Iterable<Value> {
     }
 
     /**
-     * Converts this HashList to a printable format
-     * @return this HashList as a String
+     * Converts this utils.HashList to a printable format
+     * @return this utils.HashList as a String
      */
     @Override
     public String toString() {
@@ -358,7 +360,7 @@ public class HashList<Value> implements Iterable<Value> {
     }
 
     /**
-     * Prints this HashList
+     * Prints this utils.HashList
      */
     public void print() {
         System.out.println(this);
@@ -400,7 +402,7 @@ public class HashList<Value> implements Iterable<Value> {
             }
 
             /**
-             * Removes the cursor from this HashList
+             * Removes the cursor from this utils.HashList
              * @throws IllegalStateException if remove() was called twice consecutively
              */
             @Override
@@ -518,7 +520,7 @@ public class HashList<Value> implements Iterable<Value> {
             }
 
             /**
-             * Replaces a Value in this HashList with a different value
+             * Replaces a Value in this utils.HashList with a different value
              * @param value the new Value for the Cell
              * @throws IllegalStateException if remove() or add() has been called since the last next() or previous() invocation
              */
@@ -532,7 +534,7 @@ public class HashList<Value> implements Iterable<Value> {
             }
 
             /**
-             * Adds an element before the cursor in this HashList
+             * Adds an element before the cursor in this utils.HashList
              * @param value the new value
              */
             @Override
@@ -551,7 +553,7 @@ public class HashList<Value> implements Iterable<Value> {
     }
 
     /**
-     * The node component of a HashList
+     * The node component of a utils.HashList
      * @param <Value> the item held in the Cell
      */
     private static class Cell<Value> {

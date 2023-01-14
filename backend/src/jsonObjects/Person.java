@@ -1,3 +1,5 @@
+package jsonObjects;
+
 public class Person {
     // The first name, last name, prefix, and suffix of this person.
     private String fName, lName, prefix, suffix;
@@ -7,13 +9,13 @@ public class Person {
     private final University university;
 
     /**
-     * Creates a new {@code Person}.
-     * @param fName the first name of this {@code Person}.
-     * @param lName the last name of this {@code Person}.
-     * @param prefix the salutation for this {@code Person}.
-     * @param suffix the suffix for this {@code Person}.
-     * @param email the contact email for this {@code Person}.
-     * @param university the employed {@code University} for this {@code Person}.
+     * Creates a new {@code jsonObjects.Person}.
+     * @param fName the first name of this {@code jsonObjects.Person}.
+     * @param lName the last name of this {@code jsonObjects.Person}.
+     * @param prefix the salutation for this {@code jsonObjects.Person}.
+     * @param suffix the suffix for this {@code jsonObjects.Person}.
+     * @param email the contact email for this {@code jsonObjects.Person}.
+     * @param university the employed {@code jsonObjects.University} for this {@code jsonObjects.Person}.
      */
     public Person(String fName, String lName, String prefix, String suffix, String email,
                   University university) {
@@ -23,7 +25,7 @@ public class Person {
     }
 
     /**
-     * Changes the name associated with this {@code Person}.
+     * Changes the name associated with this {@code jsonObjects.Person}.
      * @param prefix the new prefix
      * @param fName the new first name
      * @param lName the new last name
@@ -40,7 +42,7 @@ public class Person {
     }
 
     /**
-     * Changes the email associated with this {@code Person}.
+     * Changes the email associated with this {@code jsonObjects.Person}.
      * @param newEmail the new email address.
      * @return the previous email address.
      */
@@ -51,7 +53,7 @@ public class Person {
     }
 
     /**
-     * Gets the email associated with this {@code Person}.
+     * Gets the email associated with this {@code jsonObjects.Person}.
      * @return {@code this.email}
      */
     public String getEmail() {
@@ -59,7 +61,7 @@ public class Person {
     }
 
     /**
-     * Gets the {@code University} associated with this {@code Person}.
+     * Gets the {@code jsonObjects.University} associated with this {@code jsonObjects.Person}.
      * @return {@code this.university}
      */
     public University getUniversity() {
@@ -67,8 +69,8 @@ public class Person {
     }
 
     /**
-     * Converts this {@code Person} to a printable format.
-     * @return this {@code Person} as a {@code String}.
+     * Converts this {@code jsonObjects.Person} to a printable format.
+     * @return this {@code jsonObjects.Person} as a {@code String}.
      */
     @Override
     public String toString() {

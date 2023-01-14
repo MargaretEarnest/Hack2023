@@ -1,5 +1,10 @@
+package jsonObjects;
+
+import utils.HashList;
+import utils.Vars;
+
 /**
- * The {@code Student} object stores all necessary information for which
+ * The {@code jsonObjects.Student} object stores all necessary information for which
  */
 public class Student extends Person {
     private StudentType status;
@@ -15,13 +20,13 @@ public class Student extends Person {
         hiredJobs;       // Jobs for which the student has been hired.
 
     /**
-     * Creates a new {@code Student} with a given name.
-     * @param email the contact email for this {@code Student}.
-     * @param fName the first name of this {@code Student}.
-     * @param lName the last name of this {@code Student}.
-     * @param prefix the salutation for this {@code Student}.
-     * @param suffix the suffix for this {@code Student}.
-     * param university the employed {@code University} for this {@code Student}.
+     * Creates a new {@code jsonObjects.Student} with a given name.
+     * @param email the contact email for this {@code jsonObjects.Student}.
+     * @param fName the first name of this {@code jsonObjects.Student}.
+     * @param lName the last name of this {@code jsonObjects.Student}.
+     * @param prefix the salutation for this {@code jsonObjects.Student}.
+     * @param suffix the suffix for this {@code jsonObjects.Student}.
+     * param university the employed {@code jsonObjects.University} for this {@code jsonObjects.Student}.
      */
     public Student(String email, String prefix, String fName, String lName,
                    String suffix, int status
@@ -29,17 +34,17 @@ public class Student extends Person {
                    , int yearOfGraduation
                    , float gpa
                    //, String[] classes
-                   //, University university
+                   //, jsonObjects.University university
                    ) {
         super(fName, lName, prefix, suffix, email, Vars.WPI);
         this.status = StudentType.getType(status);
-        //this.majors = new HashList<>(majors);
+        //this.majors = new utils.HashList<>(majors);
         this.majors = new HashList<>();
         this.yearOfGraduation = yearOfGraduation;
         this.gpa = gpa;
         this.classes = new HashList<>();
         //for (String course : classes) {
-        //    this.classes.add(Vars.courses.get(course));
+        //    this.classes.add(utils.Vars.courses.get(course));
         //}
         this.acceptedJobs = new HashList<>();
         this.requestedJobs = new HashList<>();
@@ -47,7 +52,7 @@ public class Student extends Person {
     }
 
     /**
-     * Changes the status of this {@code Student}.
+     * Changes the status of this {@code jsonObjects.Student}.
      * @param status the new status.
      * @return the old status.
      */
@@ -58,7 +63,7 @@ public class Student extends Person {
     }
 
     /**
-     * Gets the status of this {@code Student}.
+     * Gets the status of this {@code jsonObjects.Student}.
      * @return {@code this.status}
      */
     public StudentType getStatus() {
@@ -66,7 +71,7 @@ public class Student extends Person {
     }
 
     /**
-     * Gets all majors associated with this {@code Student}.
+     * Gets all majors associated with this {@code jsonObjects.Student}.
      * @return {@code this.majors}
      */
     public HashList<String> getMajors() {
@@ -74,7 +79,7 @@ public class Student extends Person {
     }
 
     /**
-     * Changes the year of graduation for this {@code Student}.
+     * Changes the year of graduation for this {@code jsonObjects.Student}.
      * @param year the new year.
      * @return the old year.
      */
@@ -85,7 +90,7 @@ public class Student extends Person {
     }
 
     /**
-     * Gets the year of graduation for this {@code Student}.
+     * Gets the year of graduation for this {@code jsonObjects.Student}.
      * @return {@code this.yearOfGraduation}
      */
     public int getYearOfGraduation() {
@@ -93,7 +98,7 @@ public class Student extends Person {
     }
 
     /**
-     * Changes the GPA for this {@code Student}.
+     * Changes the GPA for this {@code jsonObjects.Student}.
      * @param gpa the new GPA.
      * @return the old GPA.
      */
@@ -104,7 +109,7 @@ public class Student extends Person {
     }
 
     /**
-     * Gets the grade point average for this {@code Student}.
+     * Gets the grade point average for this {@code jsonObjects.Student}.
      * @return {@code this.gpa}
      */
     public float getGPA() {
@@ -112,7 +117,7 @@ public class Student extends Person {
     }
 
     /**
-     * Gets the list of {@code Courses} for this {@code Student}.
+     * Gets the list of {@code Courses} for this {@code jsonObjects.Student}.
      * @return {@code this.classes}
      */
     public HashList<Course> getClasses() {
@@ -120,7 +125,7 @@ public class Student extends Person {
     }
 
     /**
-     * Gets the list of accepted jobs for this {@code Student}.
+     * Gets the list of accepted jobs for this {@code jsonObjects.Student}.
      * @return {@code this.acceptedJobs}
      */
     public HashList<Job> getAcceptedJobs() {
@@ -128,7 +133,7 @@ public class Student extends Person {
     }
 
     /**
-     * Gets the list of requested jobs for this {@code Student}.
+     * Gets the list of requested jobs for this {@code jsonObjects.Student}.
      * @return {@code this.requestedJobs}
      */
     public HashList<Job> getRequestedJobs() {
@@ -136,7 +141,7 @@ public class Student extends Person {
     }
 
     /**
-     * Gets the list of hired jobs for this {@code Student}.
+     * Gets the list of hired jobs for this {@code jsonObjects.Student}.
      * @return {@code this.hiredJobs}
      */
     public HashList<Job> getHiredJobs() {

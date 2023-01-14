@@ -1,3 +1,5 @@
+package jsonObjects;
+
 public class Course {
     // The department and course name.
     private final String department, name;
@@ -5,7 +7,7 @@ public class Course {
     private final int ID;
 
     /**
-     * Creates a new {@code Course}.
+     * Creates a new {@code jsonObjects.Course}.
      * @param department the department.
      * @param ID the integer course ID.
      * @param name the name of the course.
@@ -17,7 +19,7 @@ public class Course {
     }
 
     /**
-     * Gets the department of this {@code Course}.
+     * Gets the department of this {@code jsonObjects.Course}.
      * @return {@code this.department}
      */
     public String getDepartment() {
@@ -26,15 +28,15 @@ public class Course {
 
     /**
      * Gets the overall course ID.
-     * @return the department and ID for this {@code Course}.
+     * @return the department and ID for this {@code jsonObjects.Course}.
      */
     public String getCourseID() {
         return this.department + this.ID;
     }
 
     /**
-     * Converts this {@code Course} to a printable format.
-     * @return this {@code Course} as a {@code String}.
+     * Converts this {@code jsonObjects.Course} to a printable format.
+     * @return this {@code jsonObjects.Course} as a {@code String}.
      */
     public String toString() {
         return getCourseID() + " " + this.name;

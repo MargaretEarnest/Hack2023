@@ -6,7 +6,7 @@ import csv
 urlText = """
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1334", Office Assistant (Work Study Required)
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1599", Peer Tutor
-"/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1409", Student Proctor  FWS 22-23(Work Study required)
+"/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1409", jsonObjects.Student Proctor  FWS 22-23(Work Study required)
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=744", Clerk, Office assistant.
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1570", Uniform Custodian
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=777", BBT-Laboratory Assistant
@@ -31,7 +31,7 @@ urlText = """
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1494", Daytime Greeter 1, Mechanics Hall--FWS Required
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1493", Daytime Greeter 2, Mechanics Hall--FWS Required
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1495", Daytime Greeter 3, Mechanics Hall--FWS Required
-"/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1454", Front Desk Student Staff-- Technocopia -- FWS Required
+"/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1454", Front Desk jsonObjects.Student Staff-- Technocopia -- FWS Required
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1426", Habitat for Humanity ReStore Volunteer Sales Associate -- FWS Re
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1485", Mechanics Hall -- Video Editor -- FWS Required
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1427", Mentor, Exploradreams Robokids
@@ -39,7 +39,7 @@ urlText = """
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1481", Pakachoag Music School -- Volunteer Door Monitor -- FWS Required
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1428", Shelter Assistant, Worcester Animal Rescue League -- FWS Require
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1429", Special Assistant to Executive Director, Greater Worcester Land
-"/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1478", Student Data Manager-- Net of Compassion -- FWS Required
+"/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1478", jsonObjects.Student Data Manager-- Net of Compassion -- FWS Required
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1430", Tutor -- Elm Park Elementary School -- FWS Required
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1431", Various Internship Opportunities, Community Harvest Project -- F
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1593", AI Project Worker
@@ -65,7 +65,7 @@ urlText = """
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1559", Theatre Technical Assistant
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1556", Innovation Studio Workshop Leader
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1446", Office Assistant, WPI Innovation Studio Office
-"/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1386", Student Building Manager, WPI Innovation Studio
+"/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1386", jsonObjects.Student Building Manager, WPI Innovation Studio
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1588", Research Fellow
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1595", Assistant Photographer
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1590", MCL lab assistant
@@ -78,17 +78,17 @@ urlText = """
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=771", Research Assistants in Surface Metrology
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=773", Assistant Supply Tech - Federal Work study required.
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1346", Public Affairs Office Assistant, Federal Work study required
-"/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1576", Student Sustainability Intern
+"/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1576", jsonObjects.Student Sustainability Intern
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1575", Sustainability Intern
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1113", Equipment Room Assistants
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1112", Event Workers
-"/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1298", Men's Basketball Student Manager
-"/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1345", Office Assistant/Student Manager- Softball
+"/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1298", Men's Basketball jsonObjects.Student Manager
+"/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1345", Office Assistant/jsonObjects.Student Manager- Softball
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1583", Office Assistant
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1370", Programer: Robotics; AI; Machine Learning; Physics; 
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1380", Website Development and Management 
-"/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1549", Student Office Assistant 
-"/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1594", Residential Services Student Worker
+"/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1549", jsonObjects.Student Office Assistant
+"/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1594", Residential Services jsonObjects.Student Worker
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1523", Research Assistant 
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1524", Research Assistant 
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1586", Research assistant
@@ -99,7 +99,7 @@ urlText = """
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1363", Research Assistant- Learning Sciences Research 
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1419", HR Office Assistant (Federal Work Study Funds Required)
 "/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1162", Alumni Relations Office Assistant - Federal Work Study Required
-"/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1578", University Advancement Email Specialist"""
+"/cgi-bin/student-jobs/showjob.cgi?job_type=A&amp;job_id=1578", jsonObjects.University Advancement Email Specialist"""
 
 results = re.findall("(?<=\")(.*?)(?=\")", urlText)
 jobs = []

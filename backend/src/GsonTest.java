@@ -56,6 +56,6 @@ class StudentTest {
     }
 
     public String toString() {
-        return "Student [ name: "+name+", age: "+ age+ " ]";
+        return "jsonObjects.Student [ name: "+name+", age: "+ age+ " ]";
     }
 }

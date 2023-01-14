@@ -1,4 +1,4 @@
 Classes that need a hashCode function:
-- University
-- Person
-- Job
+- jsonObjects.University
+- jsonObjects.Person
+- jsonObjects.Job

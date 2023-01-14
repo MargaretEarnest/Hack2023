@@ -1,5 +1,7 @@
+package jsonObjects;
+
 /**
- * Stores different types of students that can be employed at a {@code University}.
+ * Stores different types of students that can be employed at a {@code jsonObjects.University}.
  */
 public enum StudentType {
     UNDERGRADUATE(0),
@@ -7,19 +9,19 @@ public enum StudentType {
     DOCTORAL_STUDENT(2),
     POST_DOCTORATE(3);
 
-    // Stores the int value associated with this StudentType.
+    // Stores the int value associated with this jsonObjects.StudentType.
     private final int value;
 
     /**
-     * Creates a new {@code StudentType}.
-     * @param value the int value used to distinguish different types of {@code Student}.
+     * Creates a new {@code jsonObjects.StudentType}.
+     * @param value the int value used to distinguish different types of {@code jsonObjects.Student}.
      */
     StudentType(int value) {
         this.value = value;
     }
 
     /**
-     * Gets the int equivalent of this {@code StudentType}.
+     * Gets the int equivalent of this {@code jsonObjects.StudentType}.
      * @return {@code this.value}
      */
     public int getValue() {
@@ -27,11 +29,11 @@ public enum StudentType {
     }
 
     /**
-     * Gets the {@code StudentType} associated with a specified int value.
+     * Gets the {@code jsonObjects.StudentType} associated with a specified int value.
      * @param value the specified int.
-     * @return the target {@code StudentType}.
+     * @return the target {@code jsonObjects.StudentType}.
      * @throws IllegalArgumentException if the given int is outside the specified bounds
-     * for representation of a {@code StudentType}.
+     * for representation of a {@code jsonObjects.StudentType}.
      */
     public static StudentType getType(int value) throws IllegalArgumentException {
         return switch (value) {

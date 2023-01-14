@@ -1,3 +1,9 @@
+package utils;
+
+import jsonObjects.Course;
+import jsonObjects.University;
+import utils.HashList;
+
 import java.util.HashMap;
 import java.util.Map;
 
