@@ -5,9 +5,72 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #F1F1E6;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.pageLayout {
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 0;
+  margin-top: 20px;
+  font-size: 50px;
+}
+
+h2 {
+  font-size: 40px;
+}
+
+#signUpAs {
+  font-size: 70px;
+}
+
+.backgroundBox {
+  background-color: #FFF7D6;
+  width: calc(100% - 60px);
+  height: calc(100vh - 124px);
+  margin: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.profileTypeHolder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.accountTypeIconButton {
+  width: 400px;
+  height: 400px;
+  position: absolute;
+}
+
+.accountForm {
+  margin-left: 20%;
+}
+
+.MuiToggleButtonGroup-grouped:not(:first-of-type) {
+  margin-left: 10px !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+}
+
+.MuiToggleButtonGroup-grouped {
+  border-radius: 10px !important;
 }
