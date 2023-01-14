@@ -1,4 +1,5 @@
-import Server.Server;
+import server.Server;
+import utils.Constants;
 
 import java.io.BufferedReader;
 import java.io.IOException;

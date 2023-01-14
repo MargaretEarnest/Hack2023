@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import {Login} from "./jsonObjects/Login";
+import {Request} from "./jsonObjects/Request";
 
 function App() {
   const [username, setUsername] = useState('');
@@ -11,13 +13,9 @@ function App() {
     // Send a request to the server with the entered username and password
     // and handle the response here
       const websocket = new WebSocket("ws://localhost:8000");
-      console.log(websocket.readyState == WebSocket.OPEN);
-      if (websocket.readyState === WebSocket.OPEN){
-          console.log("THE SOCKET IS OPEN");
-      }
       websocket.onopen = () => {
-          console.log("MESSAGE SENT");
-          websocket.send("HELLO I AM A WEBSOCKET");
+          let login = new Login(username, password);
+          websocket.send(JSON.stringify(new Request("ValidateUser", JSON.stringify(login))));
       };
       websocket.onmessage = (event) => {
           console.log(event);
