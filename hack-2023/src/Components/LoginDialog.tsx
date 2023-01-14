@@ -8,7 +8,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import DialogActions from "@mui/material/DialogActions";
 import {Link} from "@mui/material";
 
-export default function LoginDialog(props: { open: boolean, handleClose: () => void, setUsername: any }) {
+export default function LoginDialog(props: { open: boolean, handleClose: () => void, setUsername: any, setAccountType: any }) {
     return (
         <Dialog open={props.open} fullWidth maxWidth="xs" onClose={props.handleClose}>
             <DialogActions>
@@ -31,7 +31,11 @@ export default function LoginDialog(props: { open: boolean, handleClose: () => v
                     type="password"
                     variant="standard"
                 /><br/><br/><br/>
-                <Button variant="contained" style={{width: "150px", marginBottom: "10px"}} onClick={() => {}}>Login</Button><br/>
+                <Button variant="contained" style={{width: "150px", marginBottom: "10px"}} onClick={() => {
+                    props.setUsername("Wilbur");
+                    props.setAccountType("student");
+                    props.handleClose();
+                }}>Login</Button><br/>
                 <Link className="noSelect" style={{cursor: "pointer"}} href="#/createAccount" onClick={props.handleClose}>Create an Account</Link>
                 <br/><br/>
             </DialogContent>
