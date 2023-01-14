@@ -1,19 +1,26 @@
 import * as React from 'react';
 import researchers from '../images/researchers.jpg';
+import {useEffect} from "react";
 
 function HomePage() {
-    window.setInterval(
-        function () {
-            let cursor = document.getElementById("cursor");
-            if (cursor) {
-                if (cursor.style.visibility == "visible") {
-                    cursor.style.visibility = "hidden";
-                } else {
-                    cursor.style.visibility = "visible";
+
+    useEffect(() => {
+        //@ts-ignore
+        window.clearInterval(window.intervalInt);
+        //@ts-ignore
+        window.intervalInt = window.setInterval(
+            function () {
+                let cursor = document.getElementById("cursor");
+                if (cursor) {
+                    if (cursor.style.visibility == "visible") {
+                        cursor.style.visibility = "hidden";
+                    } else {
+                        cursor.style.visibility = "visible";
+                    }
                 }
-            }
-        }, 1000
-    );
+            }, 1000
+        );
+    }, [])
 
     return (
         <div>
