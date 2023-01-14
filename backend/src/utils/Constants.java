@@ -1,5 +1,8 @@
 package utils;
 
+import jsonObjects.Course;
+import jsonObjects.University;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,6 +11,9 @@ import java.util.Map;
 import java.util.Properties;
 
 public class Constants {
+    public static final HashList<String> majors = new HashList<>();
+    public static University WPI = University.findUniversity("WPI");
+    public static final Map<String, Course> courses = new HashMap<>();
 
     private static Constants instance;
     public static Constants getInstance() {

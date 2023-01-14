@@ -1,9 +1,6 @@
 package jsonObjects;
 
 import utils.HashList;
-import utils.Vars;
-
-import java.sql.Array;
 
 /**
  * The {@code jsonObjects.Student} object stores all necessary information for which

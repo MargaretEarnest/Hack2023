@@ -13,20 +13,38 @@ specific job attributes including:
 import utils.HashList;
 
 public class Job {
-    String id; // unique id for this job
-    String title; // name of the job position
-    String department; // department name
-    String location; // name of the location
-    int numStudents; // number of students wanted to hire
-    int hours; // hours per week
-    String email; // contact email
-    boolean federalWorkStudy; // if it counts for federal work study
-    String desc; // description of the job position
-    String requirements; // required GPA to apply
-    String phone; // contact phone
-    String contact; // contact person
+    private String id; // unique id for this job
+    private String title; // name of the job position
+    private String department; // department name
+    private String location; // name of the location
+    private int numStudents; // number of students wanted to hire
+    private int hours; // hours per week
+    private String email; // contact email
+    private boolean federalWorkStudy; // if it counts for federal work study
+    private String desc; // description of the job position
+    private final HashList<Course> requirements; // required courses
+    private String phone; // contact phone
+    private String contact; // contact person
 
-    public Job(String id, String title, String department, String location, int numStudents, int hours, String email, boolean federalWorkStudy, String desc, String requirements, String phone, String contact) {
+    /**
+     * Creates a new {@code Job} offering.
+     * @param id the unique {@code Job} ID.
+     * @param title the title of the {@code Job}.
+     * @param department the department spearheading the {@code Job} opportunity.
+     * @param location the location of the {@code Job}.
+     * @param numStudents the number of students required for the {@code Job}.
+     * @param hours the number of hours per week required for the {@code Job}.
+     * @param email the contact email for the {@code Job}.
+     * @param federalWorkStudy {@code true} if this {@code Job} provides credit toward federal
+     *                                     work study, else {@code false}.
+     * @param desc a general description of the {@code Job}.
+     * @param requirements a list of all required {@code Courses} for this {@code Job}.
+     * @param phone a contact phone number.
+     * @param contact name of the {@code Employer} overseeing this {@code Job}.
+     */
+    public Job(String id, String title, String department, String location, int numStudents,
+               int hours, String email, boolean federalWorkStudy, String desc,
+               HashList<Course> requirements, String phone, String contact) {
         this.id = id;
         this.title = title;
         this.department = department;
@@ -42,7 +60,7 @@ public class Job {
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(String id) {
@@ -50,7 +68,7 @@ public class Job {
     }
 
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     public void setTitle(String title) {
@@ -58,7 +76,7 @@ public class Job {
     }
 
     public String getDepartment() {
-        return department;
+        return this.department;
     }
 
     public void setDepartment(String department) {
@@ -66,7 +84,7 @@ public class Job {
     }
 
     public String getLocation() {
-        return location;
+        return this.location;
     }
 
     public void setLocation(String location) {
@@ -74,7 +92,7 @@ public class Job {
     }
 
     public int getNumStudents() {
-        return numStudents;
+        return this.numStudents;
     }
 
     public void setNumStudents(int numStudents) {
@@ -82,7 +100,7 @@ public class Job {
     }
 
     public int getHours() {
-        return hours;
+        return this.hours;
     }
 
     public void setHours(int hours) {
@@ -90,7 +108,7 @@ public class Job {
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public void setEmail(String email) {
@@ -98,7 +116,7 @@ public class Job {
     }
 
     public boolean isFederalWorkStudy() {
-        return federalWorkStudy;
+        return this.federalWorkStudy;
     }
 
     public void setFederalWorkStudy(boolean federalWorkStudy) {
@@ -106,23 +124,19 @@ public class Job {
     }
 
     public String getDesc() {
-        return desc;
+        return this.desc;
     }
 
     public void setDesc(String desc) {
         this.desc = desc;
     }
 
-    public String getRequirements() {
-        return requirements;
-    }
-
-    public void setRequirements(String requirements) {
-        this.requirements = requirements;
+    public HashList<Course> getRequirements() {
+        return this.requirements;
     }
 
     public String getPhone() {
-        return phone;
+        return this.phone;
     }
 
     public void setPhone(String phone) {
@@ -130,7 +144,7 @@ public class Job {
     }
 
     public String getContact() {
-        return contact;
+        return this.contact;
     }
 
     public void setContact(String contact) {
