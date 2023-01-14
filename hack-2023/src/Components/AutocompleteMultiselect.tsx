@@ -7,7 +7,6 @@ import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import { styled } from '@mui/material/styles';
 import { autocompleteClasses } from '@mui/material/Autocomplete';
-import {TextField} from "@mui/material";
 
 const Root = styled('div')(
     ({ theme }) => `
@@ -26,7 +25,6 @@ const Label = styled('label')`
 
 const InputWrapper = styled('div')(
     ({ theme }) => `
-  width: 300px;
   border: 1px solid ${theme.palette.mode === 'dark' ? '#434343' : '#d9d9d9'};
   background-color: ${theme.palette.mode === 'dark' ? '#141414' : '#fff'};
   border-radius: 4px;
@@ -113,7 +111,6 @@ const StyledTag = styled(Tag)<TagProps>(
 
 const Listbox = styled('ul')(
     ({ theme }) => `
-  width: 300px;
   margin: 2px 0 0;
   padding: 0;
   position: absolute;
@@ -158,7 +155,7 @@ const Listbox = styled('ul')(
 `,
 );
 
-export default function AutocompleteMultiselect(props: {data: string[], name: string}) {
+export default function AutocompleteMultiselect(props: {data: string[], name: string, marginLeft: string, width: string}) {
     const {
         getInputLabelProps,
         getInputProps,
@@ -175,10 +172,10 @@ export default function AutocompleteMultiselect(props: {data: string[], name: st
     });
 
     return (
-        <Root className="accountForm">
+        <Root style={{marginLeft: props.marginLeft}}>
             <div>
                 <Label {...getInputLabelProps()}>{props.name}</Label>
-                <InputWrapper ref={setAnchorEl} className={focused ? 'focused' : ''}>
+                <InputWrapper style={{width: props.width}} ref={setAnchorEl} className={focused ? 'focused' : ''}>
                     {value.map((option: string, index: number) => (
                         <StyledTag label={option} {...getTagProps({ index })} />
                     ))}
@@ -186,7 +183,7 @@ export default function AutocompleteMultiselect(props: {data: string[], name: st
                 </InputWrapper>
             </div>
             {groupedOptions.length > 0 ? (
-                <Listbox {...getListboxProps()}>
+                <Listbox style={{width: props.width}} {...getListboxProps()}>
                     {(groupedOptions as typeof props.data).map((option, index) => (
                         <li {...getOptionProps({ option, index })}>
                             <span>{option}</span>
