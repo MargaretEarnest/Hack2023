@@ -20,8 +20,8 @@ export default function LoginDialog(props: { open: boolean, handleClose: () => v
             <DialogContent style={{textAlign: "center"}}>
                 <TextField
                     autoFocus
-                    id="username"
-                    label="Username"
+                    id="email"
+                    label="Email"
                     type="text"
                     variant="standard"
                 /><br/>
