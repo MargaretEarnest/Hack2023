@@ -15,7 +15,8 @@ function App() {
     return (
         <Router>
             <div className={"pageLayout"}>
-                <MenuBar username={username} setUsername={setUsername} accountType={accountType} setAccountType={setAccountType}/>
+                <MenuBar username={username} setUsername={setUsername} accountType={accountType}
+                         setAccountType={setAccountType}/>
                 <Routes>
                     <Route path="/" element={username == "" ? <HomePage/> : (accountType == "student") ? <FindJobPage/>
                         : <FindStudentsPage/>}/>
@@ -25,5 +26,6 @@ function App() {
             </div>
         </Router>
     );
+}
 
 export default App;

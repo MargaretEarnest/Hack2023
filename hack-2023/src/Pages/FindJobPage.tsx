@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
     Box, Checkbox, FormControlLabel,
     InputLabel,
-    List,
+    List, ListItem,
     MenuItem,
     Paper,
     Select,
@@ -40,17 +40,12 @@ function FindJobPage() {
                 <ToggleButton value="ta">Teaching Assistant Position</ToggleButton>
                 <ToggleButton value="campus-job">Campus Job</ToggleButton>
             </ToggleButtonGroup>
-            <div style={{display: "flex"}}>
-                {/*majors - multi-select search*/}
-                {/*type - multi-select (no search)*/}
-                {/*department - multi-select search*/}
-                {/*location - multi-select search*/}
-                {/*hours - double ended slider*/}
-                {/*numStudents - double ended slider*/}
-                {/*federalWorkStudy - checkbox*/}
-                <div>
-                    <InputLabel id="statusLabel" variant="standard">Status</InputLabel>
+            <div style={{display: "flex", width: "100%"}}>
+                <div style={{width: "300px", backgroundColor: "#B8D5ED", margin: "10px"}}>
+                    <h3 style={{textAlign: "center", fontSize: "25px"}}>Search Filters</h3>
+                    <InputLabel className="searchForJobFilters" id="statusLabel" variant="standard">Status</InputLabel>
                     <Select
+                        className="searchForJobFilters"
                         labelId="statusLabel"
                         id="status"
                         itemType={"number"}
@@ -63,11 +58,11 @@ function FindJobPage() {
                         <MenuItem value={1}>Grad Student</MenuItem>
                         <MenuItem value={2}>Doctoral Student</MenuItem>
                         <MenuItem value={3}>Postdoc</MenuItem>
-                    </Select><br/>
-                    <AutocompleteMultiselect data={DataLists.collegeMajors} name={"Majors"}/><br/>
-                    <AutocompleteMultiselect data={DataLists.departments} name={"Departments"}/><br/>
-                    <AutocompleteMultiselect data={DataLists.locations} name={"Locations"}/><br/>
-                    <Box sx={{ width: 300 }}>
+                    </Select><br/><br/>
+                    <AutocompleteMultiselect width="190px" data={DataLists.collegeMajors} marginLeft="10%" name={"Majors"}/><br/>
+                    <AutocompleteMultiselect width="190px" data={DataLists.departments} marginLeft="10%" name={"Departments"}/><br/>
+                    <AutocompleteMultiselect width="190px" data={DataLists.locations} marginLeft="10%" name={"Locations"}/><br/>
+                    <Box className="searchForJobFilters" sx={{ width: 190 }}>
                         <InputLabel id="hoursPerWeekLabel" variant="standard">Hours per Week</InputLabel>
                         <Slider
                             id={"hoursPerWeek"}
@@ -77,9 +72,12 @@ function FindJobPage() {
                                 setHours(newValue as number[]);
                             }}
                             valueLabelDisplay="auto"
+                            step={1}
+                            min={0}
+                            max={40}
                         />
                     </Box>
-                    <Box sx={{ width: 300 }}>
+                    <Box className="searchForJobFilters" sx={{ width: 190 }}>
                         <InputLabel id="teamSizeLabel" variant="standard">Team Size</InputLabel>
                         <Slider
                             id={"teamSize"}
@@ -89,15 +87,15 @@ function FindJobPage() {
                                 setTeamSize(newValue as number[]);
                             }}
                             valueLabelDisplay="auto"
+                            step={1}
+                            min={1}
+                            max={20}
                         />
                     </Box>
-                    <FormControlLabel control={<Checkbox defaultChecked />} label="Label" />
+                    <FormControlLabel style={{marginLeft: "6px", marginBottom: "10px"}} control={<Checkbox defaultChecked />} label="Federal Work Study Only" />
                 </div>
-                <Paper style={{maxHeight: 200, overflow: 'auto'}}>
-                    <List>
-
-                    </List>
-                </Paper>
+                <div style={{maxHeight: "100%", overflow: 'auto', width: "100%", backgroundColor: "gray", margin: "10px"}}>
+                </div>
             </div>
         </div>
     );

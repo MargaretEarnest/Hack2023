@@ -59,16 +59,16 @@ function SignupPage() {
                         display: "flex", flexDirection: "column", margin: "0 20%", flexWrap:
                             "wrap", height: "70%"
                     }}>
-                        <TextField className="accountForm" id="email" label="Email" variant="outlined"/><br/>
-                        <TextField className="accountForm" id="fName" label="First Name" variant="outlined"/><br/>
-                        <TextField className="accountForm" id="lName" label="Last Name" variant="outlined"/><br/>
+                        <TextField className="" id="email" label="Email" variant="outlined"/><br/>
+                        <TextField className="" id="fName" label="First Name" variant="outlined"/><br/>
+                        <TextField className="" id="lName" label="Last Name" variant="outlined"/><br/>
                         {accountType == "professor" ?
                             <>
-                                <TextField className="accountForm" id="prefix" label="Prefix" variant="outlined"/><br/>
+                                <TextField className="" id="prefix" label="Prefix" variant="outlined"/><br/>
                             </>
                             : <></>
                         }
-                        <TextField className="accountForm" id="suffix" label="Suffix" variant="outlined"/><br/>
+                        <TextField className="" id="suffix" label="Suffix" variant="outlined"/><br/>
                         {accountType == "student" &&
                             <>
                                 <InputLabel id="statusLabel" variant="standard">Status</InputLabel>
@@ -88,12 +88,12 @@ function SignupPage() {
                                 </Select><br/>
                             </>
                         }
-                        <AutocompleteMultiselect data={DataLists.collegeMajors} name={"Majors"}/><br/>
+                        <AutocompleteMultiselect width="300px" marginLeft="20%" data={DataLists.collegeMajors} name={"Majors"}/><br/>
                         {accountType == "student" &&
                             <>
-                                <InputLabel className="accountForm" id="yearLabel" variant="standard">Graduation
+                                <InputLabel className="" id="yearLabel" variant="standard">Graduation
                                     Year</InputLabel>
-                                <Select className="accountForm"
+                                <Select className=""
                                         labelId="yearLabel"
                                         id="graduationYear"
                                         itemType={"number"}
@@ -106,9 +106,13 @@ function SignupPage() {
                                         <MenuItem value={y}>{y}</MenuItem>)
                                     }
                                 </Select><br/>
-                                <TextField className="accountForm" style={{marginLeft: "20%"}} type="number" id="gpa"
+                                <TextField className="" style={{marginLeft: "10%"}} type="number" id="gpa"
                                            label="GPA" variant="outlined"/><br/>
-                                <AutocompleteMultiselect data={DataLists.courses} name={"Classes"}/><br/>
+                                <AutocompleteMultiselect width="300px" marginLeft="20%" data={DataLists.courses} name={"Classes"}/><br/>
+                                <TextField className="" style={{marginLeft: "10%"}} type="password" id="pass1"
+                                           label="Password" variant="outlined"/><br/>
+                                <TextField className="" style={{marginLeft: "10%"}} type="password" id="pass2"
+                                           label="Confirm Password" variant="outlined"/><br/>
                             </>
                         }
                         <Button variant={"contained"} style={{width: "160px", marginLeft: "30%"}}>Create
