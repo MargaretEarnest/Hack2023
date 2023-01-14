@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-    Box, Checkbox, FormControlLabel,
+    Box, Button, Checkbox, FormControlLabel,
     InputLabel,
     List, ListItem,
     MenuItem,
@@ -18,6 +18,9 @@ function FindJobPage() {
     const [status, setStatus] = React.useState(0);
     const [hours, setHours] = React.useState<number[]>([0, 1000000]);
     const [teamSize, setTeamSize] = React.useState<number[]>([0, 1000000]);
+    const [majors, setMajors] = React.useState([]);
+    const [departments, setDepartments] = React.useState([]);
+    const [locations, setLocations] = React.useState([]);
 
     return (
         <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
@@ -41,10 +44,12 @@ function FindJobPage() {
                 <ToggleButton value="campus-job">Campus Job</ToggleButton>
             </ToggleButtonGroup>
             <div style={{display: "flex", width: "100%"}}>
-                <div style={{width: "300px", backgroundColor: "#B8D5ED", margin: "10px"}}>
-                    <h3 style={{textAlign: "center", fontSize: "25px"}}>Search Filters</h3>
+                <div style={{width: "250px", minWidth: "250px", backgroundColor: "#B8D5ED", margin: "10px"}}>
+                    <h3 style={{textAlign: "center", fontSize: "25px", marginBottom: 10}}>Job Filters</h3>
+                    <Button style={{marginLeft: "45px"}} variant={"contained"}>Refresh Results</Button><br/><br/>
                     <InputLabel className="searchForJobFilters" id="statusLabel" variant="standard">Status</InputLabel>
                     <Select
+                        style={{width: "190px"}}
                         className="searchForJobFilters"
                         labelId="statusLabel"
                         id="status"
@@ -59,9 +64,9 @@ function FindJobPage() {
                         <MenuItem value={2}>Doctoral Student</MenuItem>
                         <MenuItem value={3}>Postdoc</MenuItem>
                     </Select><br/><br/>
-                    <AutocompleteMultiselect width="190px" data={DataLists.collegeMajors} marginLeft="10%" name={"Majors"}/><br/>
-                    <AutocompleteMultiselect width="190px" data={DataLists.departments} marginLeft="10%" name={"Departments"}/><br/>
-                    <AutocompleteMultiselect width="190px" data={DataLists.locations} marginLeft="10%" name={"Locations"}/><br/>
+                    <AutocompleteMultiselect setValue={setMajors} width="190px" data={DataLists.collegeMajors} marginLeft="10%" name={"Majors"}/><br/>
+                    <AutocompleteMultiselect setValue={setDepartments} width="190px" data={DataLists.departments} marginLeft="10%" name={"Departments"}/><br/>
+                    <AutocompleteMultiselect setValue={setLocations} width="190px" data={DataLists.locations} marginLeft="10%" name={"Locations"}/><br/>
                     <Box className="searchForJobFilters" sx={{ width: 190 }}>
                         <InputLabel id="hoursPerWeekLabel" variant="standard">Hours per Week</InputLabel>
                         <Slider
@@ -94,7 +99,7 @@ function FindJobPage() {
                     </Box>
                     <FormControlLabel style={{marginLeft: "6px", marginBottom: "10px"}} control={<Checkbox defaultChecked />} label="Federal Work Study Only" />
                 </div>
-                <div style={{maxHeight: "100%", overflow: 'auto', width: "100%", backgroundColor: "gray", margin: "10px"}}>
+                <div style={{maxHeight: "100%", overflow: 'auto', width: "100%", margin: "10px"}}>
                 </div>
             </div>
         </div>
