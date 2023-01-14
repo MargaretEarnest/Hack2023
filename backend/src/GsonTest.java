@@ -11,10 +11,15 @@ public class GsonTest {
 
         Gson gson = builder.create();
         StudentTest student = gson.fromJson(jsonString, StudentTest.class);
-        System.out.println(student);
+//        System.out.println(student);
+//
+//        jsonString = gson.toJson(student);
+//        System.out.println(jsonString);
 
-        jsonString = gson.toJson(student);
-        System.out.println(jsonString);
+        String margsstring = "{\"email\":\"mrjakob@wpi.edu\",\"prefix\"" +
+                ":\"Mr.\",\"fName\":\"Jakob\",\"lName\":\"Misbsfkuhjfdjkheef\",\"" +
+                "suffix\":\"the last\",\"status\":0}";
+        FECommunication.makeStudent(margsstring);
     }
 }
 

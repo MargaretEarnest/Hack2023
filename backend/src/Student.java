@@ -24,17 +24,20 @@ public class Student extends Person {
      * @param university the employed {@code University} for this {@code Student}.
      */
     public Student(String email, String prefix, String fName, String lName,
-                   String suffix, int status, String[] majors, int yearOfGraduation,
-                           float gpa, String[] classes, University university) {
-        super(fName, lName, prefix, suffix, email, university);
+                   String suffix, int status
+            //, String[] majors, int yearOfGraduation,
+                           //float gpa, String[] classes, University university
+                   ) {
+        super(fName, lName, prefix, suffix, email, Vars.WPI);
         this.status = StudentType.getType(status);
-        this.majors = new HashList<>(majors);
+        //this.majors = new HashList<>(majors);
+        this.majors = new HashList<>();
         this.yearOfGraduation = yearOfGraduation;
         this.gpa = gpa;
         this.classes = new HashList<>();
-        for (String course : classes) {
-            this.classes.add(Vars.courses.get(course));
-        }
+        //for (String course : classes) {
+        //    this.classes.add(Vars.courses.get(course));
+        //}
         this.acceptedJobs = new HashList<>();
         this.requestedJobs = new HashList<>();
         this.hiredJobs = new HashList<>();
