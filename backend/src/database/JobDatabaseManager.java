@@ -1,7 +1,9 @@
 package database;
 
+import jsonObjects.Course;
 import jsonObjects.Job;
 import utils.Constants;
+import utils.HashList;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -55,7 +57,7 @@ public class JobDatabaseManager {
         try{
             Statement statement = Objects.requireNonNull(getConnection()).createStatement();
             statement.executeUpdate(String.format("UPDATE Jobs SET Title = '%s', Department = '%s', Location = '%s', StudentsRequired = %d, WeeklyHours = %d, FederalFundingRequired = %b, ContactName = '%s', Email = '%s', Phone = '%s', JobDescription = '%s', Requirements = '%s' WHERE ID = '%s'",
-                    job.getTitle(), job.getDepartment(), job.getLocation(), job.getNumStudents(), job.getHours(), job.isFederalWorkStudy(), job.getContact(), job.getEmail(), job.getPhone(), job.getDesc(), job.getRequirements(), job.getId()));
+                    job.getTitle(), job.getDepartment(), job.getLocation(), job.getNumStudents(), job.getHours(), job.isFederalWorkStudy(), job.getContact(), job.getEmail(), job.getPhone(), job.getDesc(), job.getRequirements().toString(), job.getId()));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -66,7 +68,7 @@ public class JobDatabaseManager {
             Statement statement = Objects.requireNonNull(getConnection()).createStatement();
             ResultSet result = statement.executeQuery("Select * from Jobs WHERE ID = '" + id + "'");
             if(result.getFetchSize() > 0 && result.first()){
-                return new Job(id, result.getString("Title"), result.getString("Department"), result.getString("Location"), result.getInt("StudentsRequired"), result.getInt("WeeklyHours"), result.getString("Email"), result.getBoolean("FederalFundingRequired"), result.getString("JobDescription"), result.getString("Requirements"), result.getString("Phone"), result.getString("ContactName"));
+                return new Job(id, result.getString("Title"), result.getString("Department"), result.getString("Location"), result.getInt("StudentsRequired"), result.getInt("WeeklyHours"), result.getString("Email"), result.getBoolean("FederalFundingRequired"), result.getString("JobDescription"), Course.parse(HashList.parse(result.getString("Requirements"), "|")), result.getString("Phone"), result.getString("ContactName"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

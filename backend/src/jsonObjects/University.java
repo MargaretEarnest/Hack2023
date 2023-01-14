@@ -111,6 +111,7 @@ public class University {
      * Converts this {@code University} to a printable format.
      * @return this {@code University} as a {@code String}.
      */
+    @Override
     public String toString() {
         return this.name;
     }
