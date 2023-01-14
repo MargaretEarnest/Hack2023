@@ -1,5 +1,9 @@
 package server;
 
+import com.google.gson.Gson;
+import database.UserDatabaseManager;
+import jsonObjects.Login;
+import jsonObjects.UserCreate;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
@@ -30,6 +34,33 @@ public class Server extends WebSocketServer {
     public void onMessage(WebSocket conn, String message) {
         broadcast(message);
         System.out.println(conn + ": " + message);
+        RequestHandler.Request request = RequestHandler.parseRequest(message);
+        switch(request.type){
+            case "CreateUser":
+                handleCreateUser(request);
+                break;
+            case "ValidateUser":
+                handleValidateUser(request);
+                break;
+            default:
+                System.out.println("ERROR");
+                break;
+        }
+    }
+
+    private void handleCreateUser(RequestHandler.Request request){
+        Gson gson = new Gson();
+        UserCreate userCreate = gson.fromJson(request.data, UserCreate.class);
+        UserDatabaseManager.getInstance().addUser(userCreate.email(), userCreate.password());
+    }
+
+    private void handleValidateUser(RequestHandler.Request request){
+        System.out.println("VALIDATE USER");
+        Gson gson = new Gson();
+        Login login = gson.fromJson(request.data, Login.class);
+        System.out.println(request.data);
+        boolean valid = UserDatabaseManager.getInstance().validateUser(login.email(), login.password());
+        //TODO Send back if user is valid
     }
 
     @Override

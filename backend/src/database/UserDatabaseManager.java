@@ -1,9 +1,14 @@
 package database;
 
 import utils.Constants;
+import utils.PasswordStorage;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Objects;
 
 public class UserDatabaseManager {
 
@@ -24,6 +29,10 @@ public class UserDatabaseManager {
         username = Constants.getInstance().getConfig("sql").getProperty("username");
         password = Constants.getInstance().getConfig("sql").getProperty("password");
         url = Constants.getInstance().getConfig("sql").getProperty("url");
+        System.out.println(username);
+        System.out.println(password);
+        System.out.println(url);
+        getConnection();
     }
 
     private Connection getConnection(){
@@ -37,7 +46,25 @@ public class UserDatabaseManager {
         return null;
     }
 
-    public void addUser() {
+    public void addUser(final String email, final String password) {
+        try{
+            Statement statement = Objects.requireNonNull(getConnection()).createStatement();
+            statement.executeUpdate(String.format("INSERT INTO Users(Email, Pass) values('%s', '%s')", email, PasswordStorage.createHash(password)));
+        } catch (SQLException | PasswordStorage.CannotPerformOperationException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+    public boolean validateUser(final String email, final String password){
+        try{
+            Statement statement = Objects.requireNonNull(getConnection()).createStatement();
+            ResultSet result = statement.executeQuery(String.format("SELECT Pass FROM Users WHERE email = '%s'", email));
+            if(result.getFetchSize() > 0 && result.first()){
+                PasswordStorage.verifyPassword(result.getString(password), password);
+            }
+        } catch (SQLException | PasswordStorage.InvalidHashException | PasswordStorage.CannotPerformOperationException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
     }
 }
