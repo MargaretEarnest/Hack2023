@@ -150,4 +150,13 @@ public class Job {
     public void setContact(String contact) {
         this.contact = contact;
     }
+
+    /**
+     * Gets the hashCode for this {@code Job}.
+     * @return the hashCode for the {@code id} for this {@code Job}.
+     */
+    @Override
+    public int hashCode() {
+        return this.id.hashCode();
+    }
 }

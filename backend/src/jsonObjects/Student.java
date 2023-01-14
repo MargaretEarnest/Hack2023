@@ -107,6 +107,29 @@ public class Student extends Person {
     }
 
     /**
+     * Generates a list of all {@code Jobs} for which this {@code Student} is eligible based
+     * on completion of the {@code Course} requirements.
+     * @return the list of {@code Jobs}.
+     */
+    public HashList<Job> getEligibleJobs() {
+        final HashList<Job> jobs = new HashList<>();
+        for(Employer employer : super.getUniversity().getEmployers()) {
+            for(Job job : employer.getJobs()) {
+                boolean acceptJob = true;
+                for(Course course : job.getRequirements()) {
+                    if(acceptJob && ! this.classes.contains(course)) {
+                        acceptJob = false;
+                    }
+                }
+                if(acceptJob) {
+                    jobs.add(job);
+                }
+            }
+        }
+        return jobs;
+    }
+
+    /**
      * Gets the list of {@code Courses} for this {@code jsonObjects.Student}.
      * @return {@code this.classes}
      */
