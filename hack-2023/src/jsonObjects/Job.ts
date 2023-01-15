@@ -13,12 +13,11 @@ export class Job{
     public desc: string;
     public gpa: number;
     public classYear: number;
-    public grad: number;
     public phone: string;
     public contact: string;
     public employees: string[];
 
-    constructor(id: number, creators: string[], type: number, majors: string[], title: string, department: string, location: string, numStudents: number, hours: number, email: string, federalWorkStudy: boolean, desc: string, gpa: number, classYear: number, grad: number, phone: string, contact: string, employees: string[]) {
+    constructor(id: number, creators: string[], type: number, majors: string[], title: string, department: string, location: string, numStudents: number, hours: number, email: string, federalWorkStudy: boolean, desc: string, gpa: number, classYear: number, phone: string, contact: string, employees: string[]) {
         this.id = id;
         this.creators = creators;
         this.type = type;
@@ -33,7 +32,6 @@ export class Job{
         this.desc = desc;
         this.gpa = gpa;
         this.classYear = classYear;
-        this.grad = grad;
         this.classYear = classYear;
         this.phone = phone;
         this.contact = contact;

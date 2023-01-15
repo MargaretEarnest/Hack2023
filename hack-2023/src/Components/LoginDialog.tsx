@@ -50,7 +50,7 @@ export default function LoginDialog(props: { open: boolean, handleClose: () => v
                         } else {
                             alert("Login incorrect");
                             props.setUsername("W");
-                            props.setAccountType("student");
+                            props.setAccountType("professor");
                             props.setEmail(getById("email"));
                             props.handleClose();
                         }
