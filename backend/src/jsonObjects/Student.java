@@ -1,6 +1,7 @@
 package jsonObjects;
 
 import com.google.gson.Gson;
+import utils.BST;
 import utils.ComparableMapEntry;
 import utils.HashList;
 
@@ -140,10 +141,11 @@ public class Student extends Person {
      * Sorted based on what percent match the student is
      */
     public String getFilteredJobs(){
-        final TreeSet<ComparableMapEntry<Double, Job>> jobs = new TreeSet<>();
+        final BST<ComparableMapEntry<Double, Job>> jobs = new BST<>();
         for(Employer employer : super.getUniversity().getEmployers()) {
             System.out.println(employer.getPrefix());
             for(Job job : employer.getJobs()) {
+                System.out.println(job.getTitle());
                 int classCount = 0, total = 0;
                 for(Course course : job.getRequirements()) {
                     final int difficulty = course.difficulty();
@@ -156,11 +158,14 @@ public class Student extends Person {
                 if(total != 0) {
                     percent = classCount / (total + 0.0);
                 } // pair is 'job' and 'percent'
-                jobs.add(new ComparableMapEntry<>(-percent, job));
+                System.out.println(jobs.size());
+                jobs.insert(new ComparableMapEntry<>(-percent, job));
+                System.out.println(jobs.size());
             }
         }
+        System.out.println(jobs.size());
         List<Job> sortedJobs = new LinkedList<>();
-        for(ComparableMapEntry<Double, Job> entry : jobs) {
+        for(ComparableMapEntry<Double, Job> entry : jobs.getOrderedList()) {
             sortedJobs.add(entry.value());
             System.out.println(entry.value().getTitle());
             System.out.println(entry.key());
