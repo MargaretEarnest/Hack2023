@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import utils.ComparableMapEntry;
 import utils.HashList;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * The {@code jsonObjects.Student} object stores all necessary information for which
@@ -143,7 +140,7 @@ public class Student extends Person {
      * Sorted based on what percent match the student is
      */
     public String getFilteredJobs(){
-        final PriorityQueue<ComparableMapEntry<Double, Job>> jobs = new PriorityQueue<>();
+        final TreeSet<ComparableMapEntry<Double, Job>> jobs = new TreeSet<>();
         for(Employer employer : super.getUniversity().getEmployers()) {
             System.out.println(employer.getPrefix());
             for(Job job : employer.getJobs()) {
@@ -159,7 +156,7 @@ public class Student extends Person {
                 if(total != 0) {
                     percent = classCount / (total + 0.0);
                 } // pair is 'job' and 'percent'
-                jobs.add(new ComparableMapEntry<>(percent, job));
+                jobs.add(new ComparableMapEntry<>(-percent, job));
             }
         }
         List<Job> sortedJobs = new LinkedList<>();

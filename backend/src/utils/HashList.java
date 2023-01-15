@@ -574,7 +574,7 @@ public class HashList<Value> implements Iterable<Value> {
      */
     private static class Cell<Value> {
         private final Value value;
-        private Cell<Value> next, prev;
+        private transient Cell<Value> next, prev;
 
         /**
          * Creates a new Cell
