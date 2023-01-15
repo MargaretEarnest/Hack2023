@@ -214,6 +214,9 @@ public class JobDatabaseManager {
                 }
                 SQLRequest = SQLRequest.concat(" AND (" + locations + ")");
             }
+            if(request.federalWorkStudy()) {
+                SQLRequest = SQLRequest.concat(" AND FederalFundingRequired = \'TRUE\'");
+            }
             // Runs the constructed SQL command to find the filtered job results.
             Statement statement = Objects.requireNonNull(getConnection()).createStatement();
             ResultSet result = statement.executeQuery(SQLRequest);
