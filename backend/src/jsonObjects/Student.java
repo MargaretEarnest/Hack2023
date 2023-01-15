@@ -130,6 +130,21 @@ public class Student extends Person {
     }
 
     /**
+     * Generates a list of recommended classes that meet the
+     * filters that the student put in
+     * Sorted based on what percent match the student is
+     */
+    public HashList<Job> getFilteredJobs(){
+        HashList<Job> jobs = new HashList<Job>();
+        // meet all requirements
+        // matches this student's major
+        // matches this student's school year
+
+
+        return jobs;
+    }
+
+    /**
      * Gets the list of {@code Courses} for this {@code jsonObjects.Student}.
      * @return {@code this.classes}
      */
