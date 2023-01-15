@@ -165,6 +165,8 @@ public class Student extends Person {
         List<Job> sortedJobs = new LinkedList<>();
         for(ComparableMapEntry<Double, Job> entry : jobs) {
             sortedJobs.add(entry.value());
+            System.out.println(entry.value().getTitle());
+            System.out.println(entry.key());
         }
         System.out.println(sortedJobs.size());
         return new Gson().toJson(sortedJobs);

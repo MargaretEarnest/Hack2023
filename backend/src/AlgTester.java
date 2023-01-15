@@ -48,7 +48,7 @@ public class AlgTester {
                 "davtheman@yahoo.net",
                 true,
                 "it is what you think ;)",
-                new HashList<>(balls),
+                new HashList<>(orbs),
                 "508",
                 "Dave the man"
         );
@@ -62,13 +62,43 @@ public class AlgTester {
                 "davtheman@yahoo.net",
                 false,
                 "looking for someone to ride a cycle to pull the bus",
+                new HashList<>(eggs, balls),
+                "508",
+                "Dave the man"
+        );
+        Job coder = new Job(
+                "3",
+                "Coder",
+                "CS",
+                "stratton 20",
+                1,
+                7,
+                "davtheman@yahoo.net",
+                true,
+                "need a pro coder",
+                new HashList<>(balls, orbs),
+                "508",
+                "Dave the man"
+        );
+        Job nailBiter = new Job(
+                "3",
+                "Nail Biter",
+                "CS",
+                "",
+                1,
+                16,
+                "davtheman@yahoo.net",
+                false,
+                "looking for someone to ride a cycle to pull the bus",
                 new HashList<>(eggs),
                 "508",
                 "Dave the man"
         );
         dave.getJobs().add(dirtEnthusiast);
         dave.getJobs().add(busCyclist);
-        //System.out.println(dave.getUniversity().getEmployers().get(0).getJobs().get(0).getDepartment());
+        dave.getJobs().add(coder);
+        dave.getJobs().add(nailBiter);
+        //System.out.println(dave.getUniversity().getEmployers().get(0).getJobs().size());
         //tony.getFilteredJobs();
         System.out.println(tony.getFilteredJobs());
 
