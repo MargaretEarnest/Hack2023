@@ -22,8 +22,6 @@ function FindStudentsPage(props: {
         }
     }
 
-    let appStudentMap: any = {};
-
     function loadStudents(jobName: string) {
         let request = new BackendRequest("StudentList", JSON.stringify({JobTitle: jobName}))
 
@@ -34,7 +32,10 @@ function FindStudentsPage(props: {
         };
         websocket.onmessage = (event) => {
             console.log(event, JSON.parse(event.data).studentList);
-            appStudentMap[jobName] = JSON.parse(event.data).studentList;
+            let temp: any = appStudentMap;
+            temp[jobName] = JSON.parse(event.data).studentList;
+            setAppStudentMap(temp);
+            console.log("Iiiii", appStudentMap)
             websocket.close();
         };
     }
@@ -45,6 +46,7 @@ function FindStudentsPage(props: {
     const [selectedJob, setSelectedJob] = React.useState<any>(null);
     const [appStudents, setAppStudents] = React.useState<Student[]>([]);
     const [jobs, setJobs] = React.useState<string[]>([]);
+    const [appStudentMap, setAppStudentMap] = React.useState<any>({});
 
     useEffect(function() {
         let request = new BackendRequest("GetJobs", "")
@@ -60,7 +62,6 @@ function FindStudentsPage(props: {
             for (const job of JSON.parse(event.data).filter((j: any) => j != "null")) {
                 loadStudents(job);
             }
-            console.log(jobs);
             websocket.close();
         };
     }, []);
@@ -145,11 +146,8 @@ function FindStudentsPage(props: {
                                     width: "170px",
                                     height: "90%"
                                 }}>
-                                    <p><b>{app.prefix + " " + app.fName + " " + app.lName + " " + app.suffix}</b></p>
-                                    <p>{["Undergraduate", "Grad student", "Doctoral student", "Postdoc"][app.status] + ", grad year " + app.yearOfGraduation}</p>
-                                    <p>{"Majoring in " + app.majors}</p>
-                                    <p>{"Has taken " + app.classes}</p>
-                                    <p>Percent match: 90%</p>
+                                    <p><b>{app.prefix + " " + app.fName + " " + app.lName}</b></p>
+                                    <p>{"Grad year " + app.yearOfGraduation}</p>
                                     <Button onClick={() => {
                                         setAcceptStudent(true)
 
@@ -201,60 +199,6 @@ function FindStudentsPage(props: {
                             </IconButton>
                         </div>
                         <br/>
-                        <span
-                            style={{
-                                marginLeft: "65px",
-                                fontSize: "20px",
-                                fontWeight: "bold"
-                            }}>Recommended students:</span>
-                        <div style={{marginTop: "10px", display: "flex", height: "35%", alignItems: "center"}}>
-                            <IconButton onClick={() => slide("recContainer", 'left')}>
-                                <ArrowCircleLeft sx={{fontSize: 50}}/>
-                            </IconButton>
-                            <div id="recContainer" style={{
-                                padding: "5px",
-                                position: "relative",
-                                backgroundColor: "lightgray",
-                                overflow: "auto",
-                                whiteSpace: "nowrap",
-                                overflowX: "scroll",
-                                overflowY: "clip",
-                                width: "85%",
-                                height: "100%",
-                                margin: "auto"
-                            }}>
-                                {appStudents.map((app: Student) => <div className={"studentList"} style={{
-                                    position: "relative",
-                                    overflowY: "auto",
-                                    padding: "10px",
-                                    fontSize: "12px",
-                                    backgroundColor: "#FFF7D6",
-                                    whiteSpace: "normal",
-                                    display: "inline-block",
-                                    margin: "5px",
-                                    width: "170px",
-                                    height: "90%"
-                                }}>
-                                    <p><b>{app.prefix + " " + app.fName + " " + app.lName + " " + app.suffix}</b></p>
-                                    <p>{["Undergraduate", "Grad student", "Doctoral student", "Postdoc"][app.status] + ", grad year " + app.yearOfGraduation}</p>
-                                    <p>{"Majoring in " + getStringWithConjunction(app.majors, "and")}</p>
-                                    <p>{"Has taken " + getStringWithConjunction(app.classes, "and")}</p>
-                                    <p>Percent match: 90%</p>
-                                    <Button onClick={() => {
-                                        setSuccessfullyConnected(true)
-                                    }} color={"primary"} variant={"contained"} style={{
-                                        borderRadius: 0,
-                                        width: "100%",
-                                        position: "absolute",
-                                        bottom: 0,
-                                        left: 0
-                                    }}>Connect</Button>
-                                </div>)}
-                            </div>
-                            <IconButton onClick={() => slide("recContainer", 'right')}>
-                                <ArrowCircleRight sx={{fontSize: 50}}/>
-                            </IconButton>
-                        </div>
                         <Snackbar
                             open={rejectStudent}
                             autoHideDuration={3000}
