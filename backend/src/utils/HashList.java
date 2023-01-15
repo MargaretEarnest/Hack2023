@@ -64,8 +64,18 @@ public class HashList<Value> implements Iterable<Value> {
         return true;
     }
 
-    public Map<Value, Cell<Value>> getMap(){
-        return map;
+    /**
+     * Converts this {@code HashList} to an {@code Array}.
+     * @return the {@code Array}.
+     */
+    @SuppressWarnings("unchecked")
+    public Value[] toArray() {
+        final Object[] array = new Object[size()];
+        int index = 0;
+        for(Value value : this) {
+            array[index++] = value;
+        }
+        return (Value[]) array;
     }
 
     /**

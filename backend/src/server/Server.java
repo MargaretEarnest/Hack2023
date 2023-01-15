@@ -61,8 +61,7 @@ public class Server extends WebSocketServer {
         Gson gson = new Gson();
         JobListRequest jobListRequest = gson.fromJson(request.data, JobListRequest.class);
         HashList<Job> allJobs = JobDatabaseManager.getInstance().getApplicableJobs(jobListRequest);
-        Set<Job> jobsList = allJobs.getMap().keySet();
-        conn.send(gson.toJson(jobsList.toArray()));
+        conn.send(gson.toJson(allJobs.toArray()));
     }
 
     private void handleCreateStudent(WebSocket conn, RequestHandler.Request request){
