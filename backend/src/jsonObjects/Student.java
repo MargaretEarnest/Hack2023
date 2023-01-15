@@ -142,7 +142,7 @@ public class Student extends Person {
     public String getFilteredJobs(){
         final PriorityQueue<ComparableMapEntry<Double, Job>> jobs = new PriorityQueue<>();
         for(Employer employer : super.getUniversity().getEmployers()) {
-            //System.out.println(employer.getPrefix());
+            System.out.println(employer.getPrefix());
             for(Job job : employer.getJobs()) {
                 int classCount = 0, total = 0;
                 for(Course course : job.getRequirements()) {
@@ -159,11 +159,11 @@ public class Student extends Person {
                 jobs.add(new ComparableMapEntry<>(percent, job));
             }
         }
-        HashList<Job> sortedJobs = new HashList<>();
+        List<Job> sortedJobs = new LinkedList<>();
         for(ComparableMapEntry<Double, Job> entry : jobs) {
             sortedJobs.add(entry.value());
         }
-        //System.out.println(sortedJobs.size());
+        System.out.println(sortedJobs.size());
         return new Gson().toJson(sortedJobs);
     }
 
