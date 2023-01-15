@@ -64,6 +64,10 @@ public class HashList<Value> implements Iterable<Value> {
         return true;
     }
 
+    public Map<Value, Cell<Value>> getMap(){
+        return map;
+    }
+
     /**
      * Adds a List of {@code HashNodes} into this {@code utils.HashList}.
      * @param iterable the target Iterable

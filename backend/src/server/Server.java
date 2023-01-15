@@ -2,14 +2,17 @@ package server;
 
 import com.google.gson.Gson;
 import database.EmployerDatabaseManager;
+import database.JobDatabaseManager;
 import database.StudentDatabaseManager;
 import database.UserDatabaseManager;
 import jsonObjects.*;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
+import utils.HashList;
 
 import java.net.InetSocketAddress;
+import java.util.Set;
 
 public class Server extends WebSocketServer {
     public Server(int port) {
@@ -57,6 +60,9 @@ public class Server extends WebSocketServer {
     private void handleJobList(WebSocket conn, RequestHandler.Request request) {
         Gson gson = new Gson();
         JobListRequest jobListRequest = gson.fromJson(request.data, JobListRequest.class);
+        HashList<Job> allJobs = JobDatabaseManager.getInstance().getApplicableJobs(jobListRequest);
+        Set<Job> jobsList = allJobs.getMap().keySet();
+        conn.send(gson.toJson(jobsList.toArray()));
     }
 
     private void handleCreateStudent(WebSocket conn, RequestHandler.Request request){
