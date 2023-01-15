@@ -40,6 +40,7 @@ public class Student extends Person {
         this.yearOfGraduation = yearOfGraduation;
         this.gpa = gpa;
         this.classes = classes;
+        super.getUniversity().getStudents().add(this);
         this.acceptedJobs = new HashList<>();
         this.requestedJobs = new HashList<>();
         this.hiredJobs = new HashList<>();
@@ -143,14 +144,15 @@ public class Student extends Person {
         for(Employer employer : super.getUniversity().getEmployers()) {
             //System.out.println(employer.getPrefix());
             for(Job job : employer.getJobs()) {
-                int classCount = 0;
+                int classCount = 0, total = 0;
                 for(Course course : job.getRequirements()) {
+                    final int difficulty = course.difficulty();
+                    total += difficulty;
                     if(this.classes.contains(course)) {
-                        classCount++;
+                        classCount += difficulty;
                     }
                 }
                 double percent = 1.0;
-                int total = job.getRequirements().size();
                 if(total != 0) {
                     percent = classCount / (total + 0.0);
                 } // pair is 'job' and 'percent'
