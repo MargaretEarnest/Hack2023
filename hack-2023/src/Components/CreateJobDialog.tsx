@@ -70,6 +70,8 @@ export default function CreateJobDialog(props: { currentUser: string, open: bool
                     <TextField className={"formSpacing"} id="employees" label="Employees" variant="outlined"/><br/><br/>
                     <AutocompleteMultiselect setValue={setMajors} width="210px" marginLeft="0"
                                              data={DataLists.collegeMajors} name={"Majors"}/><br/>
+                    <AutocompleteMultiselect setValue={setClasses} width="210px" marginLeft="0"
+                                             data={DataLists.courses} name={"Required Courses"}/><br/>
                 </div>
                 <p>Please enter each employee associated with the project with a comma between entries, ex. "John
                     Doe, Jane Doe"</p>
