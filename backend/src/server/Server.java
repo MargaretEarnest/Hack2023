@@ -9,6 +9,7 @@ import org.java_websocket.server.WebSocketServer;
 import utils.HashList;
 
 import java.net.InetSocketAddress;
+import java.nio.charset.spi.CharsetProvider;
 import java.util.List;
 import java.util.Set;
 
@@ -47,6 +48,8 @@ public class Server extends WebSocketServer {
 
     private void handleApplyToJob(WebSocket conn, RequestHandler.Request request) {
         Gson gson = new Gson();
+        ApplyToJobRequest applyToJobRequest = gson.fromJson(request.data, ApplyToJobRequest.class);
+        ChosenJobDatabaseManager.getInstance().addChoice(applyToJobRequest.jobName(), applyToJobRequest.email());
     }
 
     private void handleJobLoad(WebSocket conn, RequestHandler.Request request) {
