@@ -126,21 +126,16 @@ function SignupPage() {
                                    label="Confirm Password" variant="outlined"/><br/>
                         <Button variant={"contained"} style={{width: "160px", marginLeft: "30%"}} onClick={() => {
                             let request: BackendRequest;
-                            console.log("hmmmm")
                             if (accountType === "student") {
-                                console.log("student")
                                 //Create a student
                                 let data = "";
                                 if(getById("pass1") === getById("pass2")) {
-                                    let student = new Student(getById("email"), getById("prefix"), getById("fname"), getById("lname"), getById("suffix"), status, majors, gradYear, parseFloat(getById("gpa")), classes);
-                                    console.log(student);
+                                    let student = new Student(getById("email"), getById("prefix"), getById("fName"), getById("lName"), getById("suffix"), status, majors, gradYear, parseFloat(getById("gpa")), classes);
                                     let createStudentReq = new CreateStudentRequest(student, getById("pass1"));
-                                    console.log(createStudentReq);
                                     data = JSON.stringify(createStudentReq);
                                 } else {
                                     alert("Passwords do not match")
                                 }
-                                console.log(data);
                                 request = new BackendRequest("CreateStudent", data);
                             } else {
                                 //Create an employer
