@@ -1,6 +1,10 @@
 package jsonObjects;
 
+import com.google.gson.Gson;
+import utils.ComparableMapEntry;
 import utils.HashList;
+
+import java.util.PriorityQueue;
 
 /**
  * The {@code jsonObjects.Student} object stores all necessary information for which
