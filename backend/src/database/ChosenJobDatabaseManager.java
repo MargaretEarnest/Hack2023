@@ -63,10 +63,24 @@ public class ChosenJobDatabaseManager {
     public Object[] getChoices(String jobName){
         try{
             Statement statement = Objects.requireNonNull(getConnection()).createStatement();
-            ResultSet results = statement.executeQuery(String.format("SELECT Email From ChosenJobs WHERE JobName= '%s'", jobName));
+            ResultSet results = statement.executeQuery(String.format("SELECT DISTINCT Email From ChosenJobs WHERE JobName= '%s'", jobName));
+            List<String> students = new ArrayList<>();
+            while(!results.isClosed() && results.next()){
+                students.add(results.getString("Email"));
+            }
+            return students.toArray();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Object[] getAllJobs(){
+        try{
+            Statement statement = Objects.requireNonNull(getConnection()).createStatement();
+            ResultSet results = statement.executeQuery("SELECT Title From Jobs");
             List<String> students = new ArrayList<>();
             while(results.next()){
-                students.add(results.getString("Email"));
+                students.add(results.getString("Title"));
             }
             return students.toArray();
         } catch (SQLException e) {

@@ -33,6 +33,7 @@ public class Job {
     private final HashList<Course> requirements; // required courses
     private String phone; // contact phone
     private String contact; // contact person
+    private int status; // type of student
 
     /**
      * Creates a new {@code Job} offering.
@@ -52,7 +53,7 @@ public class Job {
      */
     public Job(String id, String title, String department, String location, int numStudents,
                int hours, String email, boolean federalWorkStudy, String desc,
-               HashList<Course> requirements, String phone, String contact) {
+               HashList<Course> requirements, String phone, String contact, int status) {
         this.id = id;
         this.title = title;
         this.department = department;
@@ -65,6 +66,7 @@ public class Job {
         this.requirements = requirements;
         this.phone = phone;
         this.contact = contact;
+        this.status = status;
     }
 
     public String getId() {
@@ -157,6 +159,10 @@ public class Job {
 
     public void setContact(String contact) {
         this.contact = contact;
+    }
+
+    public int getStatus() {
+        return this.status;
     }
 
     /**

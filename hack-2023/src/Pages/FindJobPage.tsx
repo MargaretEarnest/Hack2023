@@ -201,7 +201,7 @@ function FindJobPage(props: {email: string}) {
                             }}
                             onClick={() => {
                                 setSuccessfullyApplied(true)
-                                let request = new BackendRequest("ApplyToJob", JSON.stringify({email: props.email, jobId: j.id}))
+                                let request = new BackendRequest("ApplyToJob", JSON.stringify({email: props.email, jobName: j.title}))
 
                                 let websocket = new WebSocket("ws://localhost:8129");
                                 websocket.onopen = () => {

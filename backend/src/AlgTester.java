@@ -50,7 +50,8 @@ public class AlgTester {
                 "it is what you think ;)",
                 new HashList<>(orbs),
                 "508",
-                "Dave the man"
+                "Dave the man",
+                0
         );
         Job busCyclist = new Job(
                 "3",
@@ -64,7 +65,8 @@ public class AlgTester {
                 "looking for someone to ride a cycle to pull the bus",
                 new HashList<>(eggs, balls),
                 "508",
-                "Dave the man"
+                "Dave the man",
+                1
         );
         Job coder = new Job(
                 "3",
@@ -78,7 +80,8 @@ public class AlgTester {
                 "need a pro coder",
                 new HashList<>(balls, orbs),
                 "508",
-                "Dave the man"
+                "Dave the man",
+                1
         );
         Job nailBiter = new Job(
                 "3",
@@ -92,7 +95,8 @@ public class AlgTester {
                 "looking for someone to ride a cycle to pull the bus",
                 new HashList<>(eggs),
                 "508",
-                "Dave the man"
+                "Dave the man",
+                2
         );
         dave.getJobs().add(dirtEnthusiast);
         dave.getJobs().add(busCyclist);

@@ -13,4 +13,5 @@ public class CreateJobRequest {
     public String[] requirements;
     public String phone;
     public String contact;
+    public int status;
 }

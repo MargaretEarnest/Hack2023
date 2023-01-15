@@ -42,8 +42,16 @@ public class Server extends WebSocketServer {
             case "ChooseStudent" -> handleChooseStudent(conn, request);
             case "JobLoadRequest" -> handleJobLoad(conn, request);
             case "ApplyToJob" -> handleApplyToJob(conn, request);
+            case "GetJobs" -> handleGetJobs(conn, request);
             default -> System.out.println("ERROR");
         }
+    }
+
+    private void handleGetJobs(WebSocket conn, RequestHandler.Request request) {
+        Gson gson = new Gson();
+        StudentListRequest studentListRequest = gson.fromJson(request.data, StudentListRequest.class);
+        Object[] jobs = ChosenJobDatabaseManager.getInstance().getAllJobs();
+        conn.send(gson.toJson(jobs));
     }
 
     private void handleApplyToJob(WebSocket conn, RequestHandler.Request request) {
@@ -76,8 +84,9 @@ public class Server extends WebSocketServer {
     private void handleCreateJob(WebSocket conn, RequestHandler.Request request) {
         Gson gson = new Gson();
         CreateJobRequest cr = gson.fromJson(request.data, CreateJobRequest.class);
+        System.out.println(cr.requirements.length);
         JobDatabaseManager.getInstance().addJob(new Job(cr.ID, cr.title, cr.department, cr.location, cr.numStudents,
-                cr.hours, cr.email, cr.federalWorkStudy, cr.desc, Course.parse(new HashList<>(cr.requirements)), cr.phone, cr.contact));
+                cr.hours, cr.email, cr.federalWorkStudy, cr.desc, Course.parse(new HashList<>(cr.requirements)), cr.phone, cr.contact, cr.status));
         conn.send(gson.toJson(new CreateResponse(true)));
     }
 
@@ -118,6 +127,7 @@ public class Server extends WebSocketServer {
                 name = student.getPrefix() + " " + student.getfName() + " " +  student.getlName() + " " +  student.getSuffix();
             }else if(EmployerDatabaseManager.getInstance().containsEmployer(login.email())){
                 Employer employer = EmployerDatabaseManager.getInstance().getEmployer(login.email());
+                System.out.println(employer);
                 name = employer.getPrefix() + " " + employer.getfName() + " " +  employer.getlName() + " " +  employer.getSuffix();
             }else{
                 valid = false;

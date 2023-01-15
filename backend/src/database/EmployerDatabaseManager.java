@@ -64,12 +64,12 @@ public class EmployerDatabaseManager {
     public Employer getEmployer(String email){
         try{
             Statement statement = Objects.requireNonNull(getConnection()).createStatement();
-            ResultSet result = statement.executeQuery(String.format("SELECT * FROM Employer WHERE email = '%s'", email));
+            ResultSet result = statement.executeQuery(String.format("SELECT * FROM Teachers WHERE email = '%s'", email));
             Employer employer = null;
-            if (result.getFetchSize() > 0 && result.first()) {
+            if (result.next()) {
                 employer = new Employer(result.getString("Fname"), result.getString("Lname"), result.getString("Pname"), result.getString("Sname"), email, University.findUniversity(result.getString("University")));
             }
-            return employer ;
+            return employer;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

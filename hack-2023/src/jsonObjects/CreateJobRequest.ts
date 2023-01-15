@@ -1,6 +1,5 @@
 export class CreateJobRequest {
-    public type: number;
-    public majors: string[];
+    public ID: string;
     public title: string;
     public department: string;
     public location: string;
@@ -9,17 +8,16 @@ export class CreateJobRequest {
     public email: string;
     public federalWorkStudy: boolean;
     public desc: string;
-    public gpa: number;
-    public classYear: number;
+    public requirements: string[];
     public phone: string;
     public contact: string;
-    public employees: string[];
+    public status: number;
 
-    constructor(type: number, majors: string[], title: string, department: string, location: string, numStudents: number,
-        hours: number, email: string, federalWorkStudy: boolean, desc: string, gpa: number, classYear: number, phone: string,
-        contact: string, employees: string[]) {
-        this.type = type;
-        this.majors = majors;
+    constructor(ID: string, title: string, department: string, location: string,
+                numStudents: number, hours: number, email: string, federalWorkStudy: boolean,
+                desc: string, requirements: string[], phone: string, contact: string,
+                status: number) {
+        this.ID = ID;
         this.title = title;
         this.department = department;
         this.location = location;
@@ -28,10 +26,9 @@ export class CreateJobRequest {
         this.email = email;
         this.federalWorkStudy = federalWorkStudy;
         this.desc = desc;
-        this.gpa = gpa;
-        this.classYear = classYear;
+        this.requirements = requirements;
         this.phone = phone;
         this.contact = contact;
-        this.employees = employees;
+        this.status = status;
     }
 }

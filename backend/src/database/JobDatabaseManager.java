@@ -49,8 +49,14 @@ public class JobDatabaseManager {
     public void addJob(Job job){
         try{
             Statement statement = Objects.requireNonNull(getConnection()).createStatement();
-            statement.executeUpdate(String.format("INSERT INTO Jobs (ID, Title, Department, Location, StudentsRequired, WeeklyHours, FederalFundingRequired, ContactName, Email, Phone, JobDescription, Requirements) VALUES" +
-                    "(UUID(), '%s', '%s', '%s', %d, %d, %b, '%s', '%s', '%s', '%s', '%s'"));
+//            System.out.println(
+//                    String.format("INSERT INTO Jobs (ID, Title, Department, Location, StudentsRequired, WeeklyHours, WorkStudy, ContactName, Email, Phone, JobDescription, Positions, Prerequisites, Miscellaneous) VALUES " +
+//                                    "(UUID(), '%s', '%s', '%s', %d, %d, %b, '%s', '%s', '%s', '%s', '%d', '%s', '%s'",
+//                            job.getTitle(), job.getDepartment(), job.getLocation(), job.getNumStudents(), job.getHours(), job.isFederalWorkStudy(), job.getContact(), job.getEmail(), job.getPhone(), job.getDesc(), job.getStatus(), job.getRequirements().toString(), "")
+//            );
+            statement.executeUpdate(String.format("INSERT INTO Jobs (ID, Title, Department, Location, StudentsRequired, WeeklyHours, WorkStudy, ContactName, Email, Phone, JobDescription, Positions, Prerequisites, Miscellaneous) VALUES " +
+                    "(UUID(), '%s', '%s', '%s', %d, %d, %b, '%s', '%s', '%s', '%s', '%d', '%s', '%s')",
+                    job.getTitle(), job.getDepartment(), job.getLocation(), job.getNumStudents(), job.getHours(), job.isFederalWorkStudy(), job.getContact(), job.getEmail(), job.getPhone(), job.getDesc(), job.getStatus(), job.getRequirements().toString(), ""));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -71,7 +77,7 @@ public class JobDatabaseManager {
             Statement statement = Objects.requireNonNull(getConnection()).createStatement();
             ResultSet result = statement.executeQuery("Select * from Jobs WHERE ID = '" + id + "'");
             if(result.getFetchSize() > 0 && result.first()){
-                return new Job(id, result.getString("Title"), result.getString("Department"), result.getString("Location"), result.getInt("StudentsRequired"), result.getInt("WeeklyHours"), result.getString("Email"), result.getBoolean("FederalFundingRequired"), result.getString("JobDescription"), Course.parse(new HashList<>(new Gson().fromJson(result.getString("Requirements"), String[].class))), result.getString("Phone"), result.getString("ContactName"));
+                return new Job(id, result.getString("Title"), result.getString("Department"), result.getString("Location"), result.getInt("StudentsRequired"), result.getInt("WeeklyHours"), result.getString("Email"), result.getBoolean("FederalFundingRequired"), result.getString("JobDescription"), Course.parse(new HashList<>(new Gson().fromJson(result.getString("Requirements"), String[].class))), result.getString("Phone"), result.getString("ContactName"), result.getInt("Positions"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -91,7 +97,7 @@ public class JobDatabaseManager {
             for(String id : ids) {
                 ResultSet result = statement.executeQuery("Select * from Jobs WHERE ID = '" + id + "'");
                 if(result.getFetchSize() > 0 && result.first()){
-                    jobs.add(new Job(id, result.getString("Title"), result.getString("Department"), result.getString("Location"), result.getInt("StudentsRequired"), result.getInt("WeeklyHours"), result.getString("Email"), result.getBoolean("FederalFundingRequired"), result.getString("JobDescription"), Course.parse(new HashList<>(new Gson().fromJson(result.getString("Requirements"), String[].class))), result.getString("Phone"), result.getString("ContactName")));
+                    jobs.add(new Job(id, result.getString("Title"), result.getString("Department"), result.getString("Location"), result.getInt("StudentsRequired"), result.getInt("WeeklyHours"), result.getString("Email"), result.getBoolean("FederalFundingRequired"), result.getString("JobDescription"), Course.parse(new HashList<>(new Gson().fromJson(result.getString("Requirements"), String[].class))), result.getString("Phone"), result.getString("ContactName"), result.getInt("Positions")));
                 }
             }
             return jobs;
@@ -228,7 +234,7 @@ public class JobDatabaseManager {
             final HashList<Job> jobs = new HashList<>();
             while(result.next()) {
                 //System.out.println("new thing added!!1!1!");
-                jobs.add(new Job(result.getString("ID"), result.getString("Title"), result.getString("Department"), result.getString("Location"), result.getInt("StudentsRequired"), result.getInt("WeeklyHours"), result.getString("Email"), result.getBoolean("WorkStudy"), result.getString("JobDescription"), Course.parse(new HashList<>(new Gson().fromJson(result.getString("Prerequisites"), String[].class))), result.getString("Phone"), result.getString("ContactName")));
+                jobs.add(new Job(result.getString("ID"), result.getString("Title"), result.getString("Department"), result.getString("Location"), result.getInt("StudentsRequired"), result.getInt("WeeklyHours"), result.getString("Email"), result.getBoolean("WorkStudy"), result.getString("JobDescription"), Course.parse(new HashList<>(new Gson().fromJson(result.getString("Prerequisites"), String[].class))), result.getString("Phone"), result.getString("ContactName"), result.getInt("Positions")));
             }
             //System.out.println("second guakamole");
             return jobs;

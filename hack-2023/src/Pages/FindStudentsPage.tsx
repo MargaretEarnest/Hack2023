@@ -5,9 +5,12 @@ import {ArrowCircleLeft, ArrowCircleRight} from "@mui/icons-material";
 import {BackendRequest} from "../jsonObjects/BackendRequest";
 import {useEffect} from "react";
 import {Student} from "../jsonObjects/Student";
+import {Job} from "../jsonObjects/Job";
 
 function getStringWithConjunction(a: string[], conj: string) {
-    return a.slice(0, -1).join(', ') + (a.length > 1 ? " " + conj + " " : '') + a.slice(-1);
+    if (a) {
+        return a.slice(0, -1).join(', ') + (a.length > 1 ? " " + conj + " " : '') + a.slice(-1);
+    }
 }
 
 function FindStudentsPage(props: {
@@ -21,7 +24,7 @@ function FindStudentsPage(props: {
     }
 
     function loadStudents() {
-        let request = new BackendRequest("StudentList", JSON.stringify({jobTitle: selectedJob.title}))
+        let request = new BackendRequest("StudentList", JSON.stringify({JobTitle: selectedJob}))
 
         let websocket = new WebSocket("ws://localhost:8129");
         websocket.onopen = () => {
@@ -30,7 +33,7 @@ function FindStudentsPage(props: {
         };
         websocket.onmessage = (event) => {
             console.log(event);
-            setAppStudents(JSON.parse(event.data).students);
+            setAppStudents(JSON.parse(event.data).studentList);
             websocket.close();
         };
     }
@@ -40,32 +43,29 @@ function FindStudentsPage(props: {
     const [rejectStudent, setRejectStudent] = React.useState(false);
     const [selectedJob, setSelectedJob] = React.useState<any>(null);
     const [appStudents, setAppStudents] = React.useState<Student[]>([]);
+    const [jobs, setJobs] = React.useState<string[]>([]);
 
     useEffect(function() {
-        loadStudents();
+        let request = new BackendRequest("GetJobs", "")
+
+        let websocket = new WebSocket("ws://localhost:8129");
+        websocket.onopen = () => {
+            console.log(request);
+            websocket.send(JSON.stringify(request));
+        };
+        websocket.onmessage = (event) => {
+            console.log(event);
+            setJobs(JSON.parse(event.data).filter((j: any) => j != "null"));
+            console.log(jobs);
+            websocket.close();
+        };
+    }, []);
+
+    useEffect(function() {
+        if (selectedJob){
+            loadStudents();
+        }
     }, [selectedJob]);
-
-    let job = {
-        id: 0,
-        creators: "Pradeep and Dave",
-        type: 0,
-        majors: ["Computer Science", "Mechanical Engineering"],
-        title: "BoGL Web",
-        department: "Mechanical Engineering",
-        location: "WPI",
-        numStudents: 4,
-        hours: 15,
-        email: "meearnest@wpi.edu",
-        federalWorkStudy: false,
-        desc: "Help ME students make bond graphs by translating this Windows application to a web based application",
-        gpa: 3.0,
-        classYear: 2023,
-        phone: "804-304-2212",
-        contact: "Pradeep",
-        employees: ["Professor Dave", "Professor Pradeep"]
-    };
-
-    let jobs = [job, job, job, job, job, job, job, job, job, job];
 
     const [newJobOpen, setNewJobOpen] = React.useState(false);
     const handleNewJobOpen = () => {
@@ -110,7 +110,7 @@ function FindStudentsPage(props: {
                             }}>
                                 <Badge badgeContent={4} color="primary" showZero
                                        style={{position: "absolute", right: 0, top: 0}}/>
-                                <span style={{fontSize: "30px"}}>{j.title}</span><br/>
+                                <span style={{fontSize: "30px"}}>{j}</span><br/>
                             </Paper>
                         )}
                     </div>
