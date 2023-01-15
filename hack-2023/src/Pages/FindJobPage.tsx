@@ -38,6 +38,9 @@ function FindJobPage(props: {email: string}) {
     const [departments, setDepartments] = React.useState([]);
     const [locations, setLocations] = React.useState([]);
     const [successfullyApplied, setSuccessfullyApplied] = React.useState(false);
+    const [maxHours, setMaxHours] = React.useState<number[]>([0, 1000000]);
+    const [maxTeamSize, setMaxTeamSize] = React.useState<number[]>([0, 1000000]);
+    const [allLocations, setAllLocations] = React.useState([]);
 
     let job = {
         id: 0,
@@ -68,7 +71,10 @@ function FindJobPage(props: {email: string}) {
         };
         websocket.onmessage = (event) => {
             websocket.close();
-            console.log(event);
+            let results = JSON.parse(event.data);
+            setMaxHours([results.hours.min, results.hours.max]);
+            setMaxTeamSize([results.teamSize.min, results.teamSize.max]);
+            setAllLocations(results.allLocations);
         };
 
         // request = new JobListRequest(props.email, status, majors, departments, locations, new MinMax(hours[0], hours[1]), new MinMax(teamSize[0], teamSize[1]), getById("federalWorkStudy") == "true");
@@ -140,7 +146,7 @@ function FindJobPage(props: {email: string}) {
                                              marginLeft="10%" name={"Majors"}/><br/>
                     <AutocompleteMultiselect setValue={setDepartments} width="190px" data={DataLists.departments}
                                              marginLeft="10%" name={"Departments"}/><br/>
-                    <AutocompleteMultiselect setValue={setLocations} width="190px" data={DataLists.locations}
+                    <AutocompleteMultiselect setValue={setLocations} width="190px" data={allLocations}
                                              marginLeft="10%" name={"Locations"}/><br/>
                     <Box className="searchForJobFilters" sx={{width: 190}}>
                         <InputLabel id="hoursPerWeekLabel" variant="standard">Hours per Week</InputLabel>
@@ -153,8 +159,8 @@ function FindJobPage(props: {email: string}) {
                             }}
                             valueLabelDisplay="auto"
                             step={1}
-                            min={0}
-                            max={40}
+                            min={maxHours[0]}
+                            max={maxHours[1]}
                         />
                     </Box>
                     <Box className="searchForJobFilters" sx={{width: 190}}>
@@ -168,8 +174,8 @@ function FindJobPage(props: {email: string}) {
                             }}
                             valueLabelDisplay="auto"
                             step={1}
-                            min={1}
-                            max={20}
+                            min={maxTeamSize[0]}
+                            max={maxTeamSize[1]}
                         />
                     </Box>
                     <FormControlLabel style={{marginLeft: "6px", marginBottom: "10px"}}
