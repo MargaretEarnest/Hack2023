@@ -19,7 +19,7 @@ function App() {
                          setAccountType={setAccountType}/>
                 <Routes>
                     <Route path="/" element={username == "" ? <HomePage/> : (accountType == "student") ? <FindJobPage email={email}/>
-                        : <FindStudentsPage currentUser={username}/>}/>
+                        : <FindStudentsPage currentUser={username} email={email}/>}/>
                     <Route path="/createAccount" element={<CreateAccount/>}/>
                 </Routes>
             </div>

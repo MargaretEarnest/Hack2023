@@ -7,7 +7,9 @@ function getStringWithConjunction(a: string[], conj: string) {
     return a.slice(0, -1).join(', ') + (a.length > 1 ? " " + conj + " " : '') + a.slice(-1);
 }
 
-function FindStudentsPage(props: { currentUser: string }) {
+function FindStudentsPage(props: {
+    email: string, currentUser: string
+}) {
     function slide(containerId: string, direction: string) {
         let container = document.getElementById(containerId);
         if (container) {
@@ -67,7 +69,7 @@ function FindStudentsPage(props: { currentUser: string }) {
 
     return (
         <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-            <CreateJobDialog open={newJobOpen} handleClose={handleNewJobClose} currentUser={props.currentUser}/>
+            <CreateJobDialog open={newJobOpen} handleClose={handleNewJobClose} currentUser={props.currentUser} email={props.email}/>
             <div style={{display: "flex", width: "100%"}}>
                 <div style={{
                     height: "calc(100vh - 88px)",
