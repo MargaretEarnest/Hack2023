@@ -146,8 +146,14 @@ public class JobDatabaseManager {
 
     public HashList<Job> getApplicableJobs(JobListRequest request) {
         try {
+            String SQLRequest = "SELECT * FROM Jobs " +
+                    "WHERE WeeklyHours >= " + request.hours().min() +
+                    "AND WeeklyHours <= " + request.hours().max() +
+                    "AND StudentsRequired >= " + request.teamSize().min() +
+                    "AND StudentsRequired <= " + request.teamSize().max()
+                    ;
             Statement statement = Objects.requireNonNull(getConnection()).createStatement();
-            String SQLRequest = "SELECT * FROM Jobs WHERE WeeklyHours";
+            ResultSet result = statement.executeQuery(SQLRequest);
             final HashList<Job> jobs = new HashList<>();
             return jobs;
         } catch (SQLException e) {
