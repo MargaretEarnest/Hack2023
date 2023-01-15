@@ -1,14 +1,14 @@
 export class Student {
-    private email: string;
-    private prefix: string;
-    private fName: string;
-    private lName: string;
-    private suffix: string;
-    private status: number;
-    private majors: string[];
-    private yearOfGraduation: number;
-    private gpa: number;
-    private classes: string[];
+    public email: string;
+    public prefix: string;
+    public fName: string;
+    public lName: string;
+    public suffix: string;
+    public status: number;
+    public majors: string[];
+    public yearOfGraduation: number;
+    public gpa: number;
+    public classes: string[];
 
 
     constructor(email: string, prefix: string, fName: string, lName: string, suffix: string, status: number, majors: string[], yearOfGraduation: number, gpa: number, classes: string[]) {

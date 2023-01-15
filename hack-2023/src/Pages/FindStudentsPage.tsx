@@ -2,6 +2,9 @@ import * as React from 'react';
 import {Badge, Button, IconButton, Paper, Snackbar} from "@mui/material";
 import CreateJobDialog from "../Components/CreateJobDialog";
 import {ArrowCircleLeft, ArrowCircleRight} from "@mui/icons-material";
+import {BackendRequest} from "../jsonObjects/BackendRequest";
+import {useEffect} from "react";
+import {Student} from "../jsonObjects/Student";
 
 function getStringWithConjunction(a: string[], conj: string) {
     return a.slice(0, -1).join(', ') + (a.length > 1 ? " " + conj + " " : '') + a.slice(-1);
@@ -17,25 +20,30 @@ function FindStudentsPage(props: {
         }
     }
 
+    function loadStudents() {
+        let request = new BackendRequest("StudentList", JSON.stringify({jobTitle: selectedJob.title}))
+
+        let websocket = new WebSocket("ws://localhost:8129");
+        websocket.onopen = () => {
+            console.log(request);
+            websocket.send(JSON.stringify(request));
+        };
+        websocket.onmessage = (event) => {
+            console.log(event);
+            setAppStudents(JSON.parse(event.data).students);
+            websocket.close();
+        };
+    }
+
     const [successfullyConnected, setSuccessfullyConnected] = React.useState(false);
     const [acceptStudent, setAcceptStudent] = React.useState(false);
     const [rejectStudent, setRejectStudent] = React.useState(false);
     const [selectedJob, setSelectedJob] = React.useState<any>(null);
+    const [appStudents, setAppStudents] = React.useState<Student[]>([]);
 
-    let human = {
-        email: "molly7312000@gmail.com",
-        prefix: "Mr.",
-        fName: "Margaret",
-        lName: "Earnest",
-        suffix: "the fifth",
-        status: 1,
-        majors: ["Computer Science", "Philosophy"],
-        yearOfGraduation: 2023,
-        gpa: 3.93,
-        classes: ["MQP", "CS 7834", "MU 4999"]
-    };
-
-    let appHumans = [human, human, human, human, human, human, human, human, human, human, human, human];
+    useEffect(function() {
+        loadStudents();
+    }, [selectedJob]);
 
     let job = {
         id: 0,
@@ -127,7 +135,7 @@ function FindStudentsPage(props: {
                                 height: "100%",
                                 margin: "auto"
                             }}>
-                                {appHumans.map(app => <div className={"studentList"} style={{
+                                {appStudents.map(app => <div className={"studentList"} style={{
                                     position: "relative",
                                     overflowY: "auto",
                                     padding: "10px",
@@ -146,6 +154,19 @@ function FindStudentsPage(props: {
                                     <p>Percent match: 90%</p>
                                     <Button onClick={() => {
                                         setAcceptStudent(true)
+
+                                        let request = new BackendRequest("ChooseStudent", JSON.stringify({email: props.email, jobName: selectedJob.name}))
+
+                                        let websocket = new WebSocket("ws://localhost:8129");
+                                        websocket.onopen = () => {
+                                            console.log(request);
+                                            websocket.send(JSON.stringify(request));
+                                        };
+                                        websocket.onmessage = (event) => {
+                                            console.log(event);
+                                            websocket.close();
+                                            loadStudents();
+                                        };
                                     }} color={"success"} variant={"contained"} style={{
                                         borderRadius: 0,
                                         width: "50%",
@@ -155,6 +176,19 @@ function FindStudentsPage(props: {
                                     }}>Accept</Button>
                                     <Button onClick={() => {
                                         setRejectStudent(true)
+
+                                        let request = new BackendRequest("ChooseStudent", JSON.stringify({email: props.email, jobName: selectedJob.name}))
+
+                                        let websocket = new WebSocket("ws://localhost:8129");
+                                        websocket.onopen = () => {
+                                            console.log(request);
+                                            websocket.send(JSON.stringify(request));
+                                        };
+                                        websocket.onmessage = (event) => {
+                                            console.log(event);
+                                            websocket.close();
+                                            loadStudents();
+                                        };
                                     }} color={"error"} variant={"contained"} style={{
                                         borderRadius: 0,
                                         width: "50%",
@@ -191,7 +225,7 @@ function FindStudentsPage(props: {
                                 height: "100%",
                                 margin: "auto"
                             }}>
-                                {appHumans.map(app => <div className={"studentList"} style={{
+                                {appStudents.map((app: Student) => <div className={"studentList"} style={{
                                     position: "relative",
                                     overflowY: "auto",
                                     padding: "10px",

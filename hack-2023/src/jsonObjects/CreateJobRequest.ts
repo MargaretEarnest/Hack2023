@@ -1,5 +1,3 @@
-import {Job} from "./Job";
-
 export class CreateJobRequest {
     public type: number;
     public majors: string[];
