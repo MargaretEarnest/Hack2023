@@ -154,7 +154,7 @@ function SignupPage() {
                                 console.log(request);
                                 websocket.send(JSON.stringify(request));
                             };
-                            websocket.onmessage = (event) => {
+                            websocket.onmessage = (event: any) => {
                                 console.log(event);
                                 websocket.close();
                             };

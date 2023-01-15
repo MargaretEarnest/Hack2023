@@ -130,14 +130,14 @@ public class JobDatabaseManager {
     public MinMax getMinMaxStudents(){
         try{
             Statement statement = Objects.requireNonNull(getConnection()).createStatement();
-            ResultSet minResults = statement.executeQuery("SELECT MAX(StudentsRequired) FROM Jobs");
-            ResultSet maxResults = statement.executeQuery("SELECT MIN(StudentsRequired) FROM Jobs");
+            ResultSet minResults = statement.executeQuery("SELECT MAX(StudentsRequired) AS StudentsRequired FROM Jobs");
+            ResultSet maxResults = statement.executeQuery("SELECT MIN(StudentsRequired) AS StudentsRequired FROM Jobs");
             double min = 0.0;
             double max = 0.0;
-            if(minResults.getFetchSize() > 0 && minResults.first()){
+            if(!minResults.isClosed() && minResults.next()){
                 min = minResults.getInt("StudentsRequired");
             }
-            if(maxResults.getFetchSize() > 0 && maxResults.first()){
+            if(!maxResults.isClosed() && maxResults.next()){
                 max = maxResults.getInt("StudentsRequired");
             }
             return new MinMax(min, max);
@@ -149,14 +149,14 @@ public class JobDatabaseManager {
     public MinMax getMinMaxHours(){
         try{
             Statement statement = Objects.requireNonNull(getConnection()).createStatement();
-            ResultSet minResults = statement.executeQuery("SELECT MAX(WeeklyHours) FROM Jobs");
-            ResultSet maxResults = statement.executeQuery("SELECT MIN(WeeklyHours) FROM Jobs");
+            ResultSet minResults = statement.executeQuery("SELECT MIN(WeeklyHours) AS WeeklyHours FROM Jobs");
+            ResultSet maxResults = statement.executeQuery("SELECT MAX(WeeklyHours) AS WeeklyHours FROM Jobs");
             double min = 0.0;
             double max = 0.0;
-            if(minResults.getFetchSize() > 0 && minResults.first()){
+            if(!minResults.isClosed() && minResults.next()){
                 min = minResults.getInt("WeeklyHours");
             }
-            if(maxResults.getFetchSize() > 0 && maxResults.first()){
+            if(!maxResults.isClosed() && maxResults.next()){
                 max = maxResults.getInt("WeeklyHours");
             }
             return new MinMax(min, max);

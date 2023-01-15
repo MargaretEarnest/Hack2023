@@ -2,7 +2,7 @@ import {MinMax} from "./MinMax";
 
 export class JobListRequest{
     private email: string;
-    private status: string[];
+    private status: number;
     private majors: string[];
     private departments: string[]
     private locations: string[]
@@ -10,7 +10,7 @@ export class JobListRequest{
     private teamSize: MinMax;
     private federalWorkStudy: boolean;
 
-    constructor(email: string, status: string[], majors: string[], departments: string[], locations: string[], hours: MinMax, teamSize: MinMax, federalWorkStudy: boolean) {
+    constructor(email: string, status: number, majors: string[], departments: string[], locations: string[], hours: MinMax, teamSize: MinMax, federalWorkStudy: boolean) {
         this.email = email;
         this.status = status;
         this.majors = majors;

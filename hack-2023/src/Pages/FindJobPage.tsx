@@ -17,6 +17,9 @@ import AutocompleteMultiselect from "../Components/AutocompleteMultiselect";
 import {DataLists} from "../DataLists";
 import {BackendRequest} from "../jsonObjects/BackendRequest";
 import {MinMax} from "../jsonObjects/MinMax";
+import {useEffect} from "react";
+import {JobListRequest} from "../jsonObjects/JobListRequest";
+import {JobLoadRequest} from "../jsonObjects/JobLoadRequest";
 
 function getStringWithConjunction(a: string[], conj: string) {
     return a.slice(0, -1).join(', ') + (a.length > 1 ? ", " + conj + " " : '') + a.slice(-1);
@@ -57,6 +60,29 @@ function FindJobPage(props: {email: string}) {
     };
 
     let jobs = [job, job, job, job, job, job, job, job, job, job];
+
+    useEffect(function () {
+        let websocket = new WebSocket("ws://localhost:8129");
+        websocket.onopen = () => {
+            websocket.send(JSON.stringify(new BackendRequest("JobLoadRequest", "")));
+        };
+        websocket.onmessage = (event) => {
+            websocket.close();
+            console.log(event);
+        };
+
+        // request = new JobListRequest(props.email, status, majors, departments, locations, new MinMax(hours[0], hours[1]), new MinMax(teamSize[0], teamSize[1]), getById("federalWorkStudy") == "true");
+        //
+        // websocket = new WebSocket("ws://localhost:8129");
+        // websocket.onopen = () => {
+        //     console.log(request);
+        //     websocket.send(JSON.stringify(request));
+        // };
+        // websocket.onmessage = (event) => {
+        //     console.log(event);
+        //     websocket.close();
+        // };
+    }, []);
 
     return (
         <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
@@ -192,6 +218,17 @@ function FindJobPage(props: {email: string}) {
                             }}
                             onClick={() => {
                                 setSuccessfullyApplied(true)
+                                let request = new JobListRequest(props.email, status, majors, departments, locations, new MinMax(hours[0], hours[1]), new MinMax(teamSize[0], teamSize[1]), getById("federalWorkStudy") == "true");
+
+                                let websocket = new WebSocket("ws://localhost:8129");
+                                websocket.onopen = () => {
+                                    console.log(request);
+                                    websocket.send(JSON.stringify(request));
+                                };
+                                websocket.onmessage = (event) => {
+                                    console.log(event);
+                                    websocket.close();
+                                };
                             }}
                             >Apply</Button>
                         </Paper>
