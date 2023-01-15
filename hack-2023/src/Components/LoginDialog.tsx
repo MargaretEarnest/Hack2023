@@ -10,7 +10,7 @@ import {Link} from "@mui/material";
 import {Login} from "../jsonObjects/Login";
 import {BackendRequest} from "../jsonObjects/BackendRequest";
 
-export default function LoginDialog(props: { open: boolean, handleClose: () => void, setUsername: any, setAccountType: any }) {
+export default function LoginDialog(props: { open: boolean, handleClose: () => void, setEmail: any, setUsername: any, setAccountType: any }) {
     return (
         <Dialog open={props.open} fullWidth maxWidth="xs" onClose={props.handleClose}>
             <DialogActions>
@@ -34,17 +34,28 @@ export default function LoginDialog(props: { open: boolean, handleClose: () => v
                     variant="standard"
                 /><br/><br/><br/>
                 <Button variant="contained" style={{width: "150px", marginBottom: "10px"}} onClick={() => {
-                    let websocket = new WebSocket("ws://localhost:8000");
+                    console.log("Sending Message");
+                    let websocket = new WebSocket("ws://71.233.252.195:8129");
                     websocket.onopen = () => {
                         websocket.send(JSON.stringify(new BackendRequest("ValidateUser", JSON.stringify(new Login(getById("email"), getById("password"))))));
                     };
                     websocket.onmessage = (event) => {
+                        console.log("Got Message");
                         console.log(event);
+                        let data = JSON.parse(event.data);
+                        if (data.isValid) {
+                            props.setUsername(data.name);
+                            props.setAccountType(data.isStudent ? "student" : "professor");
+                            props.handleClose();
+                        } else {
+                            alert("Login incorrect");
+                            props.setUsername("W");
+                            props.setAccountType("student");
+                            props.setEmail(getById("email"));
+                            props.handleClose();
+                        }
                         websocket.close();
                     };
-                    props.setUsername("Wilbur");
-                    props.setAccountType("student");
-                    props.handleClose();
                 }}>Login</Button><br/>
                 <Link className="noSelect" style={{cursor: "pointer"}} href="#/createAccount" onClick={props.handleClose}>Create an Account</Link>
                 <br/><br/>

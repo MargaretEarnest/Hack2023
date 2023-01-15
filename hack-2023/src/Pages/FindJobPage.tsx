@@ -15,12 +15,18 @@ import {
 } from "@mui/material";
 import AutocompleteMultiselect from "../Components/AutocompleteMultiselect";
 import {DataLists} from "../DataLists";
+import {BackendRequest} from "../jsonObjects/BackendRequest";
+import {MinMax} from "../jsonObjects/MinMax";
 
 function getStringWithConjunction(a: string[], conj: string) {
-    return a.slice(0, -1).join(', ') + (a.length > 1 ? " " + conj + " " : '') + a.slice(-1);
+    return a.slice(0, -1).join(', ') + (a.length > 1 ? ", " + conj + " " : '') + a.slice(-1);
 }
 
-function FindJobPage() {
+export function getById(id: string) {
+    return (document.getElementById(id) as HTMLInputElement)?.value;
+}
+
+function FindJobPage(props: {email: string}) {
     const [filterSelections, setFilterSelections] = React.useState<string[]>([]);
     const [status, setStatus] = React.useState(0);
     const [hours, setHours] = React.useState<number[]>([0, 1000000]);
@@ -76,7 +82,17 @@ function FindJobPage() {
             <div style={{display: "flex", width: "100%"}}>
                 <div style={{width: "250px", minWidth: "250px", backgroundColor: "#B8D5ED", margin: "10px"}}>
                     <h3 style={{textAlign: "center", fontSize: "25px", marginBottom: 10}}>Job Filters</h3>
-                    <Button style={{marginLeft: "45px"}} variant={"contained"}>Refresh Results</Button><br/><br/>
+                    <Button onClick={() => {
+
+                        let data = {email: props.email, status: status, majors: majors, departments: departments, locations: locations, hours: new MinMax(hours[0], hours[1]), teamSize: new MinMax(teamSize[0], teamSize[1])};
+                        console.log(data);
+                        let request = new BackendRequest("JobList", JSON.stringify(data));
+                        let websocket = new WebSocket("ws://71.233.252.195:8129");
+                        websocket.onopen = () => {
+                            console.log(request);
+                            websocket.send(JSON.stringify(request));
+                        };
+                    }} style={{marginLeft: "45px"}} variant={"contained"}>Refresh Results</Button><br/><br/>
                     <InputLabel className="searchForJobFilters" id="statusLabel" variant="standard">Status</InputLabel>
                     <Select
                         style={{width: "190px"}}
