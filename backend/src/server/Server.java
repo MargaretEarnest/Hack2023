@@ -34,9 +34,24 @@ public class Server extends WebSocketServer {
             case "ValidateUser" -> handleValidateUser(conn, request);
             case "CreateStudent" -> handleCreateStudent(conn, request);
             case "CreateEmployer" -> handleCreateEmployer(conn, request);
+            case "CreateJob" -> handleCreateJob(conn, request);
+            case "StudentList" -> handleStudentList(conn, request);
             case "JobList" -> handleJobList(conn, request);
+            case "ChooseStudent" -> handleChooseStudent(conn, request);
             default -> System.out.println("ERROR");
         }
+    }
+
+    private void handleChooseStudent(WebSocket conn, RequestHandler.Request request) {
+        Gson gson = new Gson();
+    }
+
+    private void handleStudentList(WebSocket conn, RequestHandler.Request request) {
+        Gson gson = new Gson();
+    }
+
+    private void handleCreateJob(WebSocket conn, RequestHandler.Request request) {
+        Gson gson = new Gson();
     }
 
     private void handleJobList(WebSocket conn, RequestHandler.Request request) {

@@ -34,7 +34,7 @@ export default function LoginDialog(props: { open: boolean, handleClose: () => v
                     variant="standard"
                 /><br/><br/><br/>
                 <Button variant="contained" style={{width: "150px", marginBottom: "10px"}} onClick={() => {
-                    let websocket = new WebSocket("ws://localhost:8000");
+                    let websocket = new WebSocket("ws://71.233.252.195:8000");
                     websocket.onopen = () => {
                         websocket.send(JSON.stringify(new BackendRequest("ValidateUser", JSON.stringify(new Login(getById("email"), getById("password"))))));
                     };
