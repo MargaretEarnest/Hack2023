@@ -8,8 +8,9 @@ import java.util.*;
  * @param <Value> the target object.
  */
 public class HashList<Value> implements Iterable<Value> {
-    private final Map<Value, Cell<Value>> map;
-    private Cell<Value> head, tail;
+    private transient final Map<Value, Cell<Value>> map;
+    private Cell<Value> head;
+    private transient Cell<Value> tail;
 
     /**
      * Creates a {@code utils.HashList}.
@@ -64,8 +65,18 @@ public class HashList<Value> implements Iterable<Value> {
         return true;
     }
 
-    public Map<Value, Cell<Value>> getMap(){
-        return map;
+    /**
+     * Converts this {@code HashList} to an {@code Array}.
+     * @return the {@code Array}.
+     */
+    @SuppressWarnings("unchecked")
+    public Value[] toArray() {
+        final Object[] array = new Object[size()];
+        int index = 0;
+        for(Value value : this) {
+            array[index++] = value;
+        }
+        return (Value[]) array;
     }
 
     /**
@@ -578,7 +589,8 @@ public class HashList<Value> implements Iterable<Value> {
      */
     private static class Cell<Value> {
         private final Value value;
-        private Cell<Value> next, prev;
+        private Cell<Value> next;
+        private transient Cell<Value> prev;
 
         /**
          * Creates a new Cell
