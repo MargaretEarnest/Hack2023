@@ -1,10 +1,7 @@
 package server;
 
 import com.google.gson.Gson;
-import database.EmployerDatabaseManager;
-import database.JobDatabaseManager;
-import database.StudentDatabaseManager;
-import database.UserDatabaseManager;
+import database.*;
 import jsonObjects.*;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
@@ -57,10 +54,15 @@ public class Server extends WebSocketServer {
 
     private void handleChooseStudent(WebSocket conn, RequestHandler.Request request) {
         Gson gson = new Gson();
+        StudentChooseRequest studentChooseRequest = gson.fromJson(request.data, StudentChooseRequest.class);
+        ChosenJobDatabaseManager.getInstance().removeChoice(studentChooseRequest.jobName(), studentChooseRequest.email());
     }
 
     private void handleStudentList(WebSocket conn, RequestHandler.Request request) {
         Gson gson = new Gson();
+        StudentListRequest studentListRequest = gson.fromJson(request.data, StudentListRequest.class);
+        Object[] jobs = ChosenJobDatabaseManager.getInstance().getChoices(studentListRequest.JobTitle());
+        conn.send(gson.toJson(new StudentListResponse(jobs)));
     }
 
     private void handleCreateJob(WebSocket conn, RequestHandler.Request request) {
