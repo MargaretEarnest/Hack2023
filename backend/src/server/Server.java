@@ -1,10 +1,7 @@
 package server;
 
 import com.google.gson.Gson;
-import database.EmployerDatabaseManager;
-import database.JobDatabaseManager;
-import database.StudentDatabaseManager;
-import database.UserDatabaseManager;
+import database.*;
 import jsonObjects.*;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
@@ -12,6 +9,7 @@ import org.java_websocket.server.WebSocketServer;
 import utils.HashList;
 
 import java.net.InetSocketAddress;
+import java.nio.charset.spi.CharsetProvider;
 import java.util.List;
 import java.util.Set;
 
@@ -50,6 +48,8 @@ public class Server extends WebSocketServer {
 
     private void handleApplyToJob(WebSocket conn, RequestHandler.Request request) {
         Gson gson = new Gson();
+        ApplyToJobRequest applyToJobRequest = gson.fromJson(request.data, ApplyToJobRequest.class);
+        ChosenJobDatabaseManager.getInstance().addChoice(applyToJobRequest.jobName(), applyToJobRequest.email());
     }
 
     private void handleJobLoad(WebSocket conn, RequestHandler.Request request) {
@@ -62,17 +62,22 @@ public class Server extends WebSocketServer {
 
     private void handleChooseStudent(WebSocket conn, RequestHandler.Request request) {
         Gson gson = new Gson();
+        StudentChooseRequest studentChooseRequest = gson.fromJson(request.data, StudentChooseRequest.class);
+        ChosenJobDatabaseManager.getInstance().removeChoice(studentChooseRequest.jobName(), studentChooseRequest.email());
     }
 
     private void handleStudentList(WebSocket conn, RequestHandler.Request request) {
         Gson gson = new Gson();
+        StudentListRequest studentListRequest = gson.fromJson(request.data, StudentListRequest.class);
+        Object[] jobs = ChosenJobDatabaseManager.getInstance().getChoices(studentListRequest.JobTitle());
+        conn.send(gson.toJson(new StudentListResponse(jobs)));
     }
 
     private void handleCreateJob(WebSocket conn, RequestHandler.Request request) {
         Gson gson = new Gson();
         CreateJobRequest cr = gson.fromJson(request.data, CreateJobRequest.class);
-        JobDatabaseManager.getInstance().addJob(new Job(0, cr.title, cr.department, cr.location, cr.numStudents,
-                cr.hours, cr.email, cr.federalWorkStudy, cr.desc, cr.requirements, cr.phone, cr.contact));
+        JobDatabaseManager.getInstance().addJob(new Job(cr.ID, cr.title, cr.department, cr.location, cr.numStudents,
+                cr.hours, cr.email, cr.federalWorkStudy, cr.desc, Course.parse(new HashList<>(cr.requirements)), cr.phone, cr.contact));
         conn.send(gson.toJson(new CreateResponse(true)));
     }
 
