@@ -10,6 +10,8 @@ import {Checkbox, FormControlLabel, InputLabel, MenuItem, Select, SelectChangeEv
 import AutocompleteMultiselect from "./AutocompleteMultiselect";
 import {DataLists} from "../DataLists";
 import {MinMax} from "../jsonObjects/MinMax";
+import {JobListRequest} from "../jsonObjects/JobListRequest";
+import {BackendRequest} from "../jsonObjects/BackendRequest";
 
 export default function CreateJobDialog(props: { currentUser: string, open: boolean, email: string, handleClose: () => void }) {
     const [status, setStatus] = React.useState(0);
@@ -40,7 +42,7 @@ export default function CreateJobDialog(props: { currentUser: string, open: bool
                             style={{width: "210px"}}
                             onChange={(event: SelectChangeEvent) => setDepartment(event.target.value)}
                         >
-                            {DataLists.departments.map(d => <MenuItem value={d}>d</MenuItem>)}
+                            {DataLists.departments.map(d => <MenuItem value={d}>{d}</MenuItem>)}
                         </Select>
                     </div>
                     <TextField
@@ -91,11 +93,27 @@ export default function CreateJobDialog(props: { currentUser: string, open: bool
                     Doe, Jane Doe"</p>
                 <br/>
                 <Button variant="contained" style={{width: "150px", marginBottom: "10px"}} onClick={() => {
-                    console.log({title: getById("title"), department: getById("department"), desc: getById("desc"), status: status,
+                    console.log({title: getById("title"), department: department, desc: getById("desc"), status: status,
                         majors: majors, email: props.email, gpa: getById("gpa"), employees: getById("employees").split(", "),
                         gradYear: getById("year"), classes: classes, phone: getById("phone"), contact: getById("contact"),
                         hours: parseInt(getById("hours")), teamSize: parseInt(getById("teamSize")), workStudy: !document.getElementById("workStudy")?.parentElement?.classList.contains("Mui-checked"),
                     location: getById("location")});
+
+                    let request = new BackendRequest("CreateJob", JSON.stringify({title: getById("title"), department: department, desc: getById("desc"), status: status,
+                        majors: majors, email: props.email, gpa: getById("gpa"), employees: getById("employees").split(", "),
+                        gradYear: getById("year"), classes: classes, phone: getById("phone"), contact: getById("contact"),
+                        hours: parseInt(getById("hours")), teamSize: parseInt(getById("teamSize")), workStudy: !document.getElementById("workStudy")?.parentElement?.classList.contains("Mui-checked"),
+                        location: getById("location")}));
+
+                    let websocket = new WebSocket("ws://localhost:8129");
+                    websocket.onopen = () => {
+                        console.log(request);
+                        websocket.send(JSON.stringify(request));
+                    };
+                    websocket.onmessage = (event) => {
+                        console.log(event);
+                        websocket.close();
+                    };
                 }}>Create Job</Button><br/>
             </DialogContent>
         </Dialog>
