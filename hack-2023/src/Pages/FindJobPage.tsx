@@ -17,7 +17,7 @@ import AutocompleteMultiselect from "../Components/AutocompleteMultiselect";
 import {DataLists} from "../DataLists";
 
 function getStringWithConjunction(a: string[], conj: string) {
-    return a.slice(0, -1).join(', ') + (a.length > 1 ? " " + conj + " " : '') + a.slice(-1);
+    return a.slice(0, -1).join(', ') + (a.length > 1 ? ", " + conj + " " : '') + a.slice(-1);
 }
 
 function FindJobPage() {

@@ -43,7 +43,7 @@ export default function LoginDialog(props: { open: boolean, handleClose: () => v
                         websocket.close();
                     };
                     props.setUsername("Wilbur");
-                    props.setAccountType("student");
+                    props.setAccountType("professor");
                     props.handleClose();
                 }}>Login</Button><br/>
                 <Link className="noSelect" style={{cursor: "pointer"}} href="#/createAccount" onClick={props.handleClose}>Create an Account</Link>
