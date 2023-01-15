@@ -27,7 +27,7 @@ function FindStudentsPage(props: {
     function loadStudents(jobName: string) {
         let request = new BackendRequest("StudentList", JSON.stringify({JobTitle: jobName}))
 
-        let websocket = new WebSocket("ws://71.233.252.195:8129");
+        let websocket = new WebSocket("ws://localhost:8129");
         websocket.onopen = () => {
             console.log(request);
             websocket.send(JSON.stringify(request));
@@ -49,7 +49,7 @@ function FindStudentsPage(props: {
     useEffect(function() {
         let request = new BackendRequest("GetJobs", "")
 
-        let websocket = new WebSocket("ws://71.233.252.195:8129");
+        let websocket = new WebSocket("ws://localhost:8129");
         websocket.onopen = () => {
             console.log(request);
             websocket.send(JSON.stringify(request));
@@ -155,7 +155,7 @@ function FindStudentsPage(props: {
 
                                         let request = new BackendRequest("ChooseStudent", JSON.stringify({email: props.email, jobName: selectedJob.name}))
 
-                                        let websocket = new WebSocket("ws://71.233.252.195:8129");
+                                        let websocket = new WebSocket("ws://localhost:8129");
                                         websocket.onopen = () => {
                                             console.log(request);
                                             websocket.send(JSON.stringify(request));
@@ -177,7 +177,7 @@ function FindStudentsPage(props: {
 
                                         let request = new BackendRequest("ChooseStudent", JSON.stringify({email: props.email, jobName: selectedJob.name}))
 
-                                        let websocket = new WebSocket("ws://71.233.252.195:8129");
+                                        let websocket = new WebSocket("ws://localhost:8129");
                                         websocket.onopen = () => {
                                             console.log(request);
                                             websocket.send(JSON.stringify(request));

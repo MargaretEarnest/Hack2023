@@ -105,7 +105,7 @@ export default function CreateJobDialog(props: { currentUser: string, open: bool
                         hours: parseInt(getById("hours")), teamSize: parseInt(getById("teamSize")), workStudy: !document.getElementById("workStudy")?.parentElement?.classList.contains("Mui-checked"),
                         location: getById("location")}));
 
-                    let websocket = new WebSocket("ws://71.233.252.195:8129");
+                    let websocket = new WebSocket("ws://localhost:8129");
                     websocket.onopen = () => {
                         console.log(request);
                         websocket.send(JSON.stringify(request));

@@ -50,7 +50,7 @@ function FindJobPage(props: {email: string}) {
     const [jobs, setJobs] = React.useState<Job[]>([]);
 
     useEffect(function () {
-        let websocket = new WebSocket("ws://71.233.252.195:8129");
+        let websocket = new WebSocket("ws://localhost:8129");
         websocket.onopen = () => {
             websocket.send(JSON.stringify(new BackendRequest("JobLoadRequest", "")));
         };
@@ -67,7 +67,7 @@ function FindJobPage(props: {email: string}) {
 
         let request = new JobListRequest(props.email, status, majors, departments, locations, new MinMax(hours[0], hours[1]), new MinMax(teamSize[0], teamSize[1]), checkboxValue);
 
-        websocket = new WebSocket("ws://71.233.252.195:8129");
+        websocket = new WebSocket("ws://localhost:8129");
         websocket.onopen = () => {
             console.log(request);
             websocket.send(JSON.stringify(new BackendRequest("JobList", JSON.stringify(request))));
@@ -87,7 +87,7 @@ function FindJobPage(props: {email: string}) {
                     <h3 style={{textAlign: "center", fontSize: "25px", marginBottom: 10}}>Job Filters</h3>
                     <Button onClick={() => {
                         let request = new JobListRequest(props.email, status, majors, departments, locations, new MinMax(hours[0], hours[1]), new MinMax(teamSize[0], teamSize[1]), checkboxValue);
-                        let websocket = new WebSocket("ws://71.233.252.195:8129");
+                        let websocket = new WebSocket("ws://localhost:8129");
                         websocket.onopen = () => {
                             console.log(request);
                             websocket.send(JSON.stringify(new BackendRequest("JobList", JSON.stringify(request))));
@@ -203,7 +203,7 @@ function FindJobPage(props: {email: string}) {
                                 setSuccessfullyApplied(true)
                                 let request = new BackendRequest("ApplyToJob", JSON.stringify({email: props.email, jobName: j.title}))
 
-                                let websocket = new WebSocket("ws://71.233.252.195:8129");
+                                let websocket = new WebSocket("ws://localhost:8129");
                                 websocket.onopen = () => {
                                     console.log(request);
                                     websocket.send(JSON.stringify(request));
