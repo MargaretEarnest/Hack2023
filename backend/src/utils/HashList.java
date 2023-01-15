@@ -600,16 +600,4 @@ public class HashList<Value> implements Iterable<Value> {
             this.value = value;
         }
     }
-
-    // static methods
-
-    /**
-     * Parses a {@code String} into a {@code HashList}.
-     * @param str the target {@code String}.
-     * @param del the delimiting char-sequence.
-     * @return the parsed {@code HashList}.
-     */
-    public static HashList<String> parse(String str, String del) {
-        return new HashList<>(str.split(del));
-    }
 }
