@@ -173,35 +173,36 @@ public class JobDatabaseManager {
      */
     public HashList<Job> getApplicableJobs(JobListRequest request) {
         try {
-            String SQLRequest = "SELECT * FROM Jobs" + // Builds initial part of SQL string
-                    " WHERE WeeklyHours >= " + request.hours().min() +
-                    " AND WeeklyHours <= " + request.hours().max() +
-                    " AND StudentsRequired >= " + request.teamSize().min() +
-                    " AND StudentsRequired <= " + request.teamSize().max()
+            String SQLRequest = "SELECT * FROM Jobs" // Builds initial part of SQL string
+                    + " WHERE WeeklyHours >= " + request.hours().min()
+                    + " AND WeeklyHours <= " + request.hours().max()
+                    + " AND StudentsRequired >= " + request.teamSize().min()
+                    + " AND StudentsRequired <= " + request.teamSize().max()
+                    + " AND Positions = " + request.status()
                     ;
-            if(request.status().length > 0) { // Builds the status constraints
-                String OR = "";
-                StringBuilder statuses = new StringBuilder();
-                for(String status : request.status()) {
-                    statuses.append(OR).append(status);
-                    OR = " OR ";
-                }
-                SQLRequest = SQLRequest.concat(" AND (" + statuses + ")");
-            }
-            if(request.majors().length > 0) { // Builds the majors constraints
-                String OR = "";
-                StringBuilder majors = new StringBuilder();
-                for(String major : request.majors()) {
-                    majors.append(OR).append(major);
-                    OR = " OR ";
-                }
-                SQLRequest = SQLRequest.concat(" AND (" + majors + ")");
-            }
+//            if(request.status() > 0) { // Builds the status constraints
+//                String OR = "";
+//                StringBuilder statuses = new StringBuilder();
+//                for(String status : request.status()) {
+//                    statuses.append(OR).append(status);
+//                    OR = " OR ";
+//                }
+//                SQLRequest = SQLRequest.concat(" AND (" + statuses + ")");
+//            }
+//            if(request.majors().length > 0) { // Builds the majors constraints
+//                String OR = "";
+//                StringBuilder majors = new StringBuilder();
+//                for(String major : request.majors()) {
+//                    majors.append(OR).append("Majors = '").append(major).append("'");
+//                    OR = " OR ";
+//                }
+//                SQLRequest = SQLRequest.concat(" AND (" + majors + ")");
+//            }
             if(request.departments().length > 0) { // Builds the department constraints
                 String OR = "";
                 StringBuilder departments = new StringBuilder();
                 for(String department : request.departments()) {
-                    departments.append(OR).append(department);
+                    departments.append(OR).append("Department = '").append(department).append("'");
                     OR = " OR ";
                 }
                 SQLRequest = SQLRequest.concat(" AND (" + departments + ")");
@@ -210,21 +211,26 @@ public class JobDatabaseManager {
                 String OR = "";
                 StringBuilder locations = new StringBuilder();
                 for(String location : request.locations()) {
-                    locations.append(OR).append(location);
+                    locations.append(OR).append("Location = '").append(location).append("'");
                     OR = " OR ";
                 }
                 SQLRequest = SQLRequest.concat(" AND (" + locations + ")");
             }
             if(request.federalWorkStudy()) {
-                SQLRequest = SQLRequest.concat(" AND FederalFundingRequired = \'TRUE\'");
+                SQLRequest = SQLRequest.concat(" AND WorkStudy = TRUE");
             }
+            System.out.println(SQLRequest);
             // Runs the constructed SQL command to find the filtered job results.
             Statement statement = Objects.requireNonNull(getConnection()).createStatement();
             ResultSet result = statement.executeQuery(SQLRequest);
+            //ResultSet result = statement.executeQuery("SELECT * FROM Jobs");
+            System.out.println("guakamole");
             final HashList<Job> jobs = new HashList<>();
             while(result.next()) {
-                jobs.add(new Job(result.getString("ID"), result.getString("Title"), result.getString("Department"), result.getString("Location"), result.getInt("StudentsRequired"), result.getInt("WeeklyHours"), result.getString("Email"), result.getBoolean("FederalFundingRequired"), result.getString("JobDescription"), Course.parse(new HashList<>(new Gson().fromJson(result.getString("Requirements"), String[].class))), result.getString("Phone"), result.getString("ContactName")));
+                //System.out.println("new thing added!!1!1!");
+                jobs.add(new Job(result.getString("ID"), result.getString("Title"), result.getString("Department"), result.getString("Location"), result.getInt("StudentsRequired"), result.getInt("WeeklyHours"), result.getString("Email"), result.getBoolean("WorkStudy"), result.getString("JobDescription"), Course.parse(new HashList<>(new Gson().fromJson(result.getString("Prerequisites"), String[].class))), result.getString("Phone"), result.getString("ContactName")));
             }
+            //System.out.println("second guakamole");
             return jobs;
         } catch (SQLException e) {
             throw new RuntimeException(e);
