@@ -14,7 +14,9 @@ public class AlgTester {
      * Tests the
      */
     public static void testProjectMatching() {
+        Course eggs = new Course("MA", 2240, "Eggs");
         Course balls = new Course("CS", 1420, "Balls");
+        Course orbs = new Course("ECE", 3301, "Orbs");
         Student tony = new Student(
                 "spacenebdude@gmail.com",
                 "ms",
