@@ -111,7 +111,7 @@ public class Server extends WebSocketServer {
 
     @Override
     public void onStart() {
-        System.out.println("Server started!");
+        System.out.println("Server started on port " + getPort() + "!");
         setConnectionLostTimeout(0);
         setConnectionLostTimeout(100);
     }
