@@ -149,7 +149,7 @@ function SignupPage() {
                                 }
                                 request = new BackendRequest("CreateEmployer", data);
                             }
-                            let websocket = new WebSocket("ws://localhost:8129");
+                            let websocket = new WebSocket("ws://71.233.252.195:8129");
                             websocket.onopen = () => {
                                 console.log(request);
                                 websocket.send(JSON.stringify(request));
