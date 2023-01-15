@@ -1,5 +1,9 @@
 package jsonObjects;
 
+/*
+General User - can be a student or professor/employer
+ */
+
 public class Person {
     // The first name, last name, prefix, and suffix of this person.
     private String fName, lName, prefix, suffix;
