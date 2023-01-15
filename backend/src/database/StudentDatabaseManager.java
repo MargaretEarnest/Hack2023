@@ -71,8 +71,8 @@ public class StudentDatabaseManager {
             Statement statement = Objects.requireNonNull(getConnection()).createStatement();
             ResultSet result = statement.executeQuery(String.format("SELECT * FROM Students WHERE email = '%s'", email));
             Student student = null;
-            if (result.getFetchSize() > 0 && result.first()) {
-                student = new Student(result.getString("email"), result.getString("prefix"), result.getString("fName"), result.getString("lName"), result.getString("suffix"), result.getInt("status"), HashList.parse(result.getString("majors"), "|"), result.getInt("yearOfGraduation"), result.getFloat("gpa"), Course.parse(HashList.parse(result.getString("classes"), "|")), University.findUniversity(result.getString("university")));
+            if (result.next()) {
+                student = new Student(result.getString("email"), result.getString("prefix"), result.getString("fName"), result.getString("lName"), result.getString("sName"), result.getInt("position"), HashList.parse(result.getString("majors"), "|"), result.getInt("yearOfGraduation"), result.getFloat("gpa"), Course.parse(HashList.parse(result.getString("courses"), "|")), University.findUniversity(result.getString("university")));
             }
             return student;
         } catch (SQLException e) {
@@ -84,7 +84,7 @@ public class StudentDatabaseManager {
         try{
             Statement statement = Objects.requireNonNull(getConnection()).createStatement();
             ResultSet result = statement.executeQuery(String.format("SELECT * FROM Students WHERE email = '%s'", email));
-            return result.getFetchSize() > 0 && result.first();
+            return result.next();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
