@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {Badge, Button, IconButton, Paper, Snackbar} from "@mui/material";
 import CreateJobDialog from "../Components/CreateJobDialog";
-import {Job} from "../jsonObjects/Job";
 import {ArrowCircleLeft, ArrowCircleRight} from "@mui/icons-material";
 
 function getStringWithConjunction(a: string[], conj: string) {
@@ -35,7 +34,6 @@ function FindStudentsPage(props: { currentUser: string }) {
     };
 
     let appHumans = [human, human, human, human, human, human, human, human, human, human, human, human];
-    let recHumans = [human, human, human, human, human, human, human, human, human, human, human, human];
 
     let job = {
         id: 0,
@@ -87,7 +85,7 @@ function FindStudentsPage(props: { currentUser: string }) {
                     }}>Add Job</Button><br/>
                     <div id={"scrollBarDiv"} style={{overflowY: "scroll", width: "100%"}}><br/>
                         {jobs.map(j =>
-                            <Paper className="noselect profJob" style={{
+                            <Paper className={"noselect profJob "} style={{
                                 position: "relative",
                                 width: "80%",
                                 height: "100px",

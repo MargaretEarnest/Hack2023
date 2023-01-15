@@ -28,6 +28,14 @@ export default function CreateJobDialog(props: { currentUser: string, open: bool
                 <div style={{display: "flex", width: "100%", flexDirection: "row", flexWrap: "wrap"}}>
                     <TextField id="title" label="Title" variant="outlined"/><br/>
                     <TextField id="department" label="Department" variant="outlined"/><br/>
+                    <TextField
+                        className={"formSpacing"}
+                        id="desc"
+                        label="Description"
+                        multiline
+                        rows={1}
+                        defaultValue=""
+                    /><br/>
                     <div style={{marginTop: "-22px"}}>
                         <InputLabel id="statusLabel" variant="standard">Status</InputLabel>
                         <Select
@@ -46,32 +54,23 @@ export default function CreateJobDialog(props: { currentUser: string, open: bool
                             <MenuItem value={3}>Postdoc</MenuItem>
                         </Select>
                     </div>
-                    <br/>
-                    <TextField id="location" label="Location" variant="outlined"/><br/>
-                    <FormControlLabel style={{marginLeft: "6px", marginBottom: "10px"}} control={<Checkbox defaultChecked/>} label="Federal Work Study Only"/>
-                    <TextField className={"formSpacing"} id="teamSize" label="Team Size" type="number"
-                               variant="outlined"/><br/>
-                    <TextField className={"formSpacing"} id="hours" label="Hours per Week" type="number"
-                               variant="outlined"/><br/>
-                    <TextField className={"formSpacing"} id="email" label="Email" variant="outlined"/><br/>
-                    <TextField className={"formSpacing"} id="gpa" label="Desired GPA" type="number" variant="outlined"/><br/>
-                    <TextField
-                        className={"formSpacing"}
-                        id="desc"
-                        label="Description"
-                        multiline
-                        rows={1}
-                        defaultValue=""
-                    />
-                    <TextField className={"formSpacing"} id="year" label="Desired Class Year" type="number"
-                               variant="outlined"/><br/>
-                    <TextField className={"formSpacing"} id="phone" label="Phone Number" variant="outlined"/><br/>
-                    <TextField className={"formSpacing"} id="contact" label="Job Contact" variant="outlined"/><br/>
-                    <TextField className={"formSpacing"} id="employees" label="Employees" variant="outlined"/><br/><br/>
                     <AutocompleteMultiselect setValue={setMajors} width="210px" marginLeft="0"
                                              data={DataLists.collegeMajors} name={"Majors"}/><br/>
+                    <TextField className={"formSpacing"} id="email" label="Email" variant="outlined"/><br/>
+                    <TextField className={"formSpacing"} id="gpa" label="Desired GPA" type="number" variant="outlined"/><br/>
+                    <TextField className={"formSpacing"} id="employees" label="Employees" variant="outlined"/><br/><br/>
+                    <TextField className={"formSpacing"} id="year" label="Desired Class Year" type="number"
+                               variant="outlined"/><br/>
                     <AutocompleteMultiselect setValue={setClasses} width="210px" marginLeft="0"
                                              data={DataLists.courses} name={"Required Courses"}/><br/>
+                    <TextField className={"formSpacing"} id="phone" label="Phone Number" variant="outlined"/><br/>
+                    <TextField className={"formSpacing"} id="contact" label="Job Contact" variant="outlined"/><br/>
+                    <TextField className={"formSpacing"} id="hours" label="Hours per Week" type="number"
+                               variant="outlined"/><br/>
+                    <TextField className={"formSpacing"} id="teamSize" label="Team Size" type="number"
+                               variant="outlined"/><br/>
+                    <FormControlLabel style={{marginLeft: "6px", marginBottom: "10px"}} control={<Checkbox defaultChecked/>} label="Federal Work Study Only"/>
+                    <TextField className={"formSpacing"} id="location" label="Location" variant="outlined"/><br/>
                 </div>
                 <p>Please enter each employee associated with the project with a comma between entries, ex. "John
                     Doe, Jane Doe"</p>
