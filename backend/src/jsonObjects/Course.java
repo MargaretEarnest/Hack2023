@@ -37,6 +37,14 @@ public class Course {
     }
 
     /**
+     * Computes a difficulty for this course.
+     * @return the relative difficulty of this class on a scale of 1 to 5
+     */
+    public int difficulty() {
+        return this.ID / (this.ID >= 1000 ? 1000 : 100);
+    }
+
+    /**
      * Gets the hashCode for this {@code Course}
      * @return
      */

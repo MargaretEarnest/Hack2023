@@ -56,8 +56,11 @@ public class UserDatabaseManager {
         try{
             Statement statement = Objects.requireNonNull(getConnection()).createStatement();
             ResultSet result = statement.executeQuery(String.format("SELECT Pass FROM Users WHERE email = '%s'", email));
-            if(result.getFetchSize() > 0 && result.first()){
-                PasswordStorage.verifyPassword(result.getString(password), password);
+            if(result.next()){
+                PasswordStorage.verifyPassword(password, result.getString("Pass"));
+                return true;
+            }else{
+                System.out.println("Problem");
             }
         } catch (SQLException | PasswordStorage.InvalidHashException | PasswordStorage.CannotPerformOperationException e) {
             throw new RuntimeException(e);

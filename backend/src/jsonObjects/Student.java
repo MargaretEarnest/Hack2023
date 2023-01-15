@@ -1,10 +1,11 @@
 package jsonObjects;
 
 import com.google.gson.Gson;
+import utils.BST;
 import utils.ComparableMapEntry;
 import utils.HashList;
 
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * The {@code jsonObjects.Student} object stores all necessary information for which
@@ -40,6 +41,7 @@ public class Student extends Person {
         this.yearOfGraduation = yearOfGraduation;
         this.gpa = gpa;
         this.classes = classes;
+        super.getUniversity().getStudents().add(this);
         this.acceptedJobs = new HashList<>();
         this.requestedJobs = new HashList<>();
         this.hiredJobs = new HashList<>();
@@ -139,27 +141,36 @@ public class Student extends Person {
      * Sorted based on what percent match the student is
      */
     public String getFilteredJobs(){
-        final PriorityQueue<ComparableMapEntry<Double, Job>> jobs = new PriorityQueue<>();
+        final BST<ComparableMapEntry<Double, Job>> jobs = new BST<>();
         for(Employer employer : super.getUniversity().getEmployers()) {
+            System.out.println(employer.getPrefix());
             for(Job job : employer.getJobs()) {
-                int classCount = 0;
+                System.out.println(job.getTitle());
+                int classCount = 0, total = 0;
                 for(Course course : job.getRequirements()) {
+                    final int difficulty = course.difficulty();
+                    total += difficulty;
                     if(this.classes.contains(course)) {
-                        classCount++;
+                        classCount += difficulty;
                     }
                 }
                 double percent = 1.0;
-                int total = job.getRequirements().size();
                 if(total != 0) {
-                    percent = classCount / total;
+                    percent = classCount / (total + 0.0);
                 } // pair is 'job' and 'percent'
-                jobs.add(new ComparableMapEntry<>(percent, job));
+                System.out.println(jobs.size());
+                jobs.insert(new ComparableMapEntry<>(-percent, job));
+                System.out.println(jobs.size());
             }
         }
-        HashList<Job> sortedJobs = new HashList<>();
-        for(ComparableMapEntry<Double, Job> entry : jobs) {
+        System.out.println(jobs.size());
+        List<Job> sortedJobs = new LinkedList<>();
+        for(ComparableMapEntry<Double, Job> entry : jobs.getOrderedList()) {
             sortedJobs.add(entry.value());
+            System.out.println(entry.value().getTitle());
+            System.out.println(entry.key());
         }
+        System.out.println(sortedJobs.size());
         return new Gson().toJson(sortedJobs);
     }
 

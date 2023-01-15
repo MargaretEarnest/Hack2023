@@ -2,14 +2,18 @@ package server;
 
 import com.google.gson.Gson;
 import database.EmployerDatabaseManager;
+import database.JobDatabaseManager;
 import database.StudentDatabaseManager;
 import database.UserDatabaseManager;
 import jsonObjects.*;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
+import utils.HashList;
 
 import java.net.InetSocketAddress;
+import java.util.List;
+import java.util.Set;
 
 public class Server extends WebSocketServer {
     public Server(int port) {
@@ -38,8 +42,17 @@ public class Server extends WebSocketServer {
             case "StudentList" -> handleStudentList(conn, request);
             case "JobList" -> handleJobList(conn, request);
             case "ChooseStudent" -> handleChooseStudent(conn, request);
+            case "JobLoadRequest" -> handleJobLoad(conn, request);
             default -> System.out.println("ERROR");
         }
+    }
+
+    private void handleJobLoad(WebSocket conn, RequestHandler.Request request) {
+        Gson gson = new Gson();
+        List<String> locations = JobDatabaseManager.getInstance().getAllLocations();
+        MinMax hours = JobDatabaseManager.getInstance().getMinMaxHours();
+        MinMax teamSize = JobDatabaseManager.getInstance().getMinMaxStudents();
+        conn.send(gson.toJson(new JobLoadRequest(hours, teamSize, locations.toArray())));
     }
 
     private void handleChooseStudent(WebSocket conn, RequestHandler.Request request) {
@@ -57,6 +70,8 @@ public class Server extends WebSocketServer {
     private void handleJobList(WebSocket conn, RequestHandler.Request request) {
         Gson gson = new Gson();
         JobListRequest jobListRequest = gson.fromJson(request.data, JobListRequest.class);
+        HashList<Job> allJobs = JobDatabaseManager.getInstance().getApplicableJobs(jobListRequest);
+        conn.send(gson.toJson(allJobs.toArray()));
     }
 
     private void handleCreateStudent(WebSocket conn, RequestHandler.Request request){

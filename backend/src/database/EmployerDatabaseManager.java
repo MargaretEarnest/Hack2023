@@ -44,8 +44,8 @@ public class EmployerDatabaseManager {
     public void addEmployer(Employer employer){
         try{
             Statement statement = Objects.requireNonNull(getConnection()).createStatement();
-            statement.executeUpdate(String.format("INSERT INTO Employer(Pname, Fname, Mname, Lname, Sname, Email, Departments, ProjectNames, University) values('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
-                    employer.getPrefix(), employer.getfName(), "", employer.getlName(), employer.getSuffix(), employer.getEmail(), "", "", employer.getUniversity().toString()));
+            statement.executeUpdate(String.format("INSERT INTO Teachers(Pname, Fname, Mname, Lname, Sname, Email, Departments, ProjectNames) values('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+                    employer.getPrefix(), employer.getfName(), "", employer.getlName(), employer.getSuffix(), employer.getEmail(), "", ""));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -78,8 +78,8 @@ public class EmployerDatabaseManager {
     public boolean containsEmployer(String email) {
         try{
             Statement statement = Objects.requireNonNull(getConnection()).createStatement();
-            ResultSet result = statement.executeQuery(String.format("SELECT * FROM Employers WHERE email = '%s'", email));
-            return result.getFetchSize() > 0 && result.first();
+            ResultSet result = statement.executeQuery(String.format("SELECT * FROM Teachers WHERE email = '%s'", email));
+            return result.next();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
