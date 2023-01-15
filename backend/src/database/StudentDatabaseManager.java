@@ -1,7 +1,9 @@
 package database;
 
+import com.google.gson.Gson;
 import jsonObjects.Course;
 import jsonObjects.Student;
+import jsonObjects.StudentJson;
 import jsonObjects.University;
 import utils.Constants;
 import utils.HashList;
@@ -42,11 +44,12 @@ public class StudentDatabaseManager {
         return null;
     }
 
-    public void addStudent(final Student student) {
+    public void addStudent(final StudentJson student) {
         try{
             Statement statement = Objects.requireNonNull(getConnection()).createStatement();
+            Gson gson = new Gson();
             statement.executeUpdate(String.format("INSERT INTO Students (email, prefix, fName, lName, suffix, status, majors, yearOfGraduation, gpa, classes) values('%s', '%s', '%s', '%s', '%s', %d, '%s', %d, %f, '%s')",
-                    student.getEmail(), student.getPrefix(), student.getfName(), student.getlName(), student.getSuffix(), student.getStatus().getValue(), student.getMajors().serialize(), student.getYearOfGraduation(), student.getGPA(), student.getClasses().serialize()));
+                    student.getEmail(), student.getPrefix(), student.getfName(), student.getlName(), student.getSuffix(), student.getStatus().getValue(), gson.toJson(student.getMajors()), student.getYearOfGraduation(), student.getGpa(), gson.toJson(student.getClasses())));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

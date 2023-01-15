@@ -126,7 +126,7 @@ function SignupPage() {
                                    label="Confirm Password" variant="outlined"/><br/>
                         <Button variant={"contained"} style={{width: "160px", marginLeft: "30%"}} onClick={() => {
                             let request: BackendRequest;
-                            console.log("hmmmm", )
+                            console.log("hmmmm")
                             if (accountType === "student") {
                                 console.log("student")
                                 //Create a student
@@ -154,7 +154,7 @@ function SignupPage() {
                                 }
                                 request = new BackendRequest("CreateEmployer", data);
                             }
-                            let websocket = new WebSocket("ws://71.233.252.195:8129");
+                            let websocket = new WebSocket("ws://localhost:8129");
                             websocket.onopen = () => {
                                 console.log(request);
                                 websocket.send(JSON.stringify(request));

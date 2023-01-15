@@ -1,3 +1,3 @@
 package jsonObjects;
 
-public record StudentCreateRequest(Student student, String password) {}
+public record StudentCreateRequest(StudentJson student, String password) {}
