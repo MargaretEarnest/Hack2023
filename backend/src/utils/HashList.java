@@ -9,7 +9,7 @@ import java.util.*;
  */
 public class HashList<Value> implements Iterable<Value> {
     private transient final Map<Value, Cell<Value>> map;
-    private Cell<Value> head;
+    private transient Cell<Value> head;
     private transient Cell<Value> tail;
 
     /**

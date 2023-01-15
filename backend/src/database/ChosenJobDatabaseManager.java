@@ -1,6 +1,11 @@
 package database;
 
+import com.google.gson.Gson;
+import jsonObjects.Course;
+import jsonObjects.Student;
+import jsonObjects.University;
 import utils.Constants;
+import utils.HashList;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -63,10 +68,17 @@ public class ChosenJobDatabaseManager {
     public Object[] getChoices(String jobName){
         try{
             Statement statement = Objects.requireNonNull(getConnection()).createStatement();
-            ResultSet results = statement.executeQuery(String.format("SELECT DISTINCT Email From ChosenJobs WHERE JobName= '%s'", jobName));
-            List<String> students = new ArrayList<>();
-            while(!results.isClosed() && results.next()){
-                students.add(results.getString("Email"));
+            ResultSet emailResults = statement.executeQuery(String.format("SELECT DISTINCT Email From ChosenJobs WHERE JobName= '%s'", jobName));
+            List<String> studentEmails = new ArrayList<>();
+            while(!emailResults.isClosed() && emailResults.next()){
+                studentEmails.add(emailResults.getString("Email"));
+            }
+            List<Student> students = new ArrayList<>();
+            for(String email : studentEmails) {
+                ResultSet result = statement.executeQuery("SELECT * FROM Students WHERE Email = '" + email + "'");
+                while(result.next()) {
+                    students.add(new Student(result.getString("Email"), "", result.getString("Fname"), result.getString("Lname"), result.getString("Sname"), result.getInt("Position"), new HashList<>(new Gson().fromJson(result.getString("Majors"), String[].class)), result.getInt("yearOfGraduation"), result.getFloat("gpa"), Course.parse(new HashList<>(new Gson().fromJson(result.getString("Courses"), String[].class))), University.findUniversity(result.getString("University"))));
+                }
             }
             return students.toArray();
         } catch (SQLException e) {

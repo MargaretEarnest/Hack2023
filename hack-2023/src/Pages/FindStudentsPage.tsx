@@ -5,7 +5,6 @@ import {ArrowCircleLeft, ArrowCircleRight} from "@mui/icons-material";
 import {BackendRequest} from "../jsonObjects/BackendRequest";
 import {useEffect} from "react";
 import {Student} from "../jsonObjects/Student";
-import {Job} from "../jsonObjects/Job";
 
 function getStringWithConjunction(a: string[], conj: string) {
     if (a) {
@@ -23,8 +22,10 @@ function FindStudentsPage(props: {
         }
     }
 
-    function loadStudents() {
-        let request = new BackendRequest("StudentList", JSON.stringify({JobTitle: selectedJob}))
+    let appStudentMap: any = {};
+
+    function loadStudents(jobName: string) {
+        let request = new BackendRequest("StudentList", JSON.stringify({JobTitle: jobName}))
 
         let websocket = new WebSocket("ws://localhost:8129");
         websocket.onopen = () => {
@@ -32,8 +33,8 @@ function FindStudentsPage(props: {
             websocket.send(JSON.stringify(request));
         };
         websocket.onmessage = (event) => {
-            console.log(event);
-            setAppStudents(JSON.parse(event.data).studentList);
+            console.log(event, JSON.parse(event.data).studentList);
+            appStudentMap[jobName] = JSON.parse(event.data).studentList;
             websocket.close();
         };
     }
@@ -56,16 +57,13 @@ function FindStudentsPage(props: {
         websocket.onmessage = (event) => {
             console.log(event);
             setJobs(JSON.parse(event.data).filter((j: any) => j != "null"));
+            for (const job of JSON.parse(event.data).filter((j: any) => j != "null")) {
+                loadStudents(job);
+            }
             console.log(jobs);
             websocket.close();
         };
     }, []);
-
-    useEffect(function() {
-        if (selectedJob){
-            loadStudents();
-        }
-    }, [selectedJob]);
 
     const [newJobOpen, setNewJobOpen] = React.useState(false);
     const handleNewJobOpen = () => {
@@ -108,7 +106,7 @@ function FindStudentsPage(props: {
                             }} onClick={() => {
                                 setSelectedJob(j)
                             }}>
-                                <Badge badgeContent={4} color="primary" showZero
+                                <Badge badgeContent={appStudentMap[j] ? appStudentMap[j].length : 0} color="primary" showZero
                                        style={{position: "absolute", right: 0, top: 0}}/>
                                 <span style={{fontSize: "30px"}}>{j}</span><br/>
                             </Paper>
@@ -135,7 +133,7 @@ function FindStudentsPage(props: {
                                 height: "100%",
                                 margin: "auto"
                             }}>
-                                {appStudents.map(app => <div className={"studentList"} style={{
+                                {(appStudentMap[selectedJob] ? appStudentMap[selectedJob] : []).map((app: Student) => <div className={"studentList"} style={{
                                     position: "relative",
                                     overflowY: "auto",
                                     padding: "10px",
@@ -149,8 +147,8 @@ function FindStudentsPage(props: {
                                 }}>
                                     <p><b>{app.prefix + " " + app.fName + " " + app.lName + " " + app.suffix}</b></p>
                                     <p>{["Undergraduate", "Grad student", "Doctoral student", "Postdoc"][app.status] + ", grad year " + app.yearOfGraduation}</p>
-                                    <p>{"Majoring in " + getStringWithConjunction(app.majors, "and")}</p>
-                                    <p>{"Has taken " + getStringWithConjunction(app.classes, "and")}</p>
+                                    <p>{"Majoring in " + app.majors}</p>
+                                    <p>{"Has taken " + app.classes}</p>
                                     <p>Percent match: 90%</p>
                                     <Button onClick={() => {
                                         setAcceptStudent(true)
@@ -165,7 +163,7 @@ function FindStudentsPage(props: {
                                         websocket.onmessage = (event) => {
                                             console.log(event);
                                             websocket.close();
-                                            loadStudents();
+                                            loadStudents(selectedJob);
                                         };
                                     }} color={"success"} variant={"contained"} style={{
                                         borderRadius: 0,
@@ -187,7 +185,7 @@ function FindStudentsPage(props: {
                                         websocket.onmessage = (event) => {
                                             console.log(event);
                                             websocket.close();
-                                            loadStudents();
+                                            loadStudents(selectedJob);
                                         };
                                     }} color={"error"} variant={"contained"} style={{
                                         borderRadius: 0,

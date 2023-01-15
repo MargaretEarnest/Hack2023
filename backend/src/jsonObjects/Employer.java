@@ -2,7 +2,11 @@ package jsonObjects;
 
 import utils.HashList;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Employer extends Person {
+    public static Map<String, Employer> employers = new HashMap<>();
     // A list of all jobs offered by this employer.
     private final HashList<Job> jobs;
 
@@ -20,6 +24,7 @@ public class Employer extends Person {
         super(fName, lName, prefix, suffix, email, university);
         this.jobs = new HashList<>();
         super.getUniversity().getEmployers().add(this);
+        employers.put(this.getEmail(), this);
     }
 
     /**
