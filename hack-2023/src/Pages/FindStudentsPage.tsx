@@ -116,7 +116,7 @@ function FindStudentsPage(props: {
                 </div>
                 <div style={{maxHeight: "100%", overflow: 'auto', width: "98%", margin: "10px"}}>
                     {selectedJob && <>
-                        <h1>BoGL Web</h1>
+                        <h1>{selectedJob}</h1>
                         <span style={{marginLeft: "65px", fontSize: "20px", fontWeight: "bold"}}>Applicants:</span>
                         <div style={{marginTop: "10px", display: "flex", height: "35%", alignItems: "center"}}>
                             <IconButton onClick={() => slide("appContainer", 'left')}>
