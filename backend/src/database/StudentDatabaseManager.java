@@ -48,13 +48,14 @@ public class StudentDatabaseManager {
         try{
             Statement statement = Objects.requireNonNull(getConnection()).createStatement();
             Gson gson = new Gson();
-            statement.executeUpdate(String.format("INSERT INTO Students (email, prefix, fName, lName, suffix, status, majors, yearOfGraduation, gpa, classes) values('%s', '%s', '%s', '%s', '%s', %d, '%s', %d, %f, '%s')",
-                    student.getEmail(), student.getPrefix(), student.getfName(), student.getlName(), student.getSuffix(), student.getStatus().getValue(), gson.toJson(student.getMajors()), student.getYearOfGraduation(), student.getGpa(), gson.toJson(student.getClasses())));
+            statement.executeUpdate(String.format("INSERT INTO Students (email, prefix, fName, lName, Sname, position, majors, yearOfGraduation, gpa, courses) values('%s', '%s', '%s', '%s', '%s', %d, '%s', %d, %f, '%s')",
+                    student.getEmail(), student.getPrefix(), student.getfName(), student.getlName(), student.getSuffix(), student.getStatus(), gson.toJson(student.getMajors()), student.getYearOfGraduation(), student.getGpa(), gson.toJson(student.getClasses())));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
+    //TODO Fix this if it ever gets used. The field names are wrong
     public void updateStudent(final Student student) {
         try{
             Statement statement = Objects.requireNonNull(getConnection()).createStatement();

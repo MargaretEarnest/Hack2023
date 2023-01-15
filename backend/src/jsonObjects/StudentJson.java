@@ -3,7 +3,7 @@ package jsonObjects;
 import utils.HashList;
 
 public class StudentJson {
-    private StudentType status;
+    private int status;
     private String[] majors;
     private int yearOfGraduation;
     private float gpa;
@@ -63,11 +63,11 @@ public class StudentJson {
         this.university = university;
     }
 
-    public StudentType getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(StudentType status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
