@@ -72,7 +72,7 @@ public class StudentDatabaseManager {
             ResultSet result = statement.executeQuery(String.format("SELECT * FROM Students WHERE email = '%s'", email));
             Student student = null;
             if (result.next()) {
-                student = new Student(result.getString("email"), result.getString("prefix"), result.getString("fName"), result.getString("lName"), result.getString("sName"), result.getInt("position"), HashList.parse(result.getString("majors"), "|"), result.getInt("yearOfGraduation"), result.getFloat("gpa"), Course.parse(HashList.parse(result.getString("courses"), "|")), University.findUniversity(result.getString("university")));
+                student = new Student(result.getString("email"), result.getString("prefix"), result.getString("fName"), result.getString("lName"), result.getString("sName"), result.getInt("position"), new HashList<>(new Gson().fromJson(result.getString("majors"), String[].class)), result.getInt("yearOfGraduation"), result.getFloat("gpa"), Course.parse(new HashList<>(new Gson().fromJson(result.getString("courses"), String[].class))), University.findUniversity(result.getString("university")));
             }
             return student;
         } catch (SQLException e) {
