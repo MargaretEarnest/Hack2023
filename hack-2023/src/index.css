@@ -118,3 +118,11 @@ h2 {
 ul[role="listbox"] {
   z-index: 10000 !important;
 }
+
+.profJob:hover {
+  background-color: #e6dec1 !important;
+}
+
+.profJob:active, .profJob.selected {
+  background-color: #ccc6ab !important;
+}

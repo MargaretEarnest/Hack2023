@@ -1,24 +1,23 @@
 export class Job{
-    private id: number;
-    private creators: string[];
-    private type: number;
-    private majors: string[];
-    private title: string;
-    private department: string;
-    private location: string;
-    private numStudents: number;
-    private hours: number;
-    private email: string;
-    private federalWorkStudy: boolean;
-    private desc: string;
-    private gpa: number;
-    private classYear: number;
-    private grad: number;
-    private phone: string;
-    private contact: string;
-    private employees: string[];
+    public id: number;
+    public creators: string[];
+    public type: number;
+    public majors: string[];
+    public title: string;
+    public department: string;
+    public location: string;
+    public numStudents: number;
+    public hours: number;
+    public email: string;
+    public federalWorkStudy: boolean;
+    public desc: string;
+    public gpa: number;
+    public classYear: number;
+    public phone: string;
+    public contact: string;
+    public employees: string[];
 
-    constructor(id: number, creators: string[], type: number, majors: string[], title: string, department: string, location: string, numStudents: number, hours: number, email: string, federalWorkStudy: boolean, desc: string, gpa: number, classYear: number, grad: number, phone: string, contact: string, employees: string[]) {
+    constructor(id: number, creators: string[], type: number, majors: string[], title: string, department: string, location: string, numStudents: number, hours: number, email: string, federalWorkStudy: boolean, desc: string, gpa: number, classYear: number, phone: string, contact: string, employees: string[]) {
         this.id = id;
         this.creators = creators;
         this.type = type;
@@ -33,7 +32,6 @@ export class Job{
         this.desc = desc;
         this.gpa = gpa;
         this.classYear = classYear;
-        this.grad = grad;
         this.classYear = classYear;
         this.phone = phone;
         this.contact = contact;
