@@ -71,14 +71,9 @@ public class Course {
     public static HashList<Course> parse(Iterable<String> str) {
         HashList<Course> list = new HashList<>();
         for(String s : str) {
-            final int spaceIndex = s.indexOf(' ');
-            int departmentIndex = 0;
-            while(Character.isLetter(s.charAt(departmentIndex))) {
-                departmentIndex++;
-            }
-            list.add(new Course(s.substring(0, departmentIndex),
-                    Integer.parseInt(s.substring(departmentIndex, spaceIndex)),
-                    s.substring(spaceIndex + 1)));
+            String[] split = s.split(" ");
+            list.add(new Course(split[0], Integer.parseInt(split[1]),
+                    split.length > 2 ? split[2] : ""));
         }
         return list;
     }
