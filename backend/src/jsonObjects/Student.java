@@ -130,18 +130,33 @@ public class Student extends Person {
     }
 
     /**
-     * Generates a list of recommended classes that meet the
+     * Generates a {@code String} denoting a list of jobs sorted
      * filters that the student put in
      * Sorted based on what percent match the student is
      */
-    public HashList<Job> getFilteredJobs(){
-        HashList<Job> jobs = new HashList<Job>();
-        // meet all requirements
-        // matches this student's major
-        // matches this student's school year
-
-
-        return jobs;
+    public String getFilteredJobs(){
+        final PriorityQueue<ComparableMapEntry<Double, Job>> jobs = new PriorityQueue<>();
+        for(Employer employer : super.getUniversity().getEmployers()) {
+            for(Job job : employer.getJobs()) {
+                int classCount = 0;
+                for(Course course : job.getRequirements()) {
+                    if(this.classes.contains(course)) {
+                        classCount++;
+                    }
+                }
+                double percent = 1.0;
+                int total = job.getRequirements().size();
+                if(total != 0) {
+                    percent = classCount / total;
+                } // pair is 'job' and 'percent'
+                jobs.add(new ComparableMapEntry<>(percent, job));
+            }
+        }
+        HashList<Job> sortedJobs = new HashList<>();
+        for(ComparableMapEntry<Double, Job> entry : jobs) {
+            sortedJobs.add(entry.value());
+        }
+        return new Gson().toJson(sortedJobs);
     }
 
     /**
