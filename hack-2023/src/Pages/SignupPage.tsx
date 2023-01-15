@@ -126,31 +126,32 @@ function SignupPage() {
                                    label="Confirm Password" variant="outlined"/><br/>
                         <Button variant={"contained"} style={{width: "160px", marginLeft: "30%"}} onClick={() => {
                             let request: BackendRequest;
-                            if (getById(accountType) === "student") {
+                            if (accountType === "student") {
                                 //Create a student
                                 let data = "";
-                                if(getById("pass1") === getById("pass2")){
-                                    let student = new Student(getById("email"), getById("prefix"), getById("fname"), getById("lname"), getById("suffix"), status, majors, gradYear, parseFloat(getById("gpa")), classes);
+                                if(getById("pass1") === getById("pass2")) {
+                                    let student = new Student(getById("email"), getById("prefix"), getById("fName"), getById("lName"), getById("suffix"), status, majors, gradYear, parseFloat(getById("gpa")), classes);
                                     let createStudentReq = new CreateStudentRequest(student, getById("pass1"));
                                     data = JSON.stringify(createStudentReq);
-                                }else{
-                                    console.log("Passwords do not match")
+                                } else {
+                                    alert("Passwords do not match")
                                 }
                                 request = new BackendRequest("CreateStudent", data);
                             } else {
                                 //Create an employer
                                 let data = "";
                                 if(getById("pass1") === getById("pass2")){
-                                    let student = new Employer(getById("email"), getById("prefix"), getById("fname"), getById("lname"), getById("suffix"), status, majors);
+                                    let student = new Employer(getById("email"), getById("prefix"), getById("fName"), getById("lName"), getById("suffix"), status, majors);
                                     let createEmployerReq = new CreateEmployerRequest(student, getById("pass1"));
                                     data = JSON.stringify(createEmployerReq);
                                 }else{
-                                    console.log("Passwords do not match")
+                                    alert("Passwords do not match")
                                 }
                                 request = new BackendRequest("CreateEmployer", data);
                             }
-                            let websocket = new WebSocket("ws://localhost:8000");
+                            let websocket = new WebSocket("ws://localhost:8129");
                             websocket.onopen = () => {
+                                console.log(request);
                                 websocket.send(JSON.stringify(request));
                             };
                             websocket.onmessage = (event) => {

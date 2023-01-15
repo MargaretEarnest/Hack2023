@@ -6,22 +6,21 @@ import CreateAccount from "./Pages/SignupPage";
 import {HashRouter as Router, Route, Routes} from "react-router-dom";
 import FindJobPage from "./Pages/FindJobPage";
 import FindStudentsPage from "./Pages/FindStudentsPage";
-import EditProfilePage from "./Pages/EditProfilePage";
 
 function App() {
-    const [username, setUsername] = React.useState("");
+    const [username, setUsername] = React.useState<string>("");
+    const [email, setEmail] = React.useState<string>("");
     const [accountType, setAccountType] = React.useState("");
 
     return (
         <Router>
             <div className={"pageLayout"}>
-                <MenuBar username={username} setUsername={setUsername} accountType={accountType}
+                <MenuBar username={username} setEmail={setEmail} setUsername={setUsername} accountType={accountType}
                          setAccountType={setAccountType}/>
                 <Routes>
-                    <Route path="/" element={username == "" ? <HomePage/> : (accountType == "student") ? <FindJobPage/>
-                        : <FindStudentsPage/>}/>
+                    <Route path="/" element={username == "" ? <HomePage/> : (accountType == "student") ? <FindJobPage email={email}/>
+                        : <FindStudentsPage currentUser={username}/>}/>
                     <Route path="/createAccount" element={<CreateAccount/>}/>
-                    <Route path="/editProfile" element={<EditProfilePage/>}/>
                 </Routes>
             </div>
         </Router>

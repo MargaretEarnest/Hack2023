@@ -78,3 +78,43 @@ h2 {
 .MuiToggleButtonGroup-grouped {
   border-radius: 10px !important;
 }
+
+*::-webkit-scrollbar {
+  width: 1em;
+}
+
+*::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
+.profJob {
+  margin-bottom: 20px !important;
+}
+
+.MuiBadge-badge {
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 30px !important;
+  font-size: 15px !important;
+}
+
+.studentList {
+  padding: 0 10px;
+}
+
+.studentList > p {
+  margin: 5px 0;
+}
+
+.formSpacing {
+  margin: 40px;
+}
+
+ul[role="listbox"] {
+  z-index: 10000 !important;
+}

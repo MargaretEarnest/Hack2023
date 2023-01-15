@@ -65,6 +65,20 @@ public class HashList<Value> implements Iterable<Value> {
     }
 
     /**
+     * Converts this {@code HashList} to an {@code Array}.
+     * @return the {@code Array}.
+     */
+    @SuppressWarnings("unchecked")
+    public Value[] toArray() {
+        final Object[] array = new Object[size()];
+        int index = 0;
+        for(Value value : this) {
+            array[index++] = value;
+        }
+        return (Value[]) array;
+    }
+
+    /**
      * Adds a List of {@code HashNodes} into this {@code utils.HashList}.
      * @param iterable the target Iterable
      * @return true if all new elements were not previously contained in this utils.HashList, else false
