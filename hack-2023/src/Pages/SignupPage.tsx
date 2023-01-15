@@ -141,7 +141,7 @@ function SignupPage() {
                                 //Create an employer
                                 let data = "";
                                 if(getById("pass1") === getById("pass2")){
-                                    let student = new Employer(getById("email"), getById("prefix"), getById("fname"), getById("lname"), getById("suffix"), status, majors);
+                                    let student = new Employer(getById("email"), getById("prefix"), getById("fName"), getById("lName"), getById("suffix"), status, majors);
                                     let createEmployerReq = new CreateEmployerRequest(student, getById("pass1"));
                                     data = JSON.stringify(createEmployerReq);
                                 }else{
