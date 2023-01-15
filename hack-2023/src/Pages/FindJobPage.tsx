@@ -82,25 +82,6 @@ function FindJobPage(props: {email: string}) {
 
     return (
         <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-            <h2 style={{marginBottom: "10px"}}>I'm Looking For a...</h2>
-            <ToggleButtonGroup
-                color="primary"
-                value={filterSelections}
-                onChange={(e) => {
-                    // @ts-ignore
-                    let pressedButton: string = e.target.value;
-                    if (filterSelections.includes(pressedButton)) {
-                        setFilterSelections(filterSelections.filter(a => a != pressedButton))
-                    } else {
-                        setFilterSelections(filterSelections.concat([pressedButton]))
-                    }
-                }}
-                aria-label="Filters"
-            >
-                <ToggleButton value="research">Research Position</ToggleButton>
-                <ToggleButton value="ta">Teaching Assistant Position</ToggleButton>
-                <ToggleButton value="campus-job">Campus Job</ToggleButton>
-            </ToggleButtonGroup><br/>
             <div style={{display: "flex", width: "100%"}}>
                 <div style={{width: "250px", minWidth: "250px", backgroundColor: "#B8D5ED", margin: "10px"}}>
                     <h3 style={{textAlign: "center", fontSize: "25px", marginBottom: 10}}>Job Filters</h3>
