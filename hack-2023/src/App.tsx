@@ -9,15 +9,16 @@ import FindStudentsPage from "./Pages/FindStudentsPage";
 
 function App() {
     const [username, setUsername] = React.useState<string>("");
+    const [email, setEmail] = React.useState<string>("");
     const [accountType, setAccountType] = React.useState("");
 
     return (
         <Router>
             <div className={"pageLayout"}>
-                <MenuBar username={username} setUsername={setUsername} accountType={accountType}
+                <MenuBar username={username} setEmail={setEmail} setUsername={setUsername} accountType={accountType}
                          setAccountType={setAccountType}/>
                 <Routes>
-                    <Route path="/" element={username == "" ? <HomePage/> : (accountType == "student") ? <FindJobPage/>
+                    <Route path="/" element={username == "" ? <HomePage/> : (accountType == "student") ? <FindJobPage email={email}/>
                         : <FindStudentsPage currentUser={username}/>}/>
                     <Route path="/createAccount" element={<CreateAccount/>}/>
                 </Routes>
