@@ -65,6 +65,10 @@ public class Server extends WebSocketServer {
 
     private void handleCreateJob(WebSocket conn, RequestHandler.Request request) {
         Gson gson = new Gson();
+        CreateJobRequest cr = gson.fromJson(request.data, CreateJobRequest.class);
+        JobDatabaseManager.getInstance().addJob(new Job(0, cr.title, cr.department, cr.location, cr.numStudents,
+                cr.hours, cr.email, cr.federalWorkStudy, cr.desc, cr.requirements, cr.phone, cr.contact));
+        conn.send(gson.toJson(new CreateResponse(true)));
     }
 
     private void handleJobList(WebSocket conn, RequestHandler.Request request) {
