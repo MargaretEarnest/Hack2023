@@ -19,6 +19,7 @@ public class Employer extends Person {
                     University university) {
         super(fName, lName, prefix, suffix, email, university);
         this.jobs = new HashList<>();
+        super.getUniversity().getEmployers().add(this);
     }
 
     /**

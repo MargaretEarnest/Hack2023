@@ -41,7 +41,7 @@ public class Person {
                   University university) {
         changeName(prefix, fName, lName, suffix);
         changeEmail(email);
-        this.university = university;
+        this.university = University.findUniversity(university.toString());
     }
 
     /**
