@@ -110,3 +110,7 @@ h2 {
 .studentList > p {
   margin: 5px 0;
 }
+
+.formSpacing {
+  margin: 40px;
+}

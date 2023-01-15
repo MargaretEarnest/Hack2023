@@ -126,16 +126,21 @@ function SignupPage() {
                                    label="Confirm Password" variant="outlined"/><br/>
                         <Button variant={"contained"} style={{width: "160px", marginLeft: "30%"}} onClick={() => {
                             let request: BackendRequest;
-                            if (getById(accountType) === "student") {
+                            console.log("hmmmm", )
+                            if (accountType === "student") {
+                                console.log("student")
                                 //Create a student
                                 let data = "";
-                                if(getById("pass1") === getById("pass2")){
+                                if(getById("pass1") === getById("pass2")) {
                                     let student = new Student(getById("email"), getById("prefix"), getById("fname"), getById("lname"), getById("suffix"), status, majors, gradYear, parseFloat(getById("gpa")), classes);
+                                    console.log(student);
                                     let createStudentReq = new CreateStudentRequest(student, getById("pass1"));
+                                    console.log(createStudentReq);
                                     data = JSON.stringify(createStudentReq);
-                                }else{
-                                    console.log("Passwords do not match")
+                                } else {
+                                    alert("Passwords do not match")
                                 }
+                                console.log(data);
                                 request = new BackendRequest("CreateStudent", data);
                             } else {
                                 //Create an employer
@@ -145,12 +150,13 @@ function SignupPage() {
                                     let createEmployerReq = new CreateEmployerRequest(student, getById("pass1"));
                                     data = JSON.stringify(createEmployerReq);
                                 }else{
-                                    console.log("Passwords do not match")
+                                    alert("Passwords do not match")
                                 }
                                 request = new BackendRequest("CreateEmployer", data);
                             }
                             let websocket = new WebSocket("ws://71.233.252.195:8129");
                             websocket.onopen = () => {
+                                console.log(request);
                                 websocket.send(JSON.stringify(request));
                             };
                             websocket.onmessage = (event) => {

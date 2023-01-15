@@ -2,12 +2,13 @@ import * as React from 'react';
 import {Badge, Button, IconButton, Paper, Snackbar} from "@mui/material";
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+import CreateJobDialog from "../Components/CreateJobDialog";
 
 function getStringWithConjunction(a: string[], conj: string) {
     return a.slice(0, -1).join(', ') + (a.length > 1 ? " " + conj + " " : '') + a.slice(-1);
 }
 
-function FindStudentsPage() {
+function FindStudentsPage(props: {currentUser: string}) {
     function slide(containerId: string, direction: string) {
         let container = document.getElementById(containerId);
         if (container) {
@@ -55,8 +56,17 @@ function FindStudentsPage() {
 
     let jobs = [job, job, job, job, job, job, job, job, job, job];
 
+    const [newJobOpen, setNewJobOpen] = React.useState(false);
+    const handleNewJobOpen = () => {
+        setNewJobOpen(true);
+    };
+    const handleNewJobClose = () => {
+        setNewJobOpen(false);
+    };
+
     return (
         <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+            <CreateJobDialog open={newJobOpen} handleClose={handleNewJobClose} currentUser={props.currentUser}/>
             <div style={{display: "flex", width: "100%"}}>
                 <div style={{
                     height: "calc(100vh - 88px)",
@@ -69,7 +79,7 @@ function FindStudentsPage() {
                     alignItems: "center"
                 }}>
                     <h3 style={{textAlign: "center", fontSize: "30px", marginBottom: 10}}>Your Jobs</h3>
-                    <Button variant={"contained"} style={{width: "300px", height: "100px"}}>Add Job</Button><br/>
+                    <Button variant={"contained"} style={{width: "300px", height: "100px"}} onClick={() => {handleNewJobOpen()}}>Add Job</Button><br/>
                     <div id={"scrollBarDiv"} style={{overflowY: "scroll", width: "100%"}}><br/>
                         {jobs.map(j =>
                             <Paper className="noselect profJob" style={{

@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import {Avatar, IconButton, Menu, MenuItem} from "@mui/material";
 import LoginDialog from "./LoginDialog";
 
-function MenuBar(props: { username: string, setUsername: any, accountType: any, setAccountType: any }) {
+function MenuBar(props: { username: string, setUsername: any, setEmail: any, accountType: any, setAccountType: any }) {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
@@ -37,7 +37,7 @@ function MenuBar(props: { username: string, setUsername: any, accountType: any, 
 
     return (
         <AppBar position="static">
-            <LoginDialog open={loginOpen} handleClose={handleLoginClose} setUsername={props.setUsername} setAccountType={props.setAccountType}/>
+            <LoginDialog open={loginOpen} handleClose={handleLoginClose} setEmail={props.setEmail} setUsername={props.setUsername} setAccountType={props.setAccountType}/>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Typography
