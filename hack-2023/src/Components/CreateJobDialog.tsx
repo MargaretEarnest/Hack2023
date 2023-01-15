@@ -9,12 +9,15 @@ import DialogActions from "@mui/material/DialogActions";
 import {Checkbox, FormControlLabel, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
 import AutocompleteMultiselect from "./AutocompleteMultiselect";
 import {DataLists} from "../DataLists";
+import {MinMax} from "../jsonObjects/MinMax";
+import {JobListRequest} from "../jsonObjects/JobListRequest";
+import {BackendRequest} from "../jsonObjects/BackendRequest";
 
-export default function CreateJobDialog(props: { currentUser: string, open: boolean, handleClose: () => void }) {
+export default function CreateJobDialog(props: { currentUser: string, open: boolean, email: string, handleClose: () => void }) {
     const [status, setStatus] = React.useState(0);
-    const [gradYear, setGradYear] = React.useState(2023);
     const [majors, setMajors] = React.useState([]);
     const [classes, setClasses] = React.useState([]);
+    const [department, setDepartment] = React.useState<string>("");
 
     return (
         <Dialog open={props.open} fullWidth maxWidth="lg" onClose={props.handleClose}>
@@ -27,7 +30,21 @@ export default function CreateJobDialog(props: { currentUser: string, open: bool
             <DialogContent style={{textAlign: "center"}}>
                 <div style={{display: "flex", width: "100%", flexDirection: "row", flexWrap: "wrap"}}>
                     <TextField id="title" label="Title" variant="outlined"/><br/>
-                    <TextField id="department" label="Department" variant="outlined"/><br/>
+                    <div style={{marginTop: "-22px"}}>
+                        <InputLabel id="depLabel" variant="standard">Department</InputLabel>
+                        <Select
+                            labelId="depLabel"
+                            id="department"
+                            itemType={"string"}
+                            value={department.toString()}
+                            label="Department"
+                            variant="outlined"
+                            style={{width: "210px"}}
+                            onChange={(event: SelectChangeEvent) => setDepartment(event.target.value)}
+                        >
+                            {DataLists.departments.map(d => <MenuItem value={d}>{d}</MenuItem>)}
+                        </Select>
+                    </div>
                     <TextField
                         className={"formSpacing"}
                         id="desc"
@@ -69,13 +86,34 @@ export default function CreateJobDialog(props: { currentUser: string, open: bool
                                variant="outlined"/><br/>
                     <TextField className={"formSpacing"} id="teamSize" label="Team Size" type="number"
                                variant="outlined"/><br/>
-                    <FormControlLabel style={{marginLeft: "6px", marginBottom: "10px"}} control={<Checkbox defaultChecked/>} label="Federal Work Study Only"/>
+                    <FormControlLabel style={{marginLeft: "6px", marginBottom: "10px"}} control={<Checkbox id={"workStudy"} defaultChecked/>} label="Federal Work Study Only"/>
                     <TextField className={"formSpacing"} id="location" label="Location" variant="outlined"/><br/>
                 </div>
                 <p>Please enter each employee associated with the project with a comma between entries, ex. "John
                     Doe, Jane Doe"</p>
                 <br/>
                 <Button variant="contained" style={{width: "150px", marginBottom: "10px"}} onClick={() => {
+                    console.log({title: getById("title"), department: department, desc: getById("desc"), status: status,
+                        majors: majors, email: props.email, gpa: getById("gpa"), employees: getById("employees").split(", "),
+                        gradYear: getById("year"), classes: classes, phone: getById("phone"), contact: getById("contact"),
+                        hours: parseInt(getById("hours")), teamSize: parseInt(getById("teamSize")), workStudy: !document.getElementById("workStudy")?.parentElement?.classList.contains("Mui-checked"),
+                    location: getById("location")});
+
+                    let request = new BackendRequest("CreateJob", JSON.stringify({title: getById("title"), department: department, desc: getById("desc"), status: status,
+                        majors: majors, email: props.email, gpa: getById("gpa"), employees: getById("employees").split(", "),
+                        gradYear: getById("year"), classes: classes, phone: getById("phone"), contact: getById("contact"),
+                        hours: parseInt(getById("hours")), teamSize: parseInt(getById("teamSize")), workStudy: !document.getElementById("workStudy")?.parentElement?.classList.contains("Mui-checked"),
+                        location: getById("location")}));
+
+                    let websocket = new WebSocket("ws://localhost:8129");
+                    websocket.onopen = () => {
+                        console.log(request);
+                        websocket.send(JSON.stringify(request));
+                    };
+                    websocket.onmessage = (event) => {
+                        console.log(event);
+                        websocket.close();
+                    };
                 }}>Create Job</Button><br/>
             </DialogContent>
         </Dialog>

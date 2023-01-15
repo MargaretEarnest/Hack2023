@@ -220,6 +220,17 @@ function FindJobPage(props: {email: string}) {
                             }}
                             onClick={() => {
                                 setSuccessfullyApplied(true)
+                                let request = new BackendRequest("ApplyToJob", JSON.stringify({email: props.email, jobId: j.id}))
+
+                                let websocket = new WebSocket("ws://localhost:8129");
+                                websocket.onopen = () => {
+                                    console.log(request);
+                                    websocket.send(JSON.stringify(request));
+                                };
+                                websocket.onmessage = (event) => {
+                                    console.log(event);
+                                    websocket.close();
+                                };
                             }}
                             >Apply</Button>
                         </Paper>
