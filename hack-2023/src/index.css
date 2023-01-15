@@ -114,3 +114,7 @@ h2 {
 .formSpacing {
   margin: 40px;
 }
+
+ul[role="listbox"] {
+  z-index: 10000 !important;
+}
