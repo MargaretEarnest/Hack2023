@@ -1,5 +1,6 @@
 package database;
 
+import com.google.gson.Gson;
 import jsonObjects.Course;
 import jsonObjects.Job;
 import jsonObjects.JobListRequest;
@@ -70,7 +71,7 @@ public class JobDatabaseManager {
             Statement statement = Objects.requireNonNull(getConnection()).createStatement();
             ResultSet result = statement.executeQuery("Select * from Jobs WHERE ID = '" + id + "'");
             if(result.getFetchSize() > 0 && result.first()){
-                return new Job(id, result.getString("Title"), result.getString("Department"), result.getString("Location"), result.getInt("StudentsRequired"), result.getInt("WeeklyHours"), result.getString("Email"), result.getBoolean("FederalFundingRequired"), result.getString("JobDescription"), Course.parse(HashList.parse(result.getString("Requirements"), "|")), result.getString("Phone"), result.getString("ContactName"));
+                return new Job(id, result.getString("Title"), result.getString("Department"), result.getString("Location"), result.getInt("StudentsRequired"), result.getInt("WeeklyHours"), result.getString("Email"), result.getBoolean("FederalFundingRequired"), result.getString("JobDescription"), Course.parse(new HashList<>(new Gson().fromJson(result.getString("Requirements"), String[].class))), result.getString("Phone"), result.getString("ContactName"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -90,7 +91,7 @@ public class JobDatabaseManager {
             for(String id : ids) {
                 ResultSet result = statement.executeQuery("Select * from Jobs WHERE ID = '" + id + "'");
                 if(result.getFetchSize() > 0 && result.first()){
-                    jobs.add(new Job(id, result.getString("Title"), result.getString("Department"), result.getString("Location"), result.getInt("StudentsRequired"), result.getInt("WeeklyHours"), result.getString("Email"), result.getBoolean("FederalFundingRequired"), result.getString("JobDescription"), Course.parse(HashList.parse(result.getString("Requirements"), "|")), result.getString("Phone"), result.getString("ContactName")));
+                    jobs.add(new Job(id, result.getString("Title"), result.getString("Department"), result.getString("Location"), result.getInt("StudentsRequired"), result.getInt("WeeklyHours"), result.getString("Email"), result.getBoolean("FederalFundingRequired"), result.getString("JobDescription"), Course.parse(new HashList<>(new Gson().fromJson(result.getString("Requirements"), String[].class))), result.getString("Phone"), result.getString("ContactName")));
                 }
             }
             return jobs;
@@ -222,7 +223,7 @@ public class JobDatabaseManager {
             ResultSet result = statement.executeQuery(SQLRequest);
             final HashList<Job> jobs = new HashList<>();
             while(result.next()) {
-                jobs.add(new Job(result.getString("ID"), result.getString("Title"), result.getString("Department"), result.getString("Location"), result.getInt("StudentsRequired"), result.getInt("WeeklyHours"), result.getString("Email"), result.getBoolean("FederalFundingRequired"), result.getString("JobDescription"), Course.parse(HashList.parse(result.getString("Requirements"), "|")), result.getString("Phone"), result.getString("ContactName")));
+                jobs.add(new Job(result.getString("ID"), result.getString("Title"), result.getString("Department"), result.getString("Location"), result.getInt("StudentsRequired"), result.getInt("WeeklyHours"), result.getString("Email"), result.getBoolean("FederalFundingRequired"), result.getString("JobDescription"), Course.parse(new HashList<>(new Gson().fromJson(result.getString("Requirements"), String[].class))), result.getString("Phone"), result.getString("ContactName")));
             }
             return jobs;
         } catch (SQLException e) {
