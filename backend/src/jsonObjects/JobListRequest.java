@@ -7,5 +7,6 @@ public record JobListRequest(
         String[] departments,
         String[] locations,
         MinMax hours,
-        MinMax teamSize
+        MinMax teamSize,
+        boolean federalWorkStudy
 ) {}
